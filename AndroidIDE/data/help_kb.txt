@@ -1,0 +1,15 @@
+= - evaluate/save
+⇧ - shift (caps letters, select with «»)
+C - clear input field
+M - go to matching bracket
+
+K - open virtual keyboard
+# - default layout
+A - layout with a-z
+N - layout with numbers at top-level
+F - extra function layout
+  X - close tab (saves where applicable)
+
+↶↷ - undo/redo
+▲▼ - move up/down or trough REPL history
+^C/^V - copy/paste
