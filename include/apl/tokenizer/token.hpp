@@ -4,8 +4,8 @@
 #include <variant>
 
 #include <apl/tokenizer/token_fwd.hpp>
-#include <apl/tokenizer/types/types.hpp>
-#include <apl/tokenizer/types/types_def.hpp>
+#include <apl/tokenizer/tokens/tokens.hpp>
+#include <apl/tokenizer/tokens/tokens_def.hpp>
 
 template<class> inline constexpr bool always_false_v = false;
 
@@ -52,35 +52,37 @@ auto source(token x) {
 auto class_name(token x) {
     return std::visit([](auto&& arg) {
         using T = std::decay_t<decltype(arg)>;
-        if constexpr (std::is_same_v<T, types::backtick>)
-            return "backtick";
-        else if constexpr (std::is_same_v<T, types::basic_lines>)
+        // if constexpr (std::is_same_v<T, tokens::backtick>)
+        //     return "backtick";
+        if constexpr (std::is_same_v<T, tokens::basic_lines>)
             return "basic_lines";
-        else if constexpr (std::is_same_v<T, types::bracket>)
+        else if constexpr (std::is_same_v<T, tokens::bracket>)
             return "bracket";
-        else if constexpr (std::is_same_v<T, types::colon>)
+        else if constexpr (std::is_same_v<T, tokens::colon>)
             return "colon";
-        else if constexpr (std::is_same_v<T, types::dcolon>)
+        else if constexpr (std::is_same_v<T, tokens::dcolon>)
             return "dcolon";
-        else if constexpr (std::is_same_v<T, types::diamond>)
+        else if constexpr (std::is_same_v<T, tokens::diamond>)
             return "diamond";
-        else if constexpr (std::is_same_v<T, types::dfn>)
+        else if constexpr (std::is_same_v<T, tokens::dfn>)
             return "dfn";
-        else if constexpr (std::is_same_v<T, types::err>)
+        else if constexpr (std::is_same_v<T, tokens::err>)
             return "err";
-        else if constexpr (std::is_same_v<T, types::line>)
+        else if constexpr (std::is_same_v<T, tokens::line>)
             return "line";
-        else if constexpr (std::is_same_v<T, types::name>)
+        else if constexpr (std::is_same_v<T, tokens::name>)
             return "name";
-        else if constexpr (std::is_same_v<T, types::paren>)
+        else if constexpr (std::is_same_v<T, tokens::num>)
+            return "num";
+        else if constexpr (std::is_same_v<T, tokens::paren>)
             return "paren";
-        else if constexpr (std::is_same_v<T, types::op>)
+        else if constexpr (std::is_same_v<T, tokens::op>)
             return "op";
-        else if constexpr (std::is_same_v<T, types::scope>)
+        else if constexpr (std::is_same_v<T, tokens::scope>)
             return "scope";
-        else if constexpr (std::is_same_v<T, types::semi>)
+        else if constexpr (std::is_same_v<T, tokens::semi>)
             return "semi";
-        else if constexpr (std::is_same_v<T, types::set>)
+        else if constexpr (std::is_same_v<T, tokens::set>)
             return "set";
         else
             static_assert(always_false_v<T>, "non-exhaustive visitor!");
@@ -106,50 +108,52 @@ std::string to_tree(token x, std::string& p) {
     return std::visit([&](auto&& arg) {
         using T = std::decay_t<decltype(arg)>;
 
-        if constexpr (std::is_same_v<T, types::backtick>)
-            return to_tree_base(x, p);
-        else if constexpr (std::is_same_v<T, types::basic_lines>)
+        // if constexpr (std::is_same_v<T, tokens::backtick>)
+        //     return to_tree_base(x, p);
+        if constexpr (std::is_same_v<T, tokens::basic_lines>)
             return arg.to_tree(p);
-        else if constexpr (std::is_same_v<T, types::bracket>)
+        else if constexpr (std::is_same_v<T, tokens::bracket>)
             return arg.to_tree(p);
-        else if constexpr (std::is_same_v<T, types::colon>)
+        else if constexpr (std::is_same_v<T, tokens::colon>)
             return to_tree_base(x, p);
-        else if constexpr (std::is_same_v<T, types::dcolon>)
+        else if constexpr (std::is_same_v<T, tokens::dcolon>)
             return to_tree_base(x, p);
-        else if constexpr (std::is_same_v<T, types::diamond>)
+        else if constexpr (std::is_same_v<T, tokens::diamond>)
             return to_tree_base(x, p);
-        else if constexpr (std::is_same_v<T, types::dfn>)
+        else if constexpr (std::is_same_v<T, tokens::dfn>)
             return arg.to_tree(p);
-        else if constexpr (std::is_same_v<T, types::err>)
+        else if constexpr (std::is_same_v<T, tokens::err>)
             return to_tree_base(x, p);
-        else if constexpr (std::is_same_v<T, types::line>)
+        else if constexpr (std::is_same_v<T, tokens::line>)
             return arg.to_tree(p);
-        else if constexpr (std::is_same_v<T, types::name>)
+        else if constexpr (std::is_same_v<T, tokens::name>)
             return to_tree_base(x, p);
-        else if constexpr (std::is_same_v<T, types::op>)
-            return to_tree_base(x, p);
-        else if constexpr (std::is_same_v<T, types::paren>)
+        else if constexpr (std::is_same_v<T, tokens::num>)
             return arg.to_tree(p);
-        else if constexpr (std::is_same_v<T, types::scope>)
+        else if constexpr (std::is_same_v<T, tokens::op>)
             return to_tree_base(x, p);
-        else if constexpr (std::is_same_v<T, types::semi>)
+        else if constexpr (std::is_same_v<T, tokens::paren>)
+            return arg.to_tree(p);
+        else if constexpr (std::is_same_v<T, tokens::scope>)
             return to_tree_base(x, p);
-        else if constexpr (std::is_same_v<T, types::set>)
+        else if constexpr (std::is_same_v<T, tokens::semi>)
+            return to_tree_base(x, p);
+        else if constexpr (std::is_same_v<T, tokens::set>)
             return to_tree_base(x, p);
         else
             static_assert(always_false_v<T>, "non-exhaustive visitor!");
 
-        // if constexpr (std::is_same_v<T, types::array>)
+        // if constexpr (std::is_same_v<T, tokens::array>)
         //     return arg.to_tree(p);
         // else if constexpr (
-        //         std::is_same_v<T, types::dcolon> ||
-        //         std::is_same_v<T, types::diamond> ||
-        //         std::is_same_v<T, types::err> ||
-        //         std::is_same_v<T, types::name> ||
-        //         std::is_same_v<T, types::op> ||
-        //         std::is_same_v<T, types::scope> ||
-        //         std::is_same_v<T, types::semi> ||
-        //         std::is_same_v<T, types::set>)
+        //         std::is_same_v<T, tokens::dcolon> ||
+        //         std::is_same_v<T, tokens::diamond> ||
+        //         std::is_same_v<T, tokens::err> ||
+        //         std::is_same_v<T, tokens::name> ||
+        //         std::is_same_v<T, tokens::op> ||
+        //         std::is_same_v<T, tokens::scope> ||
+        //         std::is_same_v<T, tokens::semi> ||
+        //         std::is_same_v<T, tokens::set>)
         //     return to_tree_base(x, p);
         // else
         //     static_assert(always_false_v<T>, "non-exhaustive visitor!");

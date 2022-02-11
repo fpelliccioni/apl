@@ -20,14 +20,17 @@
 // import java.util.*;
 
 
-class Exec {
-    Exec(LineTok ln, Scope sc)
-        : tokens(ln.tokens), allToken(ln), sc(sc)
+struct Exec {
+    Exec(tokens::line ln) //, Scope sc)
+        : tokens(ln.tokens)
+        , allToken(ln)
+        // , sc(sc)
     {}
 
-    public Obj exec() {
+    Obj exec() {
       if (tokens.size() > 0) Main.faulty = tokens.get(0);
       else Main.faulty = allToken;
+
       if (sc.alphaDefined && tokens.size() >= 2 && tokens.get(0) instanceof OpTok && ((OpTok) tokens.get(0)).op.equals("⍺") && tokens.get(1) instanceof SetTok) {
         if (Main.debug) printlvl("skipping cuz it's ⍺←");
         return null;
@@ -171,7 +174,7 @@ private:
       Main.printdbg(sc, Main.repeat("  ", Main.printlvl), args);
     }
 
-    void update(boolean end) {
+    void update(bool end) {
       if (llSize == 1 && pollS() == null) return;
       while (llSize != 1) {
         if (Main.debug) printlvl(llToString());
@@ -347,53 +350,53 @@ private:
     }
 
     Value lastVal() {
-      var r = popE();
-      if (r instanceof Settable) r = ((Settable) r).get();
-      if (r instanceof Value) return (Value) r;
-      if (r instanceof VarArr) return ((VarArr) r).get();
-      throw new SyntaxError("Expected value, got "+r, r);
+        var r = popE();
+        if (r instanceof Settable) r = ((Settable) r).get();
+        if (r instanceof Value) return (Value) r;
+        if (r instanceof VarArr) return ((VarArr) r).get();
+        throw new SyntaxError("Expected value, got "+r, r);
     }
 
     Fun lastFun() {
-      var r = popE();
-      if (r instanceof Settable) r = ((Settable) r).get();
-      if (r instanceof Fun) return (Fun) r;
-      throw new SyntaxError("Expected function, got "+r, r);
+        var r = popE();
+        if (r instanceof Settable) r = ((Settable) r).get();
+        if (r instanceof Fun) return (Fun) r;
+        throw new SyntaxError("Expected function, got "+r, r);
     }
 
     Value firstVal() {
-      var r = popB();
-      if (r instanceof Settable) r = ((Settable) r).get();
-      if (r instanceof Value) return (Value) r;
-      if (r instanceof VarArr) return ((VarArr) r).get();
-      throw new SyntaxError("Expected value, got "+r, r);
+        var r = popB();
+        if (r instanceof Settable) r = ((Settable) r).get();
+        if (r instanceof Value) return (Value) r;
+        if (r instanceof VarArr) return ((VarArr) r).get();
+        throw new SyntaxError("Expected value, got "+r, r);
     }
 
     Dop firstDop() {
-      var r = popB();
-      if (r instanceof Settable) r = ((Settable) r).get();
-      if (r instanceof Dop) return (Dop) r;
-      throw new SyntaxError("Expected dop, got "+r, r);
+        var r = popB();
+        if (r instanceof Settable) r = ((Settable) r).get();
+        if (r instanceof Dop) return (Dop) r;
+        throw new SyntaxError("Expected dop, got "+r, r);
     }
 
     Obj lastObj() {
-      var r = popE();
-      if (r instanceof Settable) r = ((Settable) r).get();
-      if (r instanceof VarArr) return ((VarArr) r).get();
-      return r;
+        var r = popE();
+        if (r instanceof Settable) r = ((Settable) r).get();
+        if (r instanceof VarArr) return ((VarArr) r).get();
+        return r;
     }
 
     Obj firstObj() {
-      var r = popB();
-      if (r instanceof VarArr) return ((VarArr) r).get();
-      if (r instanceof Settable) return ((Settable) r).get();
-      return r;
+        var r = popB();
+        if (r instanceof VarArr) return ((VarArr) r).get();
+        if (r instanceof Settable) return ((Settable) r).get();
+        return r;
     }
 
     Settable firstVar() {
-      var r = popB();
-      if (r instanceof Settable) return (Settable) r;
-      throw new SyntaxError("Expected a variable, got "+r, r);
+        var r = popB();
+        if (r instanceof Settable) return (Settable) r;
+        throw new SyntaxError("Expected a variable, got "+r, r);
     }
 
     Mop firstMop() {
@@ -435,41 +438,41 @@ private:
     }
 
     void addS(Obj o) {
-      llSize++;
-      Node r = FN.r;
-      Node l = FN.r.l;
-      assert l == FN;
-      Node n = new Node(o, l, r);
-      l.r = n;
-      r.l = n;
+        llSize++;
+        Node r = FN.r;
+        Node l = FN.r.l;
+        assert l == FN;
+        Node n = new Node(o, l, r);
+        l.r = n;
+        r.l = n;
     }
 
     void addE(Obj o) {
-      llSize++;
-      Node l = LN.l;
-      Node r = LN.l.r;
-      assert r == LN : llToString();
-      Node n = new Node(o, l, r);
-      l.r = n;
-      r.l = n;
+        llSize++;
+        Node l = LN.l;
+        Node r = LN.l.r;
+        assert r == LN : llToString();
+        Node n = new Node(o, l, r);
+        l.r = n;
+        r.l = n;
     }
 
     void addB(Obj o) {
-      llSize++;
-      Node l = barNode.l;
-      Node r = barNode;
-      Node n = new Node(o, l, r);
-      l.r = n;
-      r.l = n;
-      barNode = n;
+        llSize++;
+        Node l = barNode.l;
+        Node r = barNode;
+        Node n = new Node(o, l, r);
+        l.r = n;
+        r.l = n;
+        barNode = n;
     }
 
     Obj pollS() {
-      return FN.r.val;
+        return FN.r.val;
     }
 
     Obj pollL() {
-      return LN.l.val;
+        return LN.l.val;
     }
 
     void reset() {
@@ -483,7 +486,7 @@ private:
     String llToString() {
       StringBuilder r = new StringBuilder("[");
       Node c = FN.r;
-      boolean first = true;
+      bool first = true;
       while (c != LN) {
         if (first) first = false;
         else r.append(", ");
@@ -493,16 +496,16 @@ private:
       return r.append("]").toString();
     }
 
-    boolean is(String[] pts, boolean everythingDone, boolean fromStart) {
+    bool is(String[] pts, bool everythingDone, bool fromStart) {
       for (String pt : pts) if (is(pt, everythingDone, fromStart)) return true;
       return false;
     }
 
-    boolean is(String pt, boolean everythingDone, boolean fromStart) {
+    bool is(String pt, bool everythingDone, bool fromStart) {
       return is(pt, everythingDone, fromStart, 4);
     }
 
-    boolean is(String pt, boolean everythingDone, boolean fromStart, int am) {
+    bool is(String pt, bool everythingDone, bool fromStart, int am) {
       if(!fromStart && llSize > am) return false;
       if (everythingDone && is(pt, false, fromStart)) return true;
       if (fromStart && everythingDone) {
@@ -512,12 +515,12 @@ private:
       }
       int len = pt.length();
       int ptrinc = fromStart ? 1 : -1;
-      boolean pass = false;
+      bool pass = false;
       barNode = FN.r;
       Node cn = fromStart? FN.r : LN.l;
       for (int i = fromStart ? 0 : len - 1; fromStart ? i<len : i>=0; i += ptrinc) {
         char p = pt.charAt(i);
-        boolean inv = false;
+        bool inv = false;
         if (p == '|') {
           pass = everythingDone;
           barNode = cn;
@@ -544,7 +547,7 @@ private:
         char type = cn.type;
         if (p == ']') { // regular guaranteed
           i--;
-          boolean nf = true;
+          bool nf = true;
           while (true) {
             char c = pt.charAt(i);
             if (c == '[') break;
@@ -554,7 +557,7 @@ private:
           if (nf) return false; // no inv for []s!
         } else if (p == '[') { // reverse guaranteed
           i++;
-          boolean nf = true;
+          bool nf = true;
           while (true) {
             char c = pt.charAt(i);
             if (c == ']') break;
@@ -688,12 +691,12 @@ private:
       if (t instanceof StrTok) return ((StrTok) t).val;
       if (t instanceof SetTok) return SetBuiltin.inst;
       if (t instanceof NameTok) return sc.getVar(((NameTok) t).name);
-      if (t instanceof LineTok) return Main.rexec((LineTok) t, sc);
+      if (t instanceof tokens::line) return Main.rexec((tokens::line) t, sc);
       if (t instanceof ParenTok) {
-        List<LineTok> ts = ((ParenTok) t).tokens;
+        List<tokens::line> ts = ((ParenTok) t).tokens;
         int size = ts.size();
         if (size == 0) return new StrMap();
-        LineTok fst = ts.get(0);
+        tokens::line fst = ts.get(0);
         if (size==1 && fst.colonPos()==-1) {
           if (((ParenTok) t).hasDmd) return new Shape1Arr(Main.vexec(ts.get(0), sc));
           return Main.rexec(ts.get(0), sc);
@@ -701,7 +704,7 @@ private:
         if (fst.tokens != null && fst.colonPos() != -1) { // map constants
           Scope nsc = new Scope(sc);
           StrMap res = new StrMap(nsc);
-          for (LineTok ct : ts) {
+          for (tokens::line ct : ts) {
             Token name = ct.tokens.get(0);
             if (ct.colonPos() ==-1) throw new SyntaxError("expected a colon in expression", ct.tokens.get(0));
             if (ct.colonPos() != 1) throw new SyntaxError("expected : to be the 2nd token in parenthesis", ct.tokens.get(ct.colonPos()));
@@ -712,7 +715,7 @@ private:
             else throw new SyntaxError("expected a key name, got " + name.toRepr(), name);
             List<Token> tokens = ct.tokens.subList(2, ct.tokens.size());
 
-            Obj val = Main.exec(LineTok.inherit(tokens), nsc);
+            Obj val = Main.exec(tokens::line.inherit(tokens), nsc);
             res.setStr(key, val);
           }
           return res;
@@ -747,7 +750,7 @@ private:
 
     Scope sc;
     List<Token> tokens;
-    LineTok allToken;
+    tokens::line allToken;
     Stack<Token> left;
     int llSize;
     Node FN, LN;

@@ -3,30 +3,30 @@
 #include <string_view>
 #include <variant>
 
-#include <apl/tokenizer/types/types_fwd.hpp>
+#include <apl/tokenizer/tokens/tokens_fwd.hpp>
 
 using token = std::variant<
-    // types::array,
-    types::backtick,
-    types::basic_lines,
-    // types::big,
-    types::bracket,
-    // types::chr,
-    types::colon,
-    // types::comment,
-    types::dcolon,
-    types::dfn,
-    types::diamond,
-    types::err,
-    types::line,
-    types::name,
-    // types::num,
-    types::op,
-    types::paren,
-    types::scope,
-    types::semi,
-    types::set
-    // types::string
+    // tokens::array,
+    // tokens::backtick,
+    tokens::basic_lines,
+    // tokens::big,
+    tokens::bracket,
+    // tokens::chr,
+    tokens::colon,
+    // tokens::comment,
+    tokens::dcolon,
+    tokens::dfn,
+    tokens::diamond,
+    tokens::err,
+    tokens::line,
+    tokens::name,
+    tokens::num,
+    tokens::op,
+    tokens::paren,
+    tokens::scope,
+    tokens::semi,
+    tokens::set
+    // tokens::string
     >;
 
 std::string_view raw(token x);
