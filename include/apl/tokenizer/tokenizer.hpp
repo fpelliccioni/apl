@@ -443,9 +443,9 @@ public:
             // } else if (ops.contains(cS)) {
             } else if (is_operator(c)) {
                 std::cout << " *** IS OPERATOR ***\n";
-                // tokens.add(tokens::op(raw, i, i + 1, cS));
+                // tokens.add(tokens::operator(raw, i, i + 1, cS));
                 // // i++;
-                tokens.add(tokens::op(raw, i, i + c_size, std::string(c)));
+                tokens.add(tokens::operator(raw, i, i + c_size, std::string(c)));
                 i += c_size;
 
             } else if (c == "←") {

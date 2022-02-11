@@ -263,7 +263,7 @@ auto class_name(token x) {
         //     return "err";
         // else if constexpr (std::is_same_v<T, tokens::name>)
         //     return "name";
-        // else if constexpr (std::is_same_v<T, tokens::op>)
+        // else if constexpr (std::is_same_v<T, tokens::operator>)
         //     return "op";
         // else if constexpr (std::is_same_v<T, tokens::scope>)
         //     return "scope";

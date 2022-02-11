@@ -12,7 +12,7 @@ int main() {
         // tokens::diamond{"this is a diamond", 0},
         // tokens::err{"this is an err", 0, 0},
         // tokens::name{"this is a name", 0, 0, "somename"},
-        // tokens::op{"this is an op", 0, 0, "+"},
+        // tokens::operator{"this is an op", 0, 0, "+"},
         // tokens::scope{"this is a scope", 0, 0},
         // tokens::semi{"this is a semi", 0, 0},
         // tokens::set{"this is a set", 0, 0}
