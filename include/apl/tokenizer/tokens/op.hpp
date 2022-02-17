@@ -7,16 +7,16 @@
 
 namespace tokens {
 
-struct operator : base {
-    std::string op;
+struct op : base {
+    std::string op_;
 
-    operator(std::string_view line, int spos, int epos, std::string op)
+    op(std::string_view line, int spos, int epos, std::string op)
         : base(line, spos, epos)
-        , op(op)
+        , op_(op)
     {}
 
     std::string to_repr() const {
-        return op;
+        return op_;
     }
 };
 

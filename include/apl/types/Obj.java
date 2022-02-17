@@ -8,7 +8,7 @@ import APL.types.functions.*;
 
 public abstract class Obj implements Tokenable {
   public Token token;
-  
+
   public boolean isObj() {
     return type()==Type.array || type() == Type.var;
   }
@@ -16,9 +16,9 @@ public abstract class Obj implements Tokenable {
   public boolean equals(Obj o) {
     return false;
   }
-  
+
   public String humanType(boolean article) {
-    
+
     if (this instanceof Arr     )return article? "an array"     : "array";
     if (this instanceof Char    )return article? "a character"  : "character";
     if (this instanceof Num     )return article? "a number"     : "number";
@@ -36,30 +36,30 @@ public abstract class Obj implements Tokenable {
     if (this instanceof BigValue)return article? "a biginteger" : "biginteger";
     return "some type that dzaima hasn't named in Obj.humanType ಠ_ಠ (class = "+getClass()+")";
   }
-  
+
   @Override
   public boolean equals(Object obj) {
     return obj instanceof Obj && equals((Obj) obj);
   }
-  
+
   public String name() {
     return toString();
   }
-  
+
   @Override
   public String toString() {
     return humanType(false);
   }
-  
+
   @Override
   public int hashCode() {
     throw new NYIError("hash not supported for "+this, this);
   }
-  
+
   final protected int actualHashCode() {
     return super.hashCode();
   }
-  
+
   @Override
   public Token getToken() {
     return token;

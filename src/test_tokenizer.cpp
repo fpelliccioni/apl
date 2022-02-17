@@ -5,6 +5,8 @@
 #include <unordered_map>
 
 #include <apl/tokenizer/tokenizer.hpp>
+#include <apl/types/obj_all.hpp>
+#include <apl/exec.hpp>
 
 void printdbg(tokens::basic_lines lines) {
     // std::string p;
@@ -15,8 +17,6 @@ void printdbg(tokens::basic_lines lines) {
     // for (int i = 1; i < args.length; i++) r.append(" ").append(args[i]);
     // sc.sys.println(r.toString());
 }
-
-using Obj = void*;
 
 enum class EType {
     all
@@ -37,22 +37,29 @@ auto subList(R&& r, size_t fromIndex, size_t toIndex) {
 }
 
 
-Obj exec(tokens::line s) { //, Scope sc) {
-    // Obj val = new Exec(s, sc).exec();
-    Obj val = Exec(s).exec();
+std::optional<obj> exec(tokens::line s) { //, Scope sc) {
+    // obj val = new Exec(s, sc).exec();
+    auto val = Exec(s).exec();
     // if (val instanceof Settable) val = ((Settable) val).get();
     return val;
 }
 
-Value vexec(tokens::line s) { //, Scope sc) {
-    Obj val = Main.exec(s, sc);
+value vexec(tokens::line s) { //, Scope sc) {
+    auto val = exec(s);      //, sc);
+    // if (val instanceof Value) return (Value) val;
+    // throw new SyntaxError("expected array, got " + val.humanType(true), s);
+
+    std::holds_alternative<value>(tokens.front());
+    if (std::holds)
+
     if (val instanceof Value) return (Value) val;
     throw new SyntaxError("expected array, got " + val.humanType(true), s);
-  }
+
+}
 
 
-Obj execLines(tokens::array<tokens::line> lines) {          //, Scope sc) {
-    Obj res = nullptr;
+obj execLines(tokens::array<tokens::line> lines) {          //, Scope sc) {
+    obj res = nullptr;
     std::unordered_map<EType, tokens::line> eGuards;
 
     try {

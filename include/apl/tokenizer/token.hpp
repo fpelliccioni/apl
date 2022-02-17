@@ -76,7 +76,7 @@ auto class_name(token x) {
             return "num";
         else if constexpr (std::is_same_v<T, tokens::paren>)
             return "paren";
-        else if constexpr (std::is_same_v<T, tokens::operator>)
+        else if constexpr (std::is_same_v<T, tokens::op>)
             return "op";
         else if constexpr (std::is_same_v<T, tokens::scope>)
             return "scope";
@@ -130,7 +130,7 @@ std::string to_tree(token x, std::string& p) {
             return to_tree_base(x, p);
         else if constexpr (std::is_same_v<T, tokens::num>)
             return arg.to_tree(p);
-        else if constexpr (std::is_same_v<T, tokens::operator>)
+        else if constexpr (std::is_same_v<T, tokens::op>)
             return to_tree_base(x, p);
         else if constexpr (std::is_same_v<T, tokens::paren>)
             return arg.to_tree(p);
@@ -150,7 +150,7 @@ std::string to_tree(token x, std::string& p) {
         //         std::is_same_v<T, tokens::diamond> ||
         //         std::is_same_v<T, tokens::err> ||
         //         std::is_same_v<T, tokens::name> ||
-        //         std::is_same_v<T, tokens::operator> ||
+        //         std::is_same_v<T, tokens::op> ||
         //         std::is_same_v<T, tokens::scope> ||
         //         std::is_same_v<T, tokens::semi> ||
         //         std::is_same_v<T, tokens::set>)

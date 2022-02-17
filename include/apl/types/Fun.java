@@ -7,11 +7,11 @@ import APL.types.arrs.*;
 import java.util.Iterator;
 
 public abstract class Fun extends Callable {
-  
+
   public Value identity() {
     return null;
   }
-  
+
   protected Fun(Scope sc) {
     super(sc);
   }
@@ -30,7 +30,7 @@ public abstract class Fun extends Callable {
   public Obj callObj(Value a, Value w) { // if overridden, call(a, w) must be overridden too!
     return call(a, w);
   }
-  
+
   public Value callInv(Value w) {
     throw new DomainError(this+" doesn't support monadic inverting", this, w);
   }
@@ -40,8 +40,8 @@ public abstract class Fun extends Callable {
   public Value callInvA(Value a, Value w) {
     throw new DomainError(this+" doesn't support dyadic inverting of ⍺", this, w);
   }
-  
-  
+
+
   public Value under(Obj o, Value w) {
     Value v = o instanceof Fun? ((Fun) o).call(call(w)) : (Value) o;
     return callInv(v);
@@ -54,7 +54,7 @@ public abstract class Fun extends Callable {
     Value v = o instanceof Fun? ((Fun) o).call(call(a, w)) : (Value) o;
     return callInvA(v, w);
   }
-  
+
   public interface NumMV {
     Value call(Num w);
     default boolean retNum() {
@@ -81,12 +81,12 @@ public abstract class Fun extends Callable {
   public interface MapMV {
     Value call(APLMap w);
   }
-  
+
   public interface AllMV {
     Value call(Value w);
   }
-  
-  
+
+
   protected Value allM(AllMV f, Value w) {
     if (w instanceof Primitive) {
       return f.call(w);
@@ -117,7 +117,7 @@ public abstract class Fun extends Callable {
     if (w instanceof BigValue) return nf.call((BigValue) w);
     throw new DomainError("Expected number, got "+w.humanType(false), this, w);
   }
-  
+
   protected Value numChrM(NumMV nf, ChrMV cf, Value w) {
     if (w instanceof Arr) {
       if (w instanceof DoubleArr && nf.retNum()) {
@@ -138,7 +138,7 @@ public abstract class Fun extends Callable {
     if (w instanceof BigValue) return nf.call((BigValue) w);
     throw new DomainError("Expected either number or character argument, got "+w.humanType(false), this, w);
   }
-  
+
   protected Value numChrMapM(NumMV nf, ChrMV cf, MapMV mf, Value w) {
     if (w instanceof Arr) {
       if (w.quickDoubleArr()) {
@@ -159,14 +159,14 @@ public abstract class Fun extends Callable {
     if (w instanceof BigValue) return nf.call((BigValue) w);
     throw new DomainError("Expected either number/char/map, got "+w.humanType(false), this, w);
   }
-  
-  
+
+
   protected Value allD(D_AA f, Value a, Value w) {
     if (a instanceof Primitive && w instanceof Primitive) return f.call(a, w);
-    
+
     if (a.scalar()) {
       Value af = a.first();
-      
+
       if (w.scalar()) {
         return new Rank0Arr(allD(f, af, w.first()));
       } else { // ⍺ ⍵¨
@@ -176,19 +176,19 @@ public abstract class Fun extends Callable {
           arr[i] = allD(f, af, wi.next());
         }
         return new HArr(arr, w.shape);
-        
+
       }
     } else {
       if (w.scalar()) { // ⍺¨ ⍵
         Value wf = w.first();
-        
+
         Value[] arr = new Value[a.ia];
         Iterator<Value> ai = a.iterator();
         for (int i = 0; i < a.ia; i++) {
           arr[i] = allD(f, ai.next(), wf);
         }
         return new HArr(arr, a.shape);
-        
+
       } else { // ⍺ ¨ ⍵
         Arr.eqShapes(a, w);
         assert a.ia == w.ia;
@@ -199,17 +199,17 @@ public abstract class Fun extends Callable {
           arr[i] = allD(f, ai.next(), wi.next());
         }
         return new HArr(arr, a.shape);
-        
+
       }
     }
   }
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
   public interface D_AA {
     Value call(Value a, Value w);
   }
@@ -230,7 +230,7 @@ public abstract class Fun extends Callable {
         res[i] = on(a[i], w[i]);
       }
     }
-    
+
     public Value call(double a, double w) {
       return new Num(on(a, w));
     }
@@ -253,13 +253,13 @@ public abstract class Fun extends Callable {
       throw new DomainError("bigintegers not allowed here", w);
     }
   }
-  
+
   public abstract static class D_NNeB implements D_NN { // dyadic number-number equals boolean
     public abstract boolean on(double a, double w);
     public abstract void on(BitArr.BA res, double a, double[] w);
     public abstract void on(BitArr.BA res, double[] a, double w);
     public abstract void on(BitArr.BA res, double[] a, double[] w);
-    
+
     public Value call(double a, double w) {
       return on(a, w)? Num.ONE : Num.ZERO;
     }
@@ -282,8 +282,8 @@ public abstract class Fun extends Callable {
       throw new DomainError("bigintegers not allowed here", w);
     }
   }
-  
-  
+
+
   public interface D_NN {
     Value call(double   a, double   w);
     Value call(double[] a, double[] w, int[] sh);
@@ -302,8 +302,8 @@ public abstract class Fun extends Callable {
   public interface D_CC {
     Value call(char a, char w);
   }
-  
-  
+
+
   protected Value numD(D_NN f, Value a, Value w) {
     if (a.scalar()) {
       if (w.scalar()) { // ⊃⍺ ⊃⍵
@@ -317,7 +317,7 @@ public abstract class Fun extends Callable {
           }
           throw new DomainError("calling a number-only function with "+w.humanType(true), this);
         } else return new Rank0Arr(numD(f, a.first(), w.first()));
-        
+
       } else { // ⍺¨ ⍵
         if (w.quickDoubleArr() && a instanceof Num) {
           return f.call(a.asDouble(), w.asDoubleArr(), w.shape);
@@ -329,7 +329,7 @@ public abstract class Fun extends Callable {
           vs[i] = numD(f, af, wi.next());
         }
         return new HArr(vs, w.shape);
-        
+
       }
     } else {
       if (w.scalar()) { // ⍺ ⍵¨
@@ -342,16 +342,16 @@ public abstract class Fun extends Callable {
         for (int i = 0; i < a.ia; i++) {
           vs[i] = numD(f, ai.next(), wf);
         }
-        
+
         return new HArr(vs, a.shape);
-        
+
       } else { // ⍺ ¨ ⍵
         Arr.eqShapes(a, w);
-        
+
         if (a.quickDoubleArr() && w.quickDoubleArr()) {
           return f.call(a.asDoubleArr(), w.asDoubleArr(), a.shape);
         }
-        
+
         Value[] arr = new Value[a.ia];
         Iterator<Value> ai = a.iterator();
         Iterator<Value> wi = w.iterator();
@@ -359,7 +359,7 @@ public abstract class Fun extends Callable {
           arr[i] = numD(f, ai.next(), wi.next());
         }
         return new HArr(arr, a.shape);
-        
+
       }
     }
   }
@@ -374,7 +374,7 @@ public abstract class Fun extends Callable {
             return n.call(an? new BigValue(((Num) a).num) : (BigValue) a, wn? new BigValue(((Num) w).num) : (BigValue) w);
           throw new DomainError("calling a number-only function with "+w.humanType(true), this);
         } else return new Rank0Arr(bitD(n, b, a.first(), w.first()));
-        
+
       } else { // ⍺¨ ⍵
         if (a instanceof Primitive) {
           if (w instanceof BitArr && Main.isBool(a)) {
@@ -391,7 +391,7 @@ public abstract class Fun extends Callable {
           vs[i] = bitD(n, b, af, wi.next());
         }
         return new HArr(vs, w.shape);
-        
+
       }
     } else {
       if (w.scalar()) { // ⍺ ⍵¨
@@ -409,20 +409,20 @@ public abstract class Fun extends Callable {
         for (int i = 0; i < a.ia; i++) {
           vs[i] = bitD(n, b, ai.next(), wf);
         }
-        
+
         return new HArr(vs, a.shape);
-        
+
       } else { // ⍺ ¨ ⍵
         Arr.eqShapes(a, w);
-        
+
         if (a instanceof BitArr && w instanceof BitArr) {
           return b.call((BitArr) a, (BitArr) w);
         }
-        
+
         if (a.quickDoubleArr() && w.quickDoubleArr()) {
           return n.call(a.asDoubleArr(), w.asDoubleArr(), a.shape);
         }
-        
+
         Value[] arr = new Value[a.ia];
         Iterator<Value> ai = a.iterator();
         Iterator<Value> wi = w.iterator();
@@ -430,12 +430,12 @@ public abstract class Fun extends Callable {
           arr[i] = bitD(n, b, ai.next(), wi.next());
         }
         return new HArr(arr, a.shape);
-        
+
       }
     }
   }
-  
-  
+
+
   protected Value numChrD(D_NN n, D_CC c, D_AA def, Value a, Value w) {
     if (a.scalar()) {
       if (w.scalar()) { // ⊃⍺ ⊃⍵
@@ -448,12 +448,12 @@ public abstract class Fun extends Callable {
           if (a instanceof Char & w instanceof Char) return c.call(((Char) a).chr, ((Char) w).chr);
           return def.call(a, w);
         } else return new Rank0Arr(numChrD(n, c, def, a.first(), w.first()));
-        
+
       } else { // ⍺¨ ⍵
         if (a instanceof Num && w.quickDoubleArr()) {
           return n.call(a.asDouble(), w.asDoubleArr(), w.shape);
         }
-        
+
         Value af = a.first();
         Iterator<Value> wi = w.iterator();
         Value[] vs = new Value[w.ia];
@@ -461,7 +461,7 @@ public abstract class Fun extends Callable {
           vs[i] = numChrD(n, c, def, af, wi.next());
         }
         return new HArr(vs, w.shape);
-        
+
       }
     } else {
       if (w.scalar()) { // ⍺ ⍵¨
@@ -474,15 +474,15 @@ public abstract class Fun extends Callable {
         for (int i = 0; i < a.ia; i++) {
           vs[i] = numChrD(n, c, def, ai.next(), wf);
         }
-        
+
         return new HArr(vs, a.shape);
       } else { // ⍺ ¨ ⍵
         Arr.eqShapes(a, w);
-        
+
         if (a.quickDoubleArr() && w.quickDoubleArr()) {
           return n.call(a.asDoubleArr(), w.asDoubleArr(), a.shape);
         }
-        
+
         Value[] arr = new Value[a.ia];
         Iterator<Value> ai = a.iterator();
         Iterator<Value> wi = w.iterator();
@@ -490,7 +490,7 @@ public abstract class Fun extends Callable {
           arr[i] = numChrD(n, c, def, ai.next(), wi.next());
         }
         return new HArr(arr, a.shape);
-        
+
       }
     }
   }
@@ -506,7 +506,7 @@ public abstract class Fun extends Callable {
             return n.call(an? new BigValue(((Num) a).num) : (BigValue) a, wn? new BigValue(((Num) w).num) : (BigValue) w);
           else return def.call(a, w);
         } else return new Rank0Arr(ncbaD(n, b, c, def, a.first(), w.first()));
-        
+
       } else { // ⍺¨ ⍵
         if (a instanceof Primitive) {
           if (w instanceof BitArr && Main.isBool(a)) {
@@ -516,7 +516,7 @@ public abstract class Fun extends Callable {
             return n.call(a.asDouble(), w.asDoubleArr(), w.shape);
           }
         }
-        
+
         Value af = a.first();
         Iterator<Value> wi = w.iterator();
         Value[] vs = new Value[w.ia];
@@ -541,19 +541,19 @@ public abstract class Fun extends Callable {
         for (int i = 0; i < a.ia; i++) {
           vs[i] = ncbaD(n, b, c, def, ai.next(), wf);
         }
-        
+
         return new HArr(vs, a.shape);
-        
+
       } else { // ⍺ ¨ ⍵
         Arr.eqShapes(a, w);
-        
+
         if (a instanceof BitArr && w instanceof BitArr) {
           return b.call((BitArr) a, (BitArr) w);
         }
         if (a.quickDoubleArr() && w.quickDoubleArr()) {
           return n.call(a.asDoubleArr(), w.asDoubleArr(), a.shape);
         }
-        
+
         Value[] arr = new Value[a.ia];
         Iterator<Value> ai = a.iterator();
         Iterator<Value> wi = w.iterator();
@@ -561,23 +561,23 @@ public abstract class Fun extends Callable {
           arr[i] = ncbaD(n, b, c, def, ai.next(), wi.next());
         }
         return new HArr(arr, a.shape);
-        
+
       }
     }
   }
-  
+
   @Override
   public Type type() {
     return Type.fn;
   }
-  
-  
+
+
   public abstract String repr();
-  
+
   @Override public String toString() {
     return repr();
   }
-  
+
   // functions are equal per-object basis
   @Override public int hashCode() {
     return actualHashCode();

@@ -14,3 +14,11 @@ An APL re-implementation in Java.
 2. run `APLP5` in [Processing](https://processing.org)
 
 To choose what file to run as APL, in `void settings` change the `args` array (or export & pass an actual argument) with the filename. Some examples are given in the folder `data`.
+
+
+
+
+# References
+
+## SKI combinator calculus
+    https://en.wikipedia.org/wiki/SKI_combinator_calculus

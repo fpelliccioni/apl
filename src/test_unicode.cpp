@@ -6,6 +6,7 @@
 
 #include <apl/helpers/unicode.hpp>
 
+
 // static constexpr char validNames[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_∆";
 
 void print_int(std::string_view lit) {
@@ -17,6 +18,11 @@ void print_int(std::string_view lit) {
 
 
 int main() {
+    // print_int("×");
+    print_int("÷");
+    return 0;
+
+
     // constexpr std::string_view ops[] = {
     //     "_",
     //     "∆",

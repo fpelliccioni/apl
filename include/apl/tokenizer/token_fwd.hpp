@@ -21,7 +21,7 @@ using token = std::variant<
     tokens::line,
     tokens::name,
     tokens::num,
-    tokens::operator,
+    tokens::op,
     tokens::paren,
     tokens::scope,
     tokens::semi,
