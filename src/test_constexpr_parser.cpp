@@ -161,6 +161,9 @@ constexpr int evaluate( std::string_view expr )
 	char const * last = expr.data() + expr.size();
 
 	Node* n = parse_expression( first, last );
+	// if (Add* v = dynamic_cast<Add*>(n)) {
+	//    auto x = v->evaluate();
+	// }
 
 	int r = n->evaluate();
 
