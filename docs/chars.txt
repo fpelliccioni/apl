@@ -54,7 +54,7 @@ fns:
 ⍒  grade down; NYI
 ⍉   transpose; NYI
 ⍧ unique mask; count
-          
+
 
 < lt; sort asc
 ≤ le; NYI
@@ -62,7 +62,7 @@ fns:
 ≥ ge; NYI
 > gt; sort desc
 ≠ ne; NYI (⍧ is unique mask)
-  
+
 monadic ops:
 
 /  reduce
@@ -85,7 +85,7 @@ dyadic ops
 ⍤  atop (←→ {⍺⍺ ⍺ ⍵⍵ ⍵} )
 ⍢  under (←→ {⍺←{⍺⍺⋄⍵}⋄(⍹⍣¯1) (⍹⍺) ⍶ ⍹⍵}; also is structural under; ⍺⍺ can be an array)
 ⍫  obverse - define inverse: ⍶ - regular function, ⍹ - inverse
-@  at; right op = indices or function giving boolean array, left op = replacement array or function
+@  at; right op = indices or function giving bool array, left op = replacement array or function
 ⍁  for each diagonal
 
 nilads:

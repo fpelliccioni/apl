@@ -10,11 +10,11 @@ import APL.types.functions.Builtin;
 import java.util.Arrays;
 
 public class DownArrowBuiltin extends Builtin implements DimDFn {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "↓";
   }
-  
-  
+
+
   public Value call(Value w) {
     if (w instanceof Primitive) return w;
     if (w.rank <= 1) return new Rank0Arr(w);
@@ -47,7 +47,7 @@ public class DownArrowBuiltin extends Builtin implements DimDFn {
     System.arraycopy(w.shape, 0, nsh, 0, nsh.length);
     return new HArr(res, nsh);
   }
-  
+
   public Value call(Value a, Value w) {
     int[] gsh = a.asIntVec();
     if (gsh.length == 0) return w;
@@ -63,7 +63,7 @@ public class DownArrowBuiltin extends Builtin implements DimDFn {
     }
     return UpArrowBuiltin.on(sh, off, w, this);
   }
-  
+
   public Value call(Value a, Value w, DervDimFn dims) {
     int[] axV = a.asIntVec();
     int[] axK = dims.dims(w.rank);
@@ -78,7 +78,7 @@ public class DownArrowBuiltin extends Builtin implements DimDFn {
     }
     return UpArrowBuiltin.on(sh, off, w, this);
   }
-  
+
   public Value underW(Obj o, Value a, Value w) {
     Value v = o instanceof Fun? ((Fun) o).call(call(a, w)) : (Value) o;
     int[] ls = a.asIntVec();
@@ -88,7 +88,7 @@ public class DownArrowBuiltin extends Builtin implements DimDFn {
     }
     return UpArrowBuiltin.undo(ls, v, w, this);
   }
-  
+
   public Value under(Obj o, Value w) {
     Value v = o instanceof Fun? ((Fun) o).call(call(w)) : (Value) o;
     Value[] vs = v.values();

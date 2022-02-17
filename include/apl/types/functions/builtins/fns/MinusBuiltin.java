@@ -4,12 +4,12 @@ import APL.types.*;
 import APL.types.functions.Builtin;
 
 public class MinusBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "-";
   }
-  
-  
-  
+
+
+
   static final NumMV NF = new NumMV() {
     public Value call(Num n) {
       return n.negate();
@@ -21,11 +21,11 @@ public class MinusBuiltin extends Builtin {
       return new BigValue(w.i.negate());
     }
   };
-  
+
   public Value call(Value w) {
     return numChrM(NF, Char::swap, w);
   }
-  
+
   public static final D_NNeN DNF = new D_NNeN() {
     public double on(double a, double w) {
       return a - w;
@@ -43,7 +43,7 @@ public class MinusBuiltin extends Builtin {
       return new BigValue(a.i.subtract(w.i));
     }
   };
-  
+
   public Value call(Value a, Value w) {
     return numD(DNF, a, w);
   }

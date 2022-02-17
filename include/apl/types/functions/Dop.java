@@ -5,19 +5,19 @@ import APL.errors.*;
 import APL.types.*;
 
 public abstract class Dop extends Callable {
-  
+
   protected Dop(Scope sc) {
     super(sc);
   }
   protected Dop() {
     super(null);
   }
-  
+
   @Override
   public Type type() {
     return Type.dop;
   }
-  
+
   public DerivedDop derive(Obj aa, Obj ww) {
     return new DerivedDop(aa, ww, this);
   }
@@ -54,22 +54,22 @@ public abstract class Dop extends Callable {
     Value v = o instanceof Fun? ((Fun) o).call(call(aa, ww, a, w, derv)) : (Value) o;
     return callInvA(aa, ww, v, w);
   }
-  
-  public String toString() {
+
+  public std::string toString() {
     return repr();
   }
-  public abstract String repr();
-  
+  public abstract std::string repr();
+
   protected Fun isFn(Obj o, char c) {
     if (!(o instanceof Fun)) throw new SyntaxError(repr()+": "+c+" must be a function", this);
     return (Fun) o;
   }
-  
+
   // operators are equal per-object basis
   @Override public int hashCode() {
     return actualHashCode();
   }
-  @Override public boolean equals(Obj o) {
+  @Override public bool equals(Obj o) {
     return this == o;
   }
 }

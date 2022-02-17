@@ -8,12 +8,12 @@ import APL.types.functions.Builtin;
 import java.math.BigInteger;
 
 public class EllipsisBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "…";
   }
-  
-  
-  
+
+
+
   public Value call(Value a, Value w) {
     if (a instanceof BigValue || w instanceof BigValue) {
       BigInteger al = BigValue.bigint(a);
@@ -21,7 +21,7 @@ public class EllipsisBuiltin extends Builtin {
       BigInteger size = al.subtract(wl).abs().add(BigInteger.ONE);
       int isize = BigValue.safeInt(size);
       if (isize==Integer.MAX_VALUE) throw new DomainError("…: expected range too large ("+a+"…"+w+")", this, w);
-      
+
       Value[] arr = new Value[isize];
       BigInteger c = al;
       BigInteger dir = al.compareTo(wl) < 0? BigInteger.ONE : BigValue.MINUS_ONE.i;

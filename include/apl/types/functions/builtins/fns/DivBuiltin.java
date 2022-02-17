@@ -5,12 +5,12 @@ import APL.types.*;
 import APL.types.functions.Builtin;
 
 public class DivBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "÷";
   }
-  
-  
-  
+
+
+
   private static final NumMV NF = new NumMV() {
     public Value call(Num w) {
       return Num.ONE.divide(w);
@@ -25,7 +25,7 @@ public class DivBuiltin extends Builtin {
   public Value call(Value w) {
     return numM(NF, w);
   }
-  
+
   private static final D_NNeN DNF = new D_NNeN() {
     public double on(double a, double w) {
       return a / w;
@@ -46,10 +46,10 @@ public class DivBuiltin extends Builtin {
   public Value call(Value a0, Value w0) {
     return numD(DNF, a0, w0);
   }
-  
+
   public Value callInv(Value w) { return call(w); }
   public Value callInvW(Value a, Value w) { return call(a, w); }
-  
+
   @Override public Value callInvA(Value a, Value w) {
     return numD(MulBuiltin.DNF, a, w);
   }

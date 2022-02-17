@@ -9,12 +9,12 @@ import APL.types.functions.Builtin;
 import java.util.ArrayList;
 
 public class LShoeBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⊂";
   }
-  
-  
-  
+
+
+
   public Value call(Value w) {
     if (!Main.enclosePrimitives && w instanceof Primitive) return w;
     return new Rank0Arr(w);
@@ -22,14 +22,14 @@ public class LShoeBuiltin extends Builtin {
   public static Value on(Value w) {
     return !Main.enclosePrimitives && w instanceof Primitive? w : new Rank0Arr(w);
   }
-  
+
   @Override public Value call(Value a, Value w) {
     if (w.rank != 1) throw new DomainError("⊂: ⍵ should be of rank 1 ("+Main.formatAPL(w.shape)+" ≡ ⍴⍵)", this);
     if (a.rank != 1) throw new DomainError("⊂: ⍺ should be of rank 1 ("+Main.formatAPL(a.shape)+" ≡ ⍴⍺)", this);
     if (a.ia+1 != w.ia) throw new LengthError("⊂: (1+≢⍺) ≡ ≢⍵ is required ("+Main.formatAPL(a.shape)+" ≡ ⍴⍺; "+Main.formatAPL(w.shape)+" ≡ ⍴⍵)", this);
     int[] aa = a.asIntVec();
     ArrayList<Value> parts = new ArrayList<>();
-    
+
     if (w.quickDoubleArr()) {
       double[] vals = w.asDoubleArr();
       ArrayList<Double> cpart = new ArrayList<>();

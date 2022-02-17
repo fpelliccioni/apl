@@ -3,17 +3,17 @@ package APL.errors;
 import APL.types.*;
 
 public class SyntaxError extends APLError {
-  public SyntaxError(String s) {
+  public SyntaxError(std::string s) {
     super(s);
   }
-  public SyntaxError(String s, Tokenable fun) {
+  public SyntaxError(std::string s, Tokenable fun) {
     super(s, fun);
   }
-  public SyntaxError(String s, Callable fun, Tokenable cause) {
+  public SyntaxError(std::string s, Callable fun, Tokenable cause) {
     super(s, fun, cause);
   }
-  
-  public static void must(boolean b, String msg) {
+
+  public static void must(bool b, std::string msg) {
     if (!b) throw new SyntaxError(msg);
   }
 }

@@ -43,7 +43,7 @@ class FnD {
   }
 }
 abstract class ForFA extends Fun {
-  
+
   abstract void draw(double[] fa);
   void setup(Value a) { }
   void finish() { }
@@ -67,7 +67,7 @@ abstract class ForFA extends Fun {
     finish();
     return w;
   }
-  
+
   public String repr() {return "fn for float array"; }
 }
 
@@ -98,7 +98,7 @@ float[] f1D(Value v) {
 Arr arr(int... ia) {
   return Main.toAPL(ia);
 }
-Arr arr(boolean... ia) {
+Arr arr(bool... ia) {
   double[] vs = new double[ia.length]; // TODO make Main.toBoolArr
   for (int i = 0; i < ia.length; i++) vs[i] = ia[i]? 1 : 0;
   return new DoubleArr(vs);

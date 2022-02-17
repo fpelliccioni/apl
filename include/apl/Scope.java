@@ -16,10 +16,10 @@ import java.util.*;
 
 
 public class Scope {
-  public final HashMap<String, Obj> vars = new HashMap<>();
+  public final HashMap<std::string, Obj> vars = new HashMap<>();
   public final Sys sys;
   private Scope parent = null;
-  public boolean alphaDefined;
+  public bool alphaDefined;
   public int IO;
   private Num nIO;
   public Random rnd;
@@ -36,18 +36,18 @@ public class Scope {
     nIO = p.nIO;
     rnd = p.rnd;
   }
-  private Scope owner(String name) {
+  private Scope owner(std::string name) {
     if (vars.containsKey(name)) return this;
     else if (parent == null) return null;
     else return parent.owner(name);
   }
-  
-  public void update(String name, Obj val) { // sets wherever var already exists
+
+  public void update(std::string name, Obj val) { // sets wherever var already exists
     Scope sc = owner(name);
     if (sc == null) sc = this;
     sc.set(name, val);
   }
-  public void set(String name, Obj val) { // sets in current scope
+  public void set(std::string name, Obj val) { // sets in current scope
     if (name.charAt(0) == '⎕') {
       switch (name) {
         case "⎕IO":
@@ -79,7 +79,7 @@ public class Scope {
       }
     } else vars.put(name, val);
   }
-  public Obj get(String name) {
+  public Obj get(std::string name) {
     if (name.startsWith("⎕")) {
       switch (name) {
         case "⎕MILLIS": return new Num(System.currentTimeMillis() - Main.startingMillis);
@@ -114,8 +114,8 @@ public class Scope {
         case "⎕STDIN": return new Stdin();
         case "⎕BIG": return new Big();
         case "⎕U": return new Builtin() {
-          @Override public String repr() { return "⎕U"; }
-  
+          @Override public std::string repr() { return "⎕U"; }
+
           @Override public Value call(Value w) {
             sys.ucmd(w.asString());
             return null;
@@ -131,21 +131,21 @@ public class Scope {
       else return parent.get(name);
     } else return f;
   }
-  Variable getVar(String name) {
+  Variable getVar(std::string name) {
     return new Variable(this, name);
   }
-  public String toString() {
+  public std::string toString() {
     return toString("");
   }
-  private String toString(String prep) {
+  private std::string toString(std::string prep) {
     StringBuilder res = new StringBuilder("{\n");
-    String cp = prep+"  ";
-    for (String n : vars.keySet()) res.append(cp).append(n).append(" ← ").append(get(n)).append("\n");
+    std::string cp = prep+"  ";
+    for (std::string n : vars.keySet()) res.append(cp).append(n).append(" ← ").append(get(n)).append("\n");
     if (parent != null) res.append(cp).append("parent: ").append(parent.toString(cp));
     res.append(prep).append("}\n");
     return res.toString();
   }
-  
+
   public double rand(double d) {
     return rnd.nextDouble()*d;
   } // with ⎕IO←0
@@ -155,34 +155,34 @@ public class Scope {
   public int rand(int n) {
     return rnd.nextInt(n);
   } // with ⎕IO←0
-  
+
   static class GCLog extends Builtin {
-    public String repr() {
+    public std::string repr() {
       return "⎕GCLOG";
     }
-    
+
     GCLog(Scope sc) { super(sc); }
-    
+
     public Value call(Value w) {
       return new Logger(sc, w.toString());
     }
     static class Logger extends Primitive {
-      final String msg;
+      final std::string msg;
       final Scope sc;
-      Logger(Scope sc, String s) {
+      Logger(Scope sc, std::string s) {
         this.sc = sc;
         this.msg = s;
       }
-      
+
       @SuppressWarnings("deprecation") // this is this things purpose
       @Override
       protected void finalize() {
         sc.sys.println(msg+" was GCed");
       }
-      public String toString() {
+      public std::string toString() {
         return "⎕GCLOG["+msg+"]";
       }
-      
+
       @Override
       public Value ofShape(int[] sh) {
         return SingleItemArr.maybe(this, sh);
@@ -190,11 +190,11 @@ public class Scope {
     }
   }
   static class Timer extends Builtin {
-    final boolean raw;
-    @Override public String repr() {
+    final bool raw;
+    @Override public std::string repr() {
       return "⎕TIME";
     }
-    Timer(Scope sc, boolean raw) {
+    Timer(Scope sc, bool raw) {
       super(sc);
       this.raw = raw;
     }
@@ -204,15 +204,15 @@ public class Scope {
     public Value call(Value a, Value w) {
       int[] options = a.asIntVec();
       int n = options[0];
-      
-      boolean separate = false;
+
+      bool separate = false;
       if (options.length >= 2) separate = options[1]==1;
-      
-      
-      String test = w.asString();
-      
+
+
+      std::string test = w.asString();
+
       BasicLines testTokenized = Tokenizer.tokenize(test);
-      
+
       if (separate) {
         double[] r = new double[n];
         for (int i = 0; i < n; i++) {
@@ -240,26 +240,26 @@ public class Scope {
     }
   }
   static class Eraser extends Builtin {
-    @Override public String repr() {
+    @Override public std::string repr() {
       return "⎕ERASE";
     }
     Eraser(Scope sc) {
       super(sc);
     }
-    
+
     public Value call(Value w) {
       sc.set(w.asString(), null);
       return w;
     }
   }
   static class Delay extends Builtin {
-    @Override public String repr() {
+    @Override public std::string repr() {
       return "⎕DL";
     }
     Delay(Scope sc) {
       super(sc);
     }
-    
+
     public Value call(Value w) {
       long nsS = System.nanoTime();
       double ms = w.asDouble() * 1000;
@@ -271,41 +271,41 @@ public class Scope {
     }
   }
   static class UCS extends Builtin {
-    @Override public String repr() {
+    @Override public std::string repr() {
       return "⎕UCS";
     }
     UCS(Scope sc) {
       super(sc);
     }
-    
+
     public Value call(Value w) {
       return numChrM(new NumMV() {
         @Override public Value call(Num c) {
           return Char.of((char) c.asInt());
         }
-  
-        @Override public boolean retNum() {
+
+        @Override public bool retNum() {
           return false;
         }
       }, c->Num.of(c.chr), w);
     }
-    
+
     @Override public Value callInv(Value w) {
       return call(w);
     }
   }
-  
+
   private static class MapGen extends Builtin {
-    @Override public String repr() {
+    @Override public std::string repr() {
       return "⎕MAP";
     }
-    
+
     @Override
     public Value call(Value w) {
       if (w instanceof StrMap) {
         StrMap wm = (StrMap) w;
         // Scope sc;
-        // HashMap<String, Obj> vals;
+        // HashMap<std::string, Obj> vals;
         // if (wm.sc == null) {
         //   sc = null;
         //   vals = new HashMap<>(wm.vals);
@@ -324,7 +324,7 @@ public class Scope {
       }
       return map;
     }
-    
+
     @Override
     public Value call(Value a, Value w) {
       if (a.rank != 1) throw new RankError("rank of ⍺ ≠ 1", this, a);
@@ -337,9 +337,9 @@ public class Scope {
       return map;
     }
   }
-  
+
   private class Optimizer extends Builtin {
-    @Override public String repr() {
+    @Override public std::string repr() {
       return "⎕OPT";
     }
     Optimizer(Scope sc) {
@@ -347,7 +347,7 @@ public class Scope {
     }
     @Override
     public Value call(Value w) {
-      String name = w.asString();
+      std::string name = w.asString();
       if (!(get(name) instanceof Value)) return Num.MINUS_ONE;
       Value v = (Value) get(name);
       Value optimized = v.squeeze();
@@ -357,7 +357,7 @@ public class Scope {
     }
   }
   private static class ClassGetter extends Builtin {
-    @Override public String repr() {
+    @Override public std::string repr() {
       return "⎕CLASS";
     }
     @Override
@@ -365,60 +365,60 @@ public class Scope {
       return new ChrArr(w.getClass().getCanonicalName());
     }
   }
-  
+
   private static class Ex extends Builtin {
-    @Override public String repr() {
+    @Override public std::string repr() {
       return "⎕EX";
     }
     Ex(Scope sc) {
       super(sc);
     }
-    
+
     public Value call(Value w) {
       Obj o = callObj(w);
       if (o instanceof Value) return (Value) o;
       throw new DomainError("Was expected to give array, got "+o.humanType(true), this);
     }
     public Obj callObj(Value w) {
-      String path = w.asString();
+      std::string path = w.asString();
       return Main.exec(Main.readFile(path), sc);
     }
   }
   private static class Lns extends Builtin {
-    @Override public String repr() {
+    @Override public std::string repr() {
       return "⎕LNS";
     }
-    
+
     @Override
     public Value call(Value w) {
-      String path = w.asString();
-      String[] a = Main.readFile(path).split("\n");
+      std::string path = w.asString();
+      std::string[] a = Main.readFile(path).split("\n");
       Value[] o = new Value[a.length];
       for (int i = 0; i < a.length; i++) {
         o[i] = Main.toAPL(a[i]);
       }
       return Arr.create(o);
     }
-    
-    String get(APLMap m, String key, String def) {
+
+    std::string get(APLMap m, std::string key, std::string def) {
       Value got = (Value) m.getRaw(key);
       if (got != Null.NULL) return got.asString();
       return def;
     }
-    
+
     @Override public Value call(Value a, Value w) {
       if (a instanceof APLMap) {
         try {
           URL url = new URL(w.asString());
           HttpURLConnection conn = (HttpURLConnection) url.openConnection();
           APLMap m = (APLMap) a;
-          String content = get(m, "content", "");
+          std::string content = get(m, "content", "");
           conn.setRequestMethod(get(m, "method", "POST"));
-          
+
           conn.setRequestProperty("Content-Type", get(m, "type", "POST"));
           conn.setRequestProperty("Content-Language", get(m, "language", "en-US"));
           conn.setRequestProperty("Content-Length", Integer.toString(content.length()));
-          
+
           Obj eo = m.getRaw("e");
           if (eo != Null.NULL) {
             APLMap e = (APLMap) eo;
@@ -427,22 +427,22 @@ public class Scope {
               conn.setRequestProperty(k.asString(), v.asString());
             }
           }
-          
+
           Obj cache = m.getRaw("cache");
           conn.setUseCaches(cache!=Null.NULL && Main.bool(cache));
           conn.setDoOutput(true);
-          
+
           if (content.length() != 0) {
             DataOutputStream os = new DataOutputStream(conn.getOutputStream());
             os.writeBytes(content);
             os.close();
           }
-          
-          
+
+
           InputStream is = conn.getInputStream();
           ArrayList<Value> vs = new ArrayList<>();
           try (BufferedReader rd = new BufferedReader(new InputStreamReader(is))) {
-            String ln;
+            std::string ln;
             while ((ln = rd.readLine()) != null) vs.add(Main.toAPL(ln));
           }
           return new HArr(vs);
@@ -454,8 +454,8 @@ public class Scope {
           throw new DomainError("IOException: "+e.getMessage(), this);
         }
       } else {
-        String p = a.asString();
-        String s = w.asString();
+        std::string p = a.asString();
+        std::string s = w.asString();
         try (PrintWriter pw = new PrintWriter(p)) {
           pw.write(s);
         } catch (FileNotFoundException e) {
@@ -465,26 +465,26 @@ public class Scope {
       }
     }
   }
-  
-  
+
+
   private static class Shell extends Fun {
-    @Override public String repr() {
+    @Override public std::string repr() {
       return "⎕SH";
     }
-    
+
     @Override
     public Value call(Value w) {
       return exec(w, null, null, false);
     }
-    
+
     @Override
     public Value call(Value a, Value w) {
       APLMap m = (APLMap) a;
-      
+
       File dir = null;
       Obj diro = m.getRaw("dir");
       if (diro != Null.NULL) dir = new File(((Value) diro).asString());
-      
+
       byte[] inp = null;
       Obj inpo = m.getRaw("inp");
       if (inpo != Null.NULL) {
@@ -498,26 +498,26 @@ public class Scope {
           }
         }
       }
-      
-      boolean raw = false;
+
+      bool raw = false;
       Obj rawo = m.getRaw("raw");
       if (rawo != Null.NULL) raw = Main.bool(rawo);
-      
+
       return exec(w, dir, inp, raw);
     }
-    
-    public Value exec(Value w, File f, byte[] inp, boolean raw) {
+
+    public Value exec(Value w, File f, byte[] inp, bool raw) {
       try {
         Process p;
         if (w.get(0) instanceof Char) {
-          String cmd = w.asString();
-          p = Runtime.getRuntime().exec(cmd, new String[0], f);
+          std::string cmd = w.asString();
+          p = Runtime.getRuntime().exec(cmd, new std::string[0], f);
         } else {
-          String[] parts = new String[w.ia];
+          std::string[] parts = new std::string[w.ia];
           for (int i = 0; i < parts.length; i++) {
             parts[i] = w.get(i).asString();
           }
-          p = Runtime.getRuntime().exec(parts, new String[0], f);
+          p = Runtime.getRuntime().exec(parts, new std::string[0], f);
         }
         if (inp != null) p.getOutputStream().write(inp);
         p.getOutputStream().close();
@@ -525,8 +525,8 @@ public class Scope {
         byte[] err = readAllBytes(p.getErrorStream());
         Num ret = Num.of(p.waitFor());
         if (raw) return new HArr(new Value[]{ret, new DoubleArr(out), new DoubleArr(err)});
-        else return new HArr(new Value[]{ret, Main.toAPL(new String(out, StandardCharsets.UTF_8)),
-                                              Main.toAPL(new String(err, StandardCharsets.UTF_8))});
+        else return new HArr(new Value[]{ret, Main.toAPL(new std::string(out, StandardCharsets.UTF_8)),
+                                              Main.toAPL(new std::string(err, StandardCharsets.UTF_8))});
       } catch (Throwable e) {
         e.printStackTrace();
         return Null.NULL;
@@ -550,13 +550,13 @@ public class Scope {
       }
     }
   }
-  
-  
+
+
   private class NC extends Fun {
-    @Override public String repr() {
+    @Override public std::string repr() {
       return "⎕NC";
     }
-    
+
     @Override public Value call(Value w) {
       Obj obj = get(w.asString());
       if (obj == null) return Num.ZERO;
@@ -567,10 +567,10 @@ public class Scope {
       return Num.NUMS[9];
     }
   }
-  
-  
+
+
   private static class Hasher extends Builtin {
-    @Override public String repr() {
+    @Override public std::string repr() {
       return "⎕HASH";
     }
     @Override public Value call(Value w) {
@@ -578,7 +578,7 @@ public class Scope {
     }
   }
   private static class Stdin extends Builtin {
-    @Override public String repr() {
+    @Override public std::string repr() {
       return "⎕STDIN";
     }
     @Override public Value call(Value w) {
@@ -596,13 +596,13 @@ public class Scope {
       throw new DomainError("⎕STDIN needs either ⍬ or a number as ⍵", this);
     }
   }
-  
+
   private static class Profiler extends Builtin {
     Profiler(Scope sc) {
       super(sc);
     }
-    
-    static final HashMap<String, Pr> pfRes = new HashMap<>();
+
+    static final HashMap<std::string, Pr> pfRes = new HashMap<>();
     static Obj results() {
       Value[] arr = new Value[pfRes.size()*4+4];
       arr[0] = new ChrArr("expr");
@@ -619,8 +619,8 @@ public class Scope {
       pfRes.clear();
       return new HArr(arr, new int[]{arr.length>>2, 4});
     }
-    
-    @Override public String repr() {
+
+    @Override public std::string repr() {
       return "⎕PFX";
     }
     @Override public Value call(Value w) {
@@ -631,16 +631,16 @@ public class Scope {
       if (o instanceof Value) return (Value) o;
       throw new DomainError("Was expected to give array, got "+o.humanType(true), this);
     }
-    
+
     private static Pr get(Value a, Value w) {
-      String s = w.asString();
-      String k = a.asString();
+      std::string s = w.asString();
+      std::string k = a.asString();
       Pr p = pfRes.get(k);
       if (p == null) pfRes.put(k, p = new Pr(Tokenizer.tokenize(s)));
       p.am++;
       return p;
     }
-    
+
     public Obj callObj(Value a, Value w) {
       Pr p = get(a, w);
       BasicLines t = p.tok;
@@ -650,15 +650,15 @@ public class Scope {
       p.ms+= (ens-sns)/1000000d;
       return res;
     }
-    
+
     static class ProfilerOp extends Mop {
-      
+
       public ProfilerOp(Scope sc) {
         super(sc);
       }
-      
+
       Pr get(Obj f) {
-        String s = ((Value) f).asString();
+        std::string s = ((Value) f).asString();
         Pr p = pfRes.get(s);
         if (p == null) {
           pfRes.put(s, p = new Pr(Tokenizer.tokenize(s)));
@@ -667,44 +667,44 @@ public class Scope {
         p.am++;
         return p;
       }
-      
+
       public Value call(Obj f, Value w, DerivedMop derv) {
         Pr p = get(f);
-        
+
         long sns = System.nanoTime();
         Value r = p.fn.call(w);
         long ens = System.nanoTime();
         p.ms+= (ens-sns)/1000000d;
         return r;
       }
-      
+
       public Value call(Obj f, Value a, Value w, DerivedMop derv) {
         Pr p = get(f);
-        
+
         long sns = System.nanoTime();
         Value r = p.fn.call(a, w);
         long ens = System.nanoTime();
         p.ms+= (ens-sns)/1000000d;
         return r;
       }
-      
-      public String repr() {
+
+      public std::string repr() {
         return "⎕PFO";
       }
     }
   }
-  
+
   private static class Pr {
     private final BasicLines tok;
     private int am;
     private double ms;
     private Fun fn;
-    
+
     public Pr(BasicLines tok) {
       this.tok = tok;
     }
   }
-  
+
   private static class Big extends Fun {
     @Override public Value call(Value w) {
       return rec(w);
@@ -719,7 +719,7 @@ public class Scope {
       }
       return new HArr(va, w.shape);
     }
-    
+
     @Override public Value callInv(Value w) {
       return recN(w);
     }
@@ -734,11 +734,11 @@ public class Scope {
       }
       return Arr.create(va, w.shape);
     }
-    @Override public String repr() {
+    @Override public std::string repr() {
       return "⎕BIG";
     }
   }
-  
+
   private static class DR extends Fun {
     /*
        0=100| - unknown
@@ -749,7 +749,7 @@ public class Scope {
        5=100| - bigint
        6=100| - `fn
        9=100| - null
-      
+
       0=÷∘100 - primitive
       1=÷∘100 - array
     */
@@ -779,26 +779,26 @@ public class Scope {
         // return new Num(Double.longBitsToDouble(((BigValue) w).i.longValue()));
         if (t==3) {
           if (f==1) return OverBuiltin.on(this, new Fun() {
-            public String repr() { return ""; }
+            public std::string repr() { return ""; }
             public Value call(Value w) {
               return new Num(Double.longBitsToDouble(((BigValue) UTackBuiltin.on(BigValue.TWO, w, DR.this)).longValue()));
             }
           }, 1, w);
           if (f==5) return OverBuiltin.on(this, new Fun() {
-            public String repr() { return ""; }
+            public std::string repr() { return ""; }
             public Value call(Value w) {
               return new Num(Double.longBitsToDouble(((BigValue) w).longValue()));
             }
           }, 0, w);
         } else {
           if (t==1) return OverBuiltin.on(this, new Fun() {
-            public String repr() { return ""; }
+            public std::string repr() { return ""; }
             public Value call(Value w) {
               return new BitArr(new long[]{Long.reverse(Double.doubleToRawLongBits(w.asDouble()))}, new int[]{64});
             }
           }, 0, w);
           if (t==5) return OverBuiltin.on(this, new Fun() {
-            public String repr() { return ""; }
+            public std::string repr() { return ""; }
             public Value call(Value w) {
               return new BigValue(Double.doubleToRawLongBits(w.asDouble()));
             }
@@ -810,9 +810,9 @@ public class Scope {
     public Value callInvW(Value a, Value w) {
       return call(ReverseBuiltin.on(a), w);
     }
-    public String repr() {
+    public std::string repr() {
       return "⎕DR";
     }
   }
-  
+
 }

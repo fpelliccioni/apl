@@ -16,8 +16,8 @@ public abstract class Arr extends Value {
   public Arr(int[] shape, int ia, int rank) {
     super(shape, ia, rank);
   }
-  
-  public String string(boolean quote) {
+
+  public std::string string(bool quote) {
     if (rank == 1/* && shape[0] != 1*/) { // strings
       StringBuilder all = new StringBuilder();
       for (Value v : this) {
@@ -33,16 +33,16 @@ public abstract class Arr extends Value {
     }
     return null;
   }
-  public String toString() {
+  public std::string toString() {
     if (ia == 0) {
-      String mr = safePrototype() instanceof Char? "''" : "⍬";
+      std::string mr = safePrototype() instanceof Char? "''" : "⍬";
       if (rank == 1) return mr;
       else {
-        String s = Main.formatAPL(shape);
+        std::string s = Main.formatAPL(shape);
         return s + "⍴" + mr;
       }
     }
-    String qs = string(Main.quotestrings || Main.noBoxing);
+    std::string qs = string(Main.quotestrings || Main.noBoxing);
     if (qs != null) return qs;
     if (Main.noBoxing) {
       if (rank == 0) return "⊂" + oneliner();
@@ -53,7 +53,7 @@ public abstract class Arr extends Value {
         Value c = get(0);
         if (c instanceof Primitive || rank > 2) {
           if (rank==1) return "⍮"+c;
-          String pre = Main.formatAPL(shape);
+          std::string pre = Main.formatAPL(shape);
           return pre + "⍴⊂" + c.toString().replace("\n", "\n" + Main.repeat(" ", pre.length()+2));
         }
       }
@@ -71,9 +71,9 @@ public abstract class Arr extends Value {
         }
         if (simple) return res.toString();
       }
-      
+
       if (rank == 2) {
-        boolean charmat = true;
+        bool charmat = true;
         if (!(this instanceof ChrArr)) {
           for (Value v : this) {
             if (!(v instanceof Char)) {
@@ -82,7 +82,7 @@ public abstract class Arr extends Value {
             }
           }
         }
-        
+
         if (charmat) {
           StringBuilder b = new StringBuilder();
           int i = 0;
@@ -93,11 +93,11 @@ public abstract class Arr extends Value {
           return b.toString();
         }
       }
-      
+
       if (rank < 3) { // boxed arrays
         int w = rank==1? shape[0] : shape[1];
         int h = rank==1? 1 : shape[0];
-        String[][][] stringified = new String[w][h][];
+        std::string[][][] stringified = new std::string[w][h][];
         int[][] itemWidths = new int[w][h];
         int[] widths = new int[w];
         int[] heights = new int[h];
@@ -131,9 +131,9 @@ public abstract class Arr extends Value {
         for (x = 0; x < w; x++) {
           ry = borderSize;
           for (y = 0; y < h; y++) {
-            String[] cobj = stringified[x][y];
+            std::string[] cobj = stringified[x][y];
             for (int cy = 0; cy < cobj.length; cy++) {
-              String s = cobj[cy];
+              std::string s = cobj[cy];
               char[] line = s.toCharArray();
               int sx = get(y*w + x) instanceof Num? rx+widths[x]-itemWidths[x][y] : rx;
               System.arraycopy(line, 0, chars[ry + cy], sx, line.length);
@@ -171,7 +171,7 @@ public abstract class Arr extends Value {
           }
         }
         StringBuilder res = new StringBuilder();
-        boolean next = false;
+        bool next = false;
         for (char[] ln : chars) {
           if (next) res.append('\n');
           res.append(ln);
@@ -181,7 +181,7 @@ public abstract class Arr extends Value {
       } else return oneliner();
     }
   }
-  public String oneliner(int[] where) {
+  public std::string oneliner(int[] where) {
     var qs = string(true);
     if (qs != null) return qs;
     StringBuilder res = new StringBuilder(where.length == 0 ? "{" : "[");
@@ -234,13 +234,13 @@ public abstract class Arr extends Value {
     }
     return Arr.create(res, shape);
   }
-  
-  
+
+
   public static Value createL(Value[] v, int[] sh) { // accepts ⊂Primitive; doesn't attempt individual item squeezing; TODO check more places where this should be used
     if (sh.length==0 && v[0] instanceof Primitive && !Main.enclosePrimitives) return v[0];
     return create(v, sh);
   }
-  
+
   public static Arr create(Value[] v) {
     return create(v, new int[]{v.length});
   }
@@ -270,7 +270,7 @@ public abstract class Arr extends Value {
     }
     return new HArr(v, sh);
   }
-  
+
   public static Arr create(ArrayList<Value> v) {
     return create(v, new int[]{v.size()});
   }
@@ -301,9 +301,9 @@ public abstract class Arr extends Value {
     }
     return new HArr(v, sh);
   }
-  
+
   @Override
-  public boolean equals(Obj o) {
+  public bool equals(Obj o) {
     if (!(o instanceof Arr)) return false;
     Arr a = (Arr) o;
     if (!Arrays.equals(shape, a.shape)) return false;
@@ -324,7 +324,7 @@ public abstract class Arr extends Value {
     }
     return hash;
   }
-  
+
   protected int shapeHash(int hash) {
     int h = 0;
     for (int i : shape) {
@@ -334,13 +334,13 @@ public abstract class Arr extends Value {
     if (res == 0) return 100003;
     return res;
   }
-  
+
   public static int prod(int[] ia) {
     int r = 1;
     for (int i : ia) r*= i;
     return r;
   }
-  
+
   public static void eqShapes(Value a, Value w) {
     int[] as = a.shape;
     int[] ws = w.shape;

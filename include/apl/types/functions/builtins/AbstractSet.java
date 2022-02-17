@@ -7,9 +7,9 @@ public abstract class AbstractSet extends Callable {
   public AbstractSet() {
     super(null);
   }
-  
-  public abstract Obj callObj(Obj a, Obj w, boolean update);
-  
+
+  public abstract Obj callObj(Obj a, Obj w, bool update);
+
   @Override
   public Type type() {
     return Type.set;

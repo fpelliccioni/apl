@@ -9,11 +9,11 @@ public class QuoteQuad extends Settable {
     super(null);
     this.sc = sc;
   }
-  
+
   public void set(Obj v, Callable blame) {
     sc.sys.print(v.toString());
   }
-  
+
   @Override
   public Obj get() {
     return Main.toAPL(sc.sys.input());
@@ -21,8 +21,8 @@ public class QuoteQuad extends Settable {
   public Type type() {
     return Type.gettable;
   }
-  
-  public String toString() {
+
+  public std::string toString() {
     return "⍞";
   }
 }

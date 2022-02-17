@@ -4,14 +4,14 @@ import APL.types.*;
 
 public class FunArr extends Fun {
   private final Obj[] os;
-  
+
   public FunArr(Obj[] os) {
     this.os = os;
   }
-  
-  @Override public String repr() {
+
+  @Override public std::string repr() {
     StringBuilder res = new StringBuilder("(");
-    boolean first = true;
+    bool first = true;
     for (Obj o : os) {
       if (first) first = false;
       else res.append("⋄");
@@ -20,7 +20,7 @@ public class FunArr extends Fun {
     res.append(")");
     return res.toString();
   }
-  
+
   @Override public Value call(Value w) {
     Value[] vs = new Value[os.length];
     for (int i = 0; i < os.length; i++) {
@@ -28,7 +28,7 @@ public class FunArr extends Fun {
     }
     return Arr.create(vs);
   }
-  
+
   @Override public Value call(Value a, Value w) {
     Value[] vs = new Value[os.length];
     for (int i = 0; i < os.length; i++) {

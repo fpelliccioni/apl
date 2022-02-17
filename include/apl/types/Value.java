@@ -32,22 +32,22 @@ public abstract class Value extends Obj implements Iterable<Value> {
     return asIntArrClone();
   }
   public abstract int asInt();
-  public boolean scalar() {
+  public bool scalar() {
     return rank == 0;
   }
   public Value first() {
     return get(0);
   }
   public abstract Value get(int i); // WARNING: UNSAFE; doesn't need to throw for out-of-bounds
-  
-  
-  
+
+
+
   public int compareTo(Value r) {
     Value l = this;
-    
-    boolean rA = r instanceof Arr;
-    boolean lA = l instanceof Arr;
-    
+
+    bool rA = r instanceof Arr;
+    bool lA = l instanceof Arr;
+
     if (l instanceof  Num         && r instanceof Num         ) return ((Num) l).compareTo((Num) r);
     if (l instanceof Char         && r instanceof Char        ) return ((Char) l).compareTo((Char) r);
     if (l instanceof  Num         && (r instanceof Char || rA)) return -1;
@@ -58,11 +58,11 @@ public abstract class Value extends Obj implements Iterable<Value> {
     }
     if (!lA) return -1;
     if (!rA) return  1;
-    
+
     if (l.rank != r.rank) throw new RankError("Expected ranks to be equal for compared elements", r);
-    
+
     if (l.rank > 1) throw new DomainError("Expected rank of compared array to be ≤ 2", l);
-    
+
     int min = Math.min(l.ia, r.ia);
     for (int i = 0; i < min; i++) {
       int cr = l.get(i).compareTo(r.get(i));
@@ -70,15 +70,15 @@ public abstract class Value extends Obj implements Iterable<Value> {
     }
     return Integer.compare(l.ia, r.ia);
   }
-  
-  
-  public abstract String asString();
-  
-  
+
+
+  public abstract std::string asString();
+
+
   public Integer[] gradeUp() {
     if (rank != 1) throw new DomainError("grading rank ≠ 1", this);
     Integer[] na = new Integer[ia];
-    
+
     for (int i = 0; i < na.length; i++) {
       na[i] = i;
     }
@@ -88,14 +88,14 @@ public abstract class Value extends Obj implements Iterable<Value> {
   public Integer[] gradeDown() {
     if (rank != 1) throw new DomainError("grading rank ≠ 1", this);
     Integer[] na = new Integer[ia];
-    
+
     for (int i = 0; i < na.length; i++) {
       na[i] = i;
     }
     Arrays.sort(na, (a, b) -> get(b).compareTo(get(a)));
     return na;
   }
-  
+
   public int[] eraseDim(int place) {
     int[] res = new int[rank-1];
     System.arraycopy(shape, 0, res, 0, place);
@@ -106,19 +106,19 @@ public abstract class Value extends Obj implements Iterable<Value> {
   public Type type() {
     return Type.array;
   }
-  
+
   public abstract Value prototype(); // what to append to this array
   public abstract Value safePrototype();
-  
-  public String oneliner(int[] where) {
+
+  public std::string oneliner(int[] where) {
     return toString();
   }
-  
-  public String oneliner() {
+
+  public std::string oneliner() {
     return oneliner(EmptyArr.NOINTS);
   }
-  
-  
+
+
   public Value[] values() {
     return valuesCopy();
   }
@@ -127,12 +127,12 @@ public abstract class Value extends Obj implements Iterable<Value> {
     for (int i = 0; i < ia; i++) vs[i] = get(i);
     return vs;
   }
-  
+
   @Override
   public Iterator<Value> iterator() {
     return new ValueIterator();
   }
-  
+
   public Value ind(double[][] ind, int id, int IO) {
     if (ind.length != rank) throw new RankError("array rank was "+rank+", tried to get item at rank "+ind.length, this);
     int x = 0;
@@ -145,20 +145,20 @@ public abstract class Value extends Obj implements Iterable<Value> {
     }
     return get(x);
   }
-  
+
   class ValueIterator implements Iterator<Value> {
     int c = 0;
     @Override
-    public boolean hasNext() {
+    public bool hasNext() {
       return c < ia;
     }
-    
+
     @Override
     public Value next() {
       return get(c++);
     }
   }
-  
+
   public Value at(int[] pos, int IO) {
     if (pos.length != rank) throw new RankError("array rank was "+rank+", tried to get item at rank "+pos.length, this);
     int x = 0;
@@ -187,9 +187,9 @@ public abstract class Value extends Obj implements Iterable<Value> {
     }
     return get(x);
   }
-  
+
   public abstract Value ofShape(int[] sh); // don't call with ×/sh ≠ ×/shape!
-  
+
   public double sum() {
     double res = 0;
     for (Value v : this) {
@@ -211,7 +211,7 @@ public abstract class Value extends Obj implements Iterable<Value> {
   public double asDouble() {
     throw new DomainError("Using "+this.humanType(true)+" as a number", this);
   }
-  public boolean quickDoubleArr() { // if true, asDoubleArr must succeed; warning: also succeeds on a primitive number
+  public bool quickDoubleArr() { // if true, asDoubleArr must succeed; warning: also succeeds on a primitive number
     return false;
   }
   public Value squeeze() {
@@ -239,7 +239,7 @@ public abstract class Value extends Obj implements Iterable<Value> {
       }
       if (s != null) return new ChrArr(s.toString(), shape);
     }
-    boolean anyBetter = false;
+    bool anyBetter = false;
     Value[] optimized = new Value[ia];
     Value[] values = values();
     for (int i = 0, valuesLength = values.length; i < valuesLength; i++) {
@@ -251,7 +251,7 @@ public abstract class Value extends Obj implements Iterable<Value> {
     if (anyBetter) return new HArr(optimized, shape);
     return this;
   }
-  
+
   public Value cut(int s, int len, int[] sh) {
     if (len==1) {
       Value v = get(s);

@@ -5,27 +5,27 @@ static Fun layoutUpdate, actionCalled;
 static AppMap appobj;
 static REPL mainInit() {
   Main.colorful = false;
-  
+
   mainIt = new DzaimaAPL(); // current interpreter
   mainREPL = new REPL("REPL", mainIt);
   mainSys = mainIt.sys;
-  
+
   appobj = new AppMap();
   mainSys.gsc.set("app", appobj);
-  
+
   return mainREPL;
 }
 
 
 abstract static class Interpreter {
   ItListener l;
-  
+
   abstract Theme theme();
   abstract void sendLn(String ln);
   abstract void tick();
   abstract void intJSON(JSONArray a);
   void lSet() { }
-  
+
   abstract Fun getFn(String ln);
   abstract void close();
 }
@@ -34,7 +34,7 @@ abstract static class ItListener {
   abstract void print(String ln);
   abstract void off(int code);
   abstract String input();
-  abstract void inputMode(boolean enabled, boolean highlight);
+  abstract void inputMode(bool enabled, bool highlight);
 }
 
 import java.net.*;
@@ -123,10 +123,10 @@ static class RIDE extends Interpreter {
   ConcurrentLinkedQueue<JSONArray> recv = new ConcurrentLinkedQueue();
   TW o;
   String ip;
-  boolean closed;
+  bool closed;
   int promptType;
-  boolean create;
-  RIDE(String ip, boolean create) {
+  bool create;
+  RIDE(String ip, bool create) {
     if (ip.indexOf(':')==-1) ip+= ":"+RIDE_PORT;
     this.ip = ip;
     this.create = create;
@@ -135,11 +135,11 @@ static class RIDE extends Interpreter {
       void run() { rideThread(RIDE.this); }
     }).start();
   }
-  
+
   void simulateOutput(String text) {
     recv.add(ja("AppendSessionOutput",jo("result",text)));
   }
-  
+
   void sendLn(String ln) {
     if (o==null) { simulateOutput("Still waiting on connection!\n"); return; }
     try {
@@ -148,9 +148,9 @@ static class RIDE extends Interpreter {
       simulateOutput("Connection error: "+errToString(e));
     }
   }
-  
+
   HashMap<Integer, EdRIDE> windows = new HashMap();
-  
+
   void tick() {
     int ctr = 0;
     while (!recv.isEmpty() && ctr++<10) {
@@ -177,11 +177,11 @@ static class RIDE extends Interpreter {
         promptType = ty;
         l.inputMode(ty!=0, ty==1||ty==2);
       } else if (tp.equals("")) {
-        
+
       }
     }
   }
-  
+
   void lSet() { l.inputMode(false,false); }
   Fun getFn(String ln) { return null; }
   Theme theme() { return noErrTheme; }
@@ -225,8 +225,8 @@ static class TryAPL extends Interpreter {
   static class SentThing { String line; String print; SentThing(String line, String print) { this.line=line; this.print=print; } }
   ConcurrentLinkedQueue<String[]> recv = new ConcurrentLinkedQueue();
   ConcurrentLinkedQueue<SentThing> send = new ConcurrentLinkedQueue();
-  boolean closed;
-  AtomicBoolean running = new AtomicBoolean(false);
+  bool closed;
+  Atomicbool running = new Atomicbool(false);
   TryAPL() {
     (new Thread() {
       String state0 = "";
@@ -253,7 +253,7 @@ static class TryAPL extends Interpreter {
             c.setRequestProperty("Content-Type", "application/json"); //"application/x-www-form-urlencoded");
             c.setRequestProperty("Content-Length", Integer.toString(data.length));
             c.setRequestProperty("Content-Language", "en-US");
-            
+
             c.setDoOutput(true);
             OutputStream os = c.getOutputStream();
             os.write(data);
@@ -292,13 +292,13 @@ static class TryAPL extends Interpreter {
       send.add(new SentThing(ln, null));
     }
   }
-  boolean prevRunning;
+  bool prevRunning;
   void tick() {
     while (!recv.isEmpty()) {
       String[] lns = recv.poll();
       for (String s : lns) l.println(s);
     }
-    boolean currRunning = running.get();
+    bool currRunning = running.get();
     if (currRunning!=prevRunning) {
       l.inputMode(!currRunning, true);
       prevRunning = currRunning;
@@ -317,10 +317,10 @@ static class DzaimaAPL extends Interpreter {
     public void print(String s) { l.print(s); }
     public void colorprint(String s, int col) { l.println(s); }
     public void off(int code) { l.off(code); }
-    
+
     public String input() { return l.input(); }
   };
-  
+
   void sendLn(String s) {
     l.println("  "+s);
     if (s.startsWith(")")) {
@@ -338,7 +338,7 @@ static class DzaimaAPL extends Interpreter {
         return;
       }
       if (type.equals("ef") || type.equals("efx")) {
-        final boolean ex = type.equals("efx");
+        final bool ex = type.equals("efx");
         if (parts.length==1) { l.println(")"+type+": Expected an argument"); return; }
         String[] ps = arg.split("/");
         String[] lns = a.loadStrings(arg);
@@ -369,8 +369,8 @@ static class DzaimaAPL extends Interpreter {
     }
     sys.lineCatch(s);
   }
-  
-  
+
+
   Fun getFn(String ln) {
     return (Fun) Main.exec(ln, sys.csc);
   }
@@ -410,7 +410,7 @@ static class Ed extends Editor {
 
 static class AppMap extends SimpleMap {
   String toString() { return "app"; }
-  
+
   void setv(String k, Obj v) {
     String s = k.toLowerCase();
     switch (s) {

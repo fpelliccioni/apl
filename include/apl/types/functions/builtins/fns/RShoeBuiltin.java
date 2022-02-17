@@ -5,20 +5,20 @@ import APL.errors.*;
 import APL.types.*;
 
 public class RShoeBuiltin extends Fun {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⊃";
   }
-  
+
   public RShoeBuiltin(Scope sc) {
     super(sc);
   }
-  
+
   public Value call(Value w) {
     if (w instanceof Primitive) return w;
     else if (w.ia == 0) return w.prototype();
     else return w.first();
   }
-  
+
   public Value call(Value a, Value w) {
     Obj o = callObj(a, w);
     if (o instanceof Value) return (Value) o;
@@ -38,13 +38,13 @@ public class RShoeBuiltin extends Fun {
     }
     return w.at(a.asIntVec(), sc.IO);
   }
-  
+
   public Value under(Obj o, Value w) {
     Value[] vs = w.valuesCopy();
     vs[0] = o instanceof Fun? ((Fun) o).call(call(w)) : (Value) o;
     return Arr.createL(vs, w.shape);
   }
-  
+
   public Value underW(Obj o, Value a, Value w) {
     Value v = o instanceof Fun? ((Fun) o).call(call(a, w)) : (Value) o;
     if (a instanceof Primitive) {

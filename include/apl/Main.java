@@ -13,13 +13,13 @@ import java.util.*;
 
 @SuppressWarnings("WeakerAccess") // for use as a library
 public class Main {
-  public static final String CODEPAGE = "\0\0\0\0\0\0\0\0\0\t\n\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0 !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~÷×↑↓⌈⌊≠∊⍺⍴⍵⍳∍⋾⎕⍞⌸⌺⍇⍁⍂⌻⌼⍃⍄⍈⍌⍍⍐⍓⍔⍗⍯⍰⍠⌹⊆⊇⍶⍸⍹⍘⍚⍛⍜⍊≤≥⍮ϼ⍷⍉⌽⊖⊙⌾○∘⍟⊗¨⍨⍡⍥⍩⍣⍢⍤⊂⊃∩∪⊥⊤∆∇⍒⍋⍫⍱⍲∨∧⍬⊣⊢⌷⍕⍎←→⍅⍆⍏⍖⌿⍀⍪≡≢⍦⍧⍭‽⍑∞…√ᑈᐵ¯⍝⋄⌶⍙";
-  public static boolean debug = false;
-  public static boolean vind = false; // vector indexing
-  public static boolean noBoxing = false;
-  public static boolean quotestrings = false;
-  public static boolean enclosePrimitives = false;
-  public static boolean colorful = true;
+  public static final std::string CODEPAGE = "\0\0\0\0\0\0\0\0\0\t\n\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0 !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~÷×↑↓⌈⌊≠∊⍺⍴⍵⍳∍⋾⎕⍞⌸⌺⍇⍁⍂⌻⌼⍃⍄⍈⍌⍍⍐⍓⍔⍗⍯⍰⍠⌹⊆⊇⍶⍸⍹⍘⍚⍛⍜⍊≤≥⍮ϼ⍷⍉⌽⊖⊙⌾○∘⍟⊗¨⍨⍡⍥⍩⍣⍢⍤⊂⊃∩∪⊥⊤∆∇⍒⍋⍫⍱⍲∨∧⍬⊣⊢⌷⍕⍎←→⍅⍆⍏⍖⌿⍀⍪≡≢⍦⍧⍭‽⍑∞…√ᑈᐵ¯⍝⋄⌶⍙";
+  public static bool debug = false;
+  public static bool vind = false; // vector indexing
+  public static bool noBoxing = false;
+  public static bool quotestrings = false;
+  public static bool enclosePrimitives = false;
+  public static bool colorful = true;
   static final ChrArr alphabet = toAPL("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
   static final ChrArr lowercaseAlphabet = toAPL("abcdefghijklmnopqrstuvwxyz");
   public static final ChrArr digits = toAPL("0123456789");
@@ -28,16 +28,16 @@ public class Main {
   public static Scanner console;
   public static Tokenable faulty;
   public static APLError lastError = null;
-  public static void main(String[] args) {
+  public static void main(std::string[] args) {
     colorful = System.console() != null && System.getenv().get("TERM") != null;
     console = new Scanner(System.in);
     Sys sys = StdSys.inst;
-    boolean REPL = false;
-    boolean silentREPL = false;
+    bool REPL = false;
+    bool silentREPL = false;
     if (args.length > 0) {
       try {
         for (int i = 0; i < args.length; i++) {
-          String p = args[i];
+          std::string p = args[i];
           if (p.length() >= 2 && p.charAt(0) == '-') {
             if (p.charAt(1) == '-') {
               switch (p) {
@@ -68,13 +68,13 @@ public class Main {
               for (char c : p.substring(1).toCharArray()) {
                 switch (c) {
                   case 'f':
-                    String name = args[++i];
+                    std::string name = args[++i];
                     sys.execFile(Paths.get(name), sys.gsc);
                     break;
                   case '⎕':
                     throw new DomainError("⎕ settings must be a separate argument");
                   case 'e':
-                    String code = args[++i];
+                    std::string code = args[++i];
                     exec(code, sys.gsc);
                     break;
                   case 'p':
@@ -108,7 +108,7 @@ public class Main {
                     colorful = false;
                     break;
                   case 'E': {
-                    String origS = readFile(args[++i]);
+                    std::string origS = readFile(args[++i]);
                     byte[] res = new byte[origS.length()];
                     for (int j = 0; j < origS.length(); j++) {
                       char chr = origS.charAt(j);
@@ -116,7 +116,7 @@ public class Main {
                       if (index == -1) throw new DomainError("error encoding character " + chr + " (" + (+chr) + ")");
                       res[j] = (byte) index;
                     }
-                    String conv = args[++i];
+                    std::string conv = args[++i];
                     try (FileOutputStream stream = new FileOutputStream(conv)) {
                       stream.write(res);
                     } catch (IOException e) {
@@ -146,8 +146,8 @@ public class Main {
           } else if (p.charAt(0)=='⎕') {
             int si = p.indexOf('←');
             if (si == -1) throw new DomainError("argument `"+p+"` didn't contain a `←`");
-            String qk = p.substring(0, si);
-            String qv = p.substring(si+1);
+            std::string qk = p.substring(0, si);
+            std::string qv = p.substring(si+1);
             sys.gsc.set(qk, exec(qv, sys.gsc));
           } else {
             throw new DomainError("Unknown command-line argument " + p);
@@ -166,42 +166,42 @@ public class Main {
       if (!silentREPL) sys.print("> ");
       while (console.hasNext()) {
         faulty = null;
-        String cr = console.nextLine();
+        std::string cr = console.nextLine();
         sys.lineCatch(cr);
         if (!silentREPL) sys.print("> ");
       }
     }
   }
-  
-  
+
+
   public static class StdSys extends Sys {
     public static final StdSys inst = new StdSys();
-    public void println(String s) {
+    public void println(std::string s) {
       System.out.println(s);
     }
-    public void print(String s) {
+    public void print(std::string s) {
       System.out.print(s);
     }
-  
-    public void colorprint(String s, int col) {
+
+    public void colorprint(std::string s, int col) {
       if (colorful) println("\u001b[38;5;" + col + "m" + s + "\u001b[0m");
       else println(s);
     }
-  
+
     public void off(int code) {
       System.exit(code);
     }
-  
-    public String input() {
+
+    public std::string input() {
       return console.nextLine();
     }
   }
-  
-  
-  
-  
-  
-  public static String formatAPL(int[] ia) {
+
+
+
+
+
+  public static std::string formatAPL(int[] ia) {
     if (ia.length == 0) return "⍬";
     StringBuilder r = new StringBuilder(Num.formatInt(ia[0]));
     for (int i = 1; i < ia.length; i++) {
@@ -210,15 +210,15 @@ public class Main {
     }
     return r.toString();
   }
-  static String readFile(String path) {
+  static std::string readFile(std::string path) {
     return readFile(Paths.get(path));
   }
-  static String readFile(Path path) {
+  static std::string readFile(Path path) {
     try {
       byte[] encoded = Files.readAllBytes(path);
-      return new String(encoded, StandardCharsets.UTF_8);
+      return new std::string(encoded, StandardCharsets.UTF_8);
     } catch (IOException e) {
-      String msg = "File " + path + " not found";
+      std::string msg = "File " + path + " not found";
       if (path.startsWith("'") && path.endsWith("'")  ||  path.startsWith("\"") && path.endsWith("\"")) {
         msg+= " (argument shouldn't be surrounded in quotes)";
       }
@@ -227,11 +227,11 @@ public class Main {
       throw ne;
     }
   }
-  
+
   public static Obj rexec(LineTok s, Scope sc) {
     return new Exec(s, sc).exec();
   }
-  public static Obj exec(String s, Scope sc) {
+  public static Obj exec(std::string s, Scope sc) {
     BasicLines t = Tokenizer.tokenize(s);
     printdbg(sc, t);
     return execLines(t, sc);
@@ -241,7 +241,7 @@ public class Main {
     if (val instanceof Settable) val = ((Settable) val).get();
     return val;
   }
-  public static Value vexec(String s, Scope sc) {
+  public static Value vexec(std::string s, Scope sc) {
     Obj val = Main.exec(s, sc);
     if (val instanceof Value) return (Value) val;
     throw new SyntaxError("expected array, got " + val.humanType(true));
@@ -251,8 +251,8 @@ public class Main {
     if (val instanceof Value) return (Value) val;
     throw new SyntaxError("expected array, got " + val.humanType(true), s);
   }
-  
-  
+
+
   public static void printdbg(Scope sc, Object... args) {
     if (!debug) return;
     StringBuilder r = new StringBuilder();
@@ -260,18 +260,18 @@ public class Main {
     for (int i = 1; i < args.length; i++) r.append(" ").append(args[i]);
     sc.sys.println(r.toString());
   }
-  
-  public static boolean isBool(Value a) {
+
+  public static bool isBool(Value a) {
     if (!(a instanceof Num)) return false;
     Num n = (Num) a;
     return n.num==0 || n.num==1;
   }
-  
+
   enum EType {
     all
   }
-  
-  
+
+
   public static Obj execLines(TokArr<LineTok> lines, Scope sc) {
     Obj res = null;
     HashMap<EType, LineTok> eGuards = new HashMap<>();
@@ -281,7 +281,7 @@ public class Main {
         int guardPos = ln.colonPos();
         int eguardPos = ln.eguardPos();
         if (guardPos != -1 && eguardPos != -1) throw new SyntaxError("both : and :: found in line");
-        boolean endAfter = tokens.size() > 1 && tokens.get(0) instanceof SetTok;
+        bool endAfter = tokens.size() > 1 && tokens.get(0) instanceof SetTok;
         if (endAfter) tokens = tokens.subList(1, tokens.size());
         else if (guardPos != -1) {
           if (guardPos == tokens.size()-1) throw new SyntaxError("Guard without success expression");
@@ -319,21 +319,21 @@ public class Main {
     }
     return res;
   }
-  public static boolean bool(double d) {
+  public static bool bool(double d) {
     if (d == 1) return true;
     if (d == 0) return false;
-    throw new DomainError("Expected boolean, got "+d);
+    throw new DomainError("Expected bool, got "+d);
   }
-  
-  public static boolean bool(Obj v) {
+
+  public static bool bool(Obj v) {
     if (v instanceof Num) {
       double num = ((Num) v).num;
       if (num == 1) return true;
       if (num == 0) return false;
     }
-    throw new DomainError("Expected boolean, got "+v, v);
+    throw new DomainError("Expected bool, got "+v, v);
   }
-  
+
   public static DoubleArr toAPL(int[] arr) {
     var da = new double[arr.length];
     for (int i = 0; i < arr.length; i++) {
@@ -341,7 +341,7 @@ public class Main {
     }
     return new DoubleArr(da);
   }
-  
+
   public static DoubleArr toAPL(int[] arr, int[] sh) {
     var da = new double[arr.length];
     for (int i = 0; i < arr.length; i++) {
@@ -349,13 +349,13 @@ public class Main {
     }
     return new DoubleArr(da, sh);
   }
-  
-  public static ChrArr toAPL(String s) {
+
+  public static ChrArr toAPL(std::string s) {
     return new ChrArr(s);
   }
-  
-  
-  public static String repeat(String s, int l) {
+
+
+  public static std::string repeat(std::string s, int l) {
     StringBuilder r = new StringBuilder();
     for (int i = 0; i < l; i++) r.append(s);
     return r.toString();

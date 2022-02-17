@@ -7,7 +7,7 @@ public class SimpleIndexer implements Iterable<Integer> { // todo this is horrib
   private final int[] chosen;
   private final int[] shapeTP;
   private final int len;
-  
+
   public SimpleIndexer(int[] shape, int[] chosen) {
     this.shape = shape;
     this.chosen = chosen;
@@ -20,21 +20,21 @@ public class SimpleIndexer implements Iterable<Integer> { // todo this is horrib
       shapeTP[i] = p;
     }
   }
-  
+
   @Override public Iterator<Integer> iterator() {
-    boolean empty = true;
+    bool empty = true;
     for (int i : chosen) {
       if (i != 0) { empty = false; break; }
     }
-    boolean finalEmpty = empty & chosen.length!=0;
+    bool finalEmpty = empty & chosen.length!=0;
     //noinspection Convert2Diamond java 8
     return new Iterator<Integer>() {
       int index = 0;
-      boolean hasNext = !finalEmpty;
-      @Override public boolean hasNext() {
+      bool hasNext = !finalEmpty;
+      @Override public bool hasNext() {
         return hasNext;
       }
-      
+
       @Override public Integer next() {
         int ret = index;
         index++;

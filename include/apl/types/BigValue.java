@@ -11,9 +11,9 @@ public class BigValue extends Primitive {
   public static final BigValue ONE = new BigValue(BigInteger.ONE);
   public static final BigValue MINUS_ONE = new BigValue(BigInteger.valueOf(-1));
   public static final BigValue TWO = new BigValue(BigInteger.valueOf(2));
-  
+
   public static final BigInteger MAX_SAFE_DOUBLE = BigInteger.valueOf(Num.MAX_SAFE_INT);
-  
+
   public final BigInteger i;
   public BigValue(BigInteger i) {
     this.i = i;
@@ -37,20 +37,20 @@ public class BigValue extends Primitive {
     if (d%1 != 0) throw new DomainError("creating biginteger from non-integer");
     return BigInteger.valueOf((long) d);
   }
-  
+
   @Override
   public Value ofShape(int[] sh) {
     return SingleItemArr.maybe(this, sh);
   }
-  
-  @Override public String toString() {
+
+  @Override public std::string toString() {
     if (i.signum()==-1) return "¯" + i.negate() + "L";
     return i.toString()+"L";
   }
-  @Override public boolean equals(Obj o) {
+  @Override public bool equals(Obj o) {
     return o instanceof BigValue && i.equals(((BigValue) o).i);
   }
-  
+
   public Num num() {
     return new Num(i.doubleValue());
   }
@@ -66,7 +66,7 @@ public class BigValue extends Primitive {
   public int hashCode() {
     return i.hashCode();
   }
-  
+
   public Value safePrototype() {
     return ZERO;
   }

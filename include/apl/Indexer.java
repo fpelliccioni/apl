@@ -14,7 +14,7 @@ public final class Indexer implements Iterable<int[]>, Iterator<int[]> {
   private int ia = 1;
   private int ci = 0;
   private final int[] offsets;
-  
+
   public Indexer(int[] sh, int[] offsets) {
     shape = sh;
     rank = sh.length;
@@ -36,12 +36,12 @@ public final class Indexer implements Iterable<int[]>, Iterator<int[]> {
       c[i] = offsets[i];
     }
   }
-  
+
   public int pos() {
     return ci-1;
   }
-  
-  public boolean hasNext() {
+
+  public bool hasNext() {
     return ci < ia;
   }
   public int[] next() {
@@ -58,7 +58,7 @@ public final class Indexer implements Iterable<int[]>, Iterator<int[]> {
     ci++;
     return c;
   }
-  
+
   public static int[] add(int[] a, int b) {
     int[] res = new int[a.length];
     for (int i = 0; i < res.length; i++) res[i] = a[i] + b;
@@ -69,7 +69,7 @@ public final class Indexer implements Iterable<int[]>, Iterator<int[]> {
     for (int i = 0; i < res.length; i++) res[i] = a[i] - b;
     return res;
   }
-  
+
   public static int[] sub(int[] a, int[] b) {
     int[] res = new int[a.length];
     for (int i = 0; i < res.length; i++) res[i] = a[i] - b[i];
@@ -80,7 +80,7 @@ public final class Indexer implements Iterable<int[]>, Iterator<int[]> {
     for (int i = 0; i < res.length; i++) res[i] = a[i] + b[i];
     return res;
   }
-  
+
   public static int fromShape(int[] shape, int[] pos, int IO) {
     int x = 0;
     for (int i = 0; i < shape.length; i++) {
@@ -113,7 +113,7 @@ public final class Indexer implements Iterable<int[]>, Iterator<int[]> {
     }
     return x;
   }
-  
+
   public static class PosSh { // multiple results ._.
     public final int[] vals;
     public final int[] sh;
@@ -122,13 +122,13 @@ public final class Indexer implements Iterable<int[]>, Iterator<int[]> {
       this.sh = sh;
     }
   }
-  
+
   // checks for rank & bound errors
   // ⎕VI←1 and sh.length≡1 allows for a shortcut of items (1 2 3 ←→ ⊂1 2 3)
   public static PosSh poss(Value v, int[] ish, int IO, Callable blame) {
     // if (v instanceof Primitive) return new PosSh(new int[]{v.asInt()-IO}, Rank0Arr.SHAPE);
     if (Main.vind) { // ⎕VI←1
-      boolean deep = false;
+      bool deep = false;
       int[] rsh = null;
       if (!(v instanceof DoubleArr || v instanceof ChrArr || v instanceof BitArr)) {
         for (Value c : v) {
@@ -147,7 +147,7 @@ public final class Indexer implements Iterable<int[]>, Iterator<int[]> {
         if (ish.length == 1) return new PosSh(res, new int[]{res.length});
         return new PosSh(new int[]{fromShapeChk(ish, res, blame)}, Rank0Arr.SHAPE);
       }
-    
+
       int[] res = new int[Arr.prod(rsh)];
       for (int i = 0; i < v.ia; i++) {
         Value c = v.get(i);
@@ -178,20 +178,20 @@ public final class Indexer implements Iterable<int[]>, Iterator<int[]> {
         for (int c : res) if (c<0 || c>=ish[0]) throw new LengthError(blame+": indexing out-of bounds (shape ≡ "+rsh[0]+"; pos ≡ " + (c+IO) + ")", blame);
         return new PosSh(res, rsh);
       }
-      
+
       int[] res = new int[v.ia];
       for (int i = 0; i < v.ia; i++) res[i] = fromShapeChk(ish, v.get(i), IO, blame);
       return new PosSh(res, rsh);
     }
   }
-  
+
   static int[] intsNoIO(Value v, int IO) {
     if (IO==0) return v.asIntArr();
     int[] res = v.asIntArrClone();
     for (int i = 0; i < res.length; i++) res[i]--;
     return res;
   }
-  
+
   public Iterator<int[]> iterator() {
     return this;
   }

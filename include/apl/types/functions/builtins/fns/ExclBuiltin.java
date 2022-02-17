@@ -7,11 +7,11 @@ import APL.types.functions.Builtin;
 import java.math.BigInteger;
 
 public class ExclBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "!";
   }
-  
-  
+
+
   private static final double[] cache = new double[172];
   static {
     double r = 1;
@@ -21,7 +21,7 @@ public class ExclBuiltin extends Builtin {
       cache[i] = r;
     }
   }
-  
+
   private static final NumMV NF = new NumMV() {
     public Value call(Num w) {
       return new Num(cache[Math.min(w.asInt(), 171)]);
@@ -41,25 +41,25 @@ public class ExclBuiltin extends Builtin {
       return new BigValue(res);
     }
   };
-  
+
   public Value call(Value w) {
     return numM(NF, w);
   }
-  
+
   public Value call(Value a0, Value w0) {
     return allD((a, w) -> {
       if (a instanceof BigValue || w instanceof BigValue) {
-        
+
         BigInteger res = BigInteger.ONE;
         BigInteger al = BigValue.bigint(w);
         BigInteger bl = BigValue.bigint(a);
         if (al.compareTo(bl) < 0) return Num.ZERO;
-  
+
         if (bl.compareTo(al.subtract(bl)) > 0) bl = al.subtract(bl);
-        
+
         if (bl.bitLength() > 30) throw new DomainError("!: arguments too big (⍺ ≡ "+a+"; ⍵ ≡ "+w+")", w);
         int ri = bl.intValue();
-        
+
         for (int i = 0; i < ri; i++) {
           res = res.multiply(al.subtract(BigInteger.valueOf(i)));
         }

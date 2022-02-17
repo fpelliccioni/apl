@@ -6,22 +6,22 @@ import java.util.*;
 
 public class LineTok extends TokArr<Token> {
   private Integer colonPos;
-  
-  public LineTok(String raw, int spos, int epos, List<Token> tokens) {
+
+  public LineTok(std::string raw, int spos, int epos, List<Token> tokens) {
     super(raw, spos, epos, tokens);
   }
-  
+
   public static LineTok inherit(List<Token> tokens) {
     Token fst = tokens.get(0);
     return new LineTok(fst.raw, fst.spos, tokens.get(tokens.size()-1).epos, tokens);
   }
-  
+
   public static LineTok inherit(Token tk) {
     ArrayList<Token> a = new ArrayList<>();
     a.add(tk);
     return new LineTok(tk.raw, tk.spos, tk.epos, a);
   }
-  
+
   public int colonPos() {
     if (colonPos == null) {
       colonPos = -1;
@@ -47,10 +47,10 @@ public class LineTok extends TokArr<Token> {
     }
     return eguardPos;
   }
-  
-  @Override public String toRepr() {
+
+  @Override public std::string toRepr() {
     StringBuilder s = new StringBuilder();
-    boolean tail = false;
+    bool tail = false;
     for (var v : tokens) {
       if (tail) s.append(" ");
       s.append(v.toRepr());

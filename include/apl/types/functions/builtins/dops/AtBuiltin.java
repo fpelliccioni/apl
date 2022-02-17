@@ -7,23 +7,23 @@ import APL.types.functions.*;
 import APL.types.functions.builtins.fns.RShoeUBBuiltin;
 
 public class AtBuiltin extends Dop {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "@";
   }
-  
+
   public AtBuiltin(Scope sc) {
     super(sc);
   }
-  
+
   public Value call(Obj aa, Obj ww, Value w, DerivedDop derv) {
     return at(aa, ww, w, sc.IO, this);
   }
-  
+
   public static Value at(Obj aa, Obj ww, Value w, int IO, Callable blame) {
     int ia = w.ia;
     if (ww instanceof Fun) {
       Value vba = ((Fun) ww).call(w);
-      boolean[] ba = new boolean[ia];
+      bool[] ba = new bool[ia];
       int matchingCount = 0;
       for (int i = 0; i < ia; i++) {
         ba[i] = Main.bool(vba.get(i));
@@ -55,7 +55,7 @@ public class AtBuiltin extends Dop {
       return Arr.createL(ra, w.shape);
     } else {
       Value wwa = (Value) ww;
-  
+
       Indexer.PosSh poss = Indexer.poss(wwa, w.shape, IO, blame);
       Value repl;
       if (aa instanceof Fun) {
@@ -68,7 +68,7 @@ public class AtBuiltin extends Dop {
       return with(w, poss, repl, blame);
     }
   }
-  
+
   public static Value with(Value o, Indexer.PosSh poss, Value n, Callable blame) {
     if (o.quickDoubleArr() && n.quickDoubleArr()) {
       double[] res = o.asDoubleArrClone();

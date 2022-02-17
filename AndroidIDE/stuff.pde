@@ -3,7 +3,7 @@ static Iterable<Character> sit(final String s) { // String iterator
     public Iterator<Character> iterator() {
       return new Iterator<Character> () {
         int p = 0;
-        public boolean hasNext() {
+        public bool hasNext() {
           return p < s.length();
         }
         public Character next() {
@@ -33,7 +33,7 @@ static class PQ<M extends Comparable<? super M>, V> {
   PQNode<M, V> add(M m, V v) {
     PQNode<M, V> n = new PQNode(this, m, v);
     //println("add "+n+"\n",this);
-    
+
     size++;
     if ((size & size-1) == 0) { // size is now 2^n
       //println("extending");
@@ -54,7 +54,7 @@ static class PQ<M extends Comparable<? super M>, V> {
       n.Sswap(S[n.Sl-1][n.Sp>>1]);
     }
     //println("after:", this+"\n");
-    
+
     return n;
   }
   String toString() {
@@ -103,7 +103,7 @@ static class PQ<M extends Comparable<? super M>, V> {
         }
       }
     }
-    
+
     if (s == o) {
       S[cl][p] = null;
     } else {
@@ -130,9 +130,9 @@ static class PQ<M extends Comparable<? super M>, V> {
         }
       }
     }
-    
+
     size--;
-    
+
     if ((size & size+1) == 0) { // pop level; size = 2^n
       //println("removing level");
       B[l] = null; // delete layer one down, not l-1 so it can't bounce around a power of 2 creating arrays
@@ -141,7 +141,7 @@ static class PQ<M extends Comparable<? super M>, V> {
     }
     //println("after:", this+"\n");
     o.pq = null; // no leaks please
-    
+
   }
   void clear() {
     B = new PQNode[32][];
@@ -173,7 +173,7 @@ static class PQNode<M extends Comparable<? super M>, V> {
   void remove() {
     pq.remove(this);
   }
-  
+
   void Bswap(PQNode<M, V> n) {
     int nBp = n.Bp;
     byte nBl = n.Bl;
@@ -194,7 +194,7 @@ static class PQNode<M extends Comparable<? super M>, V> {
     pq.S[  Sl][  Sp] = this;
     pq.S[n.Sl][n.Sp] = n;
   }
-  
+
   String toString() {
     return m+"";
   }

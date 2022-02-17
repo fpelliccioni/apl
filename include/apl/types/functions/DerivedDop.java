@@ -11,7 +11,7 @@ public class DerivedDop extends Fun {
     this.op = op;
     token = op.token;
   }
-  
+
   public Value call(Value w) {
     return op.call(aa, ww, w, this);
   }
@@ -33,12 +33,12 @@ public class DerivedDop extends Fun {
   public Value callInvA(Value a, Value w) {
     return op.callInvA(aa, ww, a, w);
   }
-  @Override public String repr() {
-    String wws = ww.toString();
+  @Override public std::string repr() {
+    std::string wws = ww.toString();
     if (!(ww instanceof Arr) && wws.length() != 1) wws = "("+wws+")";
     return aa.toString()+op.repr()+wws;
   }
-  
+
   public Value under(Obj o, Value w) {
     return op.under(aa, ww, o, w, this);
   }

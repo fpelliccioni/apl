@@ -5,10 +5,10 @@ import APL.types.*;
 import APL.types.functions.Builtin;
 
 public class ExpandBuiltin extends Builtin {
-  public String repr() {
+  public std::string repr() {
     return "⍀";
   }
-  
+
   public Value call(Value a, Value w) {
     if (a.rank != 1) throw new RankError("⍀: ⍺ bust be of rank 1", this, a);
     if (w.rank >= 2) throw new NYIError("⍀: rank 2 or more ⍵", this, w);
@@ -24,7 +24,7 @@ public class ExpandBuiltin extends Builtin {
     Value[] res = new Value[ram];
     int rp = 0;
     int ip = 0;
-    
+
     for (int v : is) {
       if (v <= 0) {
         if (pr == null) pr = w.safePrototype();
@@ -38,7 +38,7 @@ public class ExpandBuiltin extends Builtin {
         ip++;
       }
     }
-    
+
     return Arr.create(res);
   }
 }

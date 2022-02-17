@@ -24,7 +24,7 @@ class Line {
     ptsy.add(y);
   }
   void draw() {
-    boolean drawing = false;
+    bool drawing = false;
     int len = ptsx.size();
     for (int i = 0; i < len; i++) {
       double x = ptsx.get(i);
@@ -61,7 +61,7 @@ class Line {
 void functionGrapher() {
   bounds();
   Obj s = global.get("dxy");
-  boolean joined = true;
+  bool joined = true;
   float ph = height/200f;
   float mul = 1;
   if (s == null) {
@@ -83,15 +83,15 @@ void functionGrapher() {
     else break;
     n = n.next;
   }
-  boolean sInR = n != points.end && n.v.x < sEnd; // start in range
+  bool sInR = n != points.end && n.v.x < sEnd; // start in range
   n = points.last();
   while (n != points.start) {
     if (n.v.x > eCut) remove(n);
     else break;
     n = n.prev;
   }
-  boolean eInR = n != points.start && n.v.x > eSrt; 
-  
+  bool eInR = n != points.start && n.v.x > eSrt;
+
   if (!sInR) add(b[0], points.start);
   if (!eInR) add(b[1], points.last());
   long nt = System.nanoTime();
@@ -101,7 +101,7 @@ void functionGrapher() {
     if (bg.m > b[2]) {
       Point p = bg.v;
       if (mul > 1) {
-        
+
         ArrayList<Point> ps = new ArrayList<Point>();
         ps.add(split((p.x + p.pnode.next.v.x)/2, p.pnode, null));
         while (pq.size() > 0 && ps.size() < mul) {
@@ -119,15 +119,15 @@ void functionGrapher() {
         try {
           res = (Value) fn.call(new DoubleArr(ds));
         } catch (Throwable e) { res = null; e.printStackTrace(); }
-        
+
         for (int i = 0; i < ds.length; i++) {
           if (res == null) ps.get(i).y = new double[0];
           else ps.get(i).y = res.get(i).asDoubleArr();
         }
         ptsadded+= ds.length;
-        
-        
-        
+
+
+
       } else {
         add((p.x + p.pnode.next.v.x)/2,  p.pnode);
         ptsadded++;
@@ -136,14 +136,14 @@ void functionGrapher() {
     if (System.nanoTime()-nt > 5E6) break;
   }
   //println(points.size, ptsadded, ptsadded*1f/(System.nanoTime()-nt)*1E9, frameRate);
-  
+
   while (pq.size() > 0) {
     PQNode<Double, Point> sm = pq.smallest(); // can't be PQ<Double, Point>.Item because Processing :|
     if ((Double) sm.m < b[2]/4) {
       remove(sm.v.pnode);
     } else break;
   }
-  
+
   noFill();
   stroke(0xffd2d2d2);
   strokeWeight(ph);
@@ -243,22 +243,22 @@ void bounds() {
 class LL<T> {
   LLNode<T> start = new SNode<T>(this);
   LLNode<T> end = new ENode<T>(this);
-  
+
   LL() {
     start.next = end;
     end.prev = start;
   }
-  
+
   int size = 0;
-  
+
   void addLast(T v) {
     end.addBefore(v);
   }
-  
+
   void addFirst(T v) {
     start.addAfter(v);
   }
-  
+
   void clear() {
     start.next = end;
     end.prev = start;
@@ -314,7 +314,7 @@ class LLNode<T> {
     ll.size--;
     if(rmd)throw null;rmd=true;
   }
-  boolean rmd;
+  bool rmd;
 }
 
 class Point {

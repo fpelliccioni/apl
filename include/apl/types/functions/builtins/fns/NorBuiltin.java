@@ -6,14 +6,14 @@ import APL.types.arrs.*;
 import APL.types.functions.Builtin;
 
 public class NorBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⍱";
   }
-  
+
   public NorBuiltin(Scope sc) {
     super(sc);
   }
-  
+
   private static final D_NNeN DNF = new D_NNeN() {
     public double on(double a, double w) {
       return Main.bool(a)|Main.bool(w) ? 0 : 1;
@@ -28,13 +28,13 @@ public class NorBuiltin extends Builtin {
       for (int i = 0; i < a.length; i++) res[i] = Main.bool(a[i])|Main.bool(w[i]) ? 0 : 1;
     }
   };
-  
+
   private static final D_BB DBF = new D_BB() {
-    @Override public Value call(boolean a, BitArr w) {
+    @Override public Value call(bool a, BitArr w) {
       if (a) return BitArr.fill(w, false);
       return TildeBuiltin.call(w);
     }
-    @Override public Value call(BitArr a, boolean w) {
+    @Override public Value call(BitArr a, bool w) {
       if (w) return BitArr.fill(a, false);
       return TildeBuiltin.call(a);
     }
@@ -44,7 +44,7 @@ public class NorBuiltin extends Builtin {
       return bc.finish();
     }
   };
-  
+
   public Value call(Value a, Value w) {
     return bitD(DNF, DBF, a, w);
   }

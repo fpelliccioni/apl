@@ -26,10 +26,10 @@ private static int ptr = 0;
 private static String[] history = new String[300];
 private static int[] historyPtrs = new int[300];
 private static int histptr = 0;
-private static boolean noHist = false;
+private static bool noHist = false;
 
 private static int smouseX, smouseY;
-private static boolean pmousePressed;
+private static bool pmousePressed;
 private static int stouch;
 private static int lastTouch = 0;
 
@@ -58,7 +58,7 @@ public void setup() {
     }
   }
   chars = Dchars;
-  
+
   JSONArray extra = loadJSONArray("extra.json");
   Echars = new Key[vC][hC];
   for (int y = 0; y < vC; y++) {
@@ -68,7 +68,7 @@ public void setup() {
       Echars[y][x] = new Key(item, x, y);
     }
   }
-  
+
   w = width/hC;
   h = (int) (height/vC*.66);
   th = h * .4f;
@@ -154,7 +154,7 @@ void pasteText() {
 }
 void draw() {
   FT[] touches = mousePressed? new FT[]{ new FT(mouseX, mouseY) } : new FT[0];
-  
+
   /*/
 import android.content.Context;
 import android.content.ClipboardManager;
@@ -162,7 +162,7 @@ void setup2() { }
 void copyText(final String s) {
   getActivity().runOnUiThread(new Runnable() {
     public void run() {
-      ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE); 
+      ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
       clipboard.setText(s);
     }
   });
@@ -171,7 +171,7 @@ String gottenClip = null;
 void pasteText() {
   getActivity().runOnUiThread(new Runnable() {
     public void run() {
-      ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE); 
+      ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
       gottenClip = clipboard.getText().toString();
     }
   });
@@ -208,50 +208,50 @@ void draw() {
         fullY += (pmouseY - mouseY)/fullS;
       }
     }
-    
+
     background(16);
-    
-    
+
+
 
     //float hl = (float)(-fullY*fullS);
     //line(0, hl, width, hl);
     //float vl = (float)(-fullX*fullS);
     //line(vl, 0, vl, height);
-    
+
     pushMatrix();
     translate((int)(-fullX * fullS), (int)(-fullY * fullS));
     scale((float)fullS);
-    
+
     stroke(0xff666666);
     strokeWeight(1 / (float)fullS);
     if (mode == 2) {
-      
+
       int freq = 10;
-      
+
       float sx = (float) (fullX/scale);
       float ex = (float) ((fullX + width/fullS)/scale);
-      
+
       float sy = (float) (fullY/scale);
       float ey = (float) ((fullY + height/fullS)/scale);
-      
+
       float rsz = log((ex-sx)/freq)/log(10);
       float sz = pow(10, floor(rsz));
       float m1 = rsz % 1;
       if (m1 < 0) m1+= 1;
       if (m1 > .6) sz*= 5;
       else if (m1 > .3) sz*= 2;
-      
+
       textAlign(LEFT, BOTTOM);
       fill(0xffd2d2d2);
       float ts = width/70f / (float)fullS;
       textSize(ts);
       DecimalFormat df = new DecimalFormat("#.0");
-      
+
       int dgs = ceil(log(1/sz)/log(10));
       df.setMaximumFractionDigits(dgs);
       df.setMinimumFractionDigits(dgs);
-      
-      
+
+
       for (float x = (float)Math.floor(sx/sz) * sz; x < ex; x+= sz) {
         line(x, sy, x, ey);
         float off = ts*1.5;
@@ -265,16 +265,16 @@ void draw() {
         text(df.format(-y), tx, y);
       }
     }
-    
-    
+
+
     if (mode == 1) {
       textAlign(LEFT, TOP);
       textSize(th);
       text(res, 0, h / 10f);
       popMatrix();
     } else if (mode == 2) {
-      
-      
+
+
       if (resVal instanceof Value) {
         try {
           float x = 0;
@@ -324,31 +324,31 @@ void draw() {
     py+= th;
   }
   textAlign(RIGHT, CENTER);
-  
+
   textSize(resSize);
   text(res, width - 2*w, height-vC*h + h/2f);
-  
+
   textAlign(CENTER, CENTER);
   for (int y = 0; y < vC; y++) {
     for (int x = 0; x < hC; x++) {
       chars[y][x].draw();
-      
+
     }
   }
   float xp = smouseX*1f/w;
   float yp = vC-(height-smouseY)*1f/h-1;
   int x = smouseX/w;
   int y = vC-(height-smouseY)/h-1;
-  
+
   float cx = mouseX*1f/w;
   float cy = vC-(height-mouseY)*1f/h-1;
-  
+
   if (mousePressed && !pmousePressed) {
     if (x >= 0 && x < hC && y >= 0 && y < vC)
       started = chars[y][x];
     else started = null;
   }
-  
+
   if (pmousePressed && !mousePressed && started != null) {
     started.click(cx-xp, cy-yp);
   }
@@ -357,10 +357,10 @@ void draw() {
     lastTouch = millis();
     stouch += 50;
   }
-  
-  
-  
-  
+
+
+
+
   pmousePressed = mousePressed;
   if (noHist) {
     noHist = false;

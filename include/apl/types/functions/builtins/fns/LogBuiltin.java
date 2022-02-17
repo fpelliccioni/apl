@@ -5,13 +5,13 @@ import APL.types.*;
 import APL.types.functions.Builtin;
 
 public class LogBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⍟";
   }
-  
-  
+
+
   static final double LN2 = Math.log(2);
-  
+
   public static final NumMV NF = new NumMV() {
     public Value call(Num w) {
       return w.log(Num.E);
@@ -37,7 +37,7 @@ public class LogBuiltin extends Builtin {
   public Value callInv(Value w) {
     return numM(StarBuiltin.NF, w);
   }
-  
+
   public static final D_NNeN DNF = new D_NNeN() {
     public double on(double a, double w) {
       return Math.log(w) / Math.log(a);
@@ -71,7 +71,7 @@ public class LogBuiltin extends Builtin {
   public Value call(Value a0, Value w0) {
     return numD(DNF, a0, w0);
   }
-  
+
   @Override public Value callInvW(Value a, Value w) {
     return numD(StarBuiltin.DNF, a, w);
   }

@@ -9,14 +9,14 @@ import java.util.Arrays;
 
 
 public class LTBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "<";
   }
-  
-  
-  
+
+
+
   private static final D_NNeB DNF = new D_NNeB() {
-    public boolean on(double a, double w) {
+    public bool on(double a, double w) {
       return a < w;
     }
     public void on(BitArr.BA res, double a, double[] w) {
@@ -32,13 +32,13 @@ public class LTBuiltin extends Builtin {
       return a.i.compareTo(w.i) < 0? Num.ONE : Num.ZERO;
     }
   };
-  
+
   public Value call(Value a, Value w) {
     return numChrD(DNF, (ca, cw) -> ca<cw? Num.ONE : Num.ZERO,
       (ca, cw) -> { throw new DomainError("comparing "+ ca.humanType(true)+" and "+cw.humanType(true), this); },
       a, w);
   }
-  
+
   public Value call(Value w) {
     var order = w.gradeUp();
     Value[] res = new Value[order.length];

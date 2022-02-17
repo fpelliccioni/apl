@@ -1,7 +1,7 @@
 //* PC
 import java.awt.Toolkit;
 import java.awt.Desktop;
-static boolean MOBILE = false;
+static bool MOBILE = false;
 class FakeTouch { // for interoperability with android mode
   int x, y;
   FakeTouch(int x, int y) { this.x = x; this.y = y; }
@@ -50,7 +50,7 @@ KeyEvent fixKE(KeyEvent e) {
   return e;
 }
 
-static boolean toURL(String url) {
+static bool toURL(String url) {
   try {
     Desktop.getDesktop().browse(new URI(url));
     return true;
@@ -74,7 +74,7 @@ import android.content.*;
 import android.app.*;
 import android.net.Uri;
 
-static boolean MOBILE = true;
+static bool MOBILE = true;
 
 String gottenClip;
 Drawable clipRec;
@@ -131,7 +131,7 @@ void handleCoded(int keyCode) {
     if (keyCode == android.view.KeyEvent.KEYCODE_X) textInput.special("cut");
     if (keyCode == android.view.KeyEvent.KEYCODE_A) textInput.special("sall");
     if (keyCode == android.view.KeyEvent.KEYCODE_ENTER) textInput.special("eval");
-    
+
   }
        if (keyCode == android.view.KeyEvent.KEYCODE_DEL       ) textInput.ldelete();
   else if (keyCode == android.view.KeyEvent.KEYCODE_DPAD_UP   ) textInput.special("up");
@@ -143,7 +143,7 @@ void handleCoded(int keyCode) {
 }
 KeyEvent fixKE(KeyEvent e) {
   android.view.KeyEvent n = (android.view.KeyEvent) e.getNative();
-  return new KeyEvent(e.getNative(), e.getMillis(), e.getAction(), 
+  return new KeyEvent(e.getNative(), e.getMillis(), e.getAction(),
     (n.isShiftPressed() ? Event.SHIFT : 0) +
     (n. isCtrlPressed() ? Event.CTRL  : 0) +
     (n. isMetaPressed() ? Event.META  : 0) +
@@ -151,7 +151,7 @@ KeyEvent fixKE(KeyEvent e) {
   , e.getKey(), e.getKeyCode());
 }
 
-static boolean toURL(String url) {
+static bool toURL(String url) {
   Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
   a.getActivity().startActivity(i);
   return true;

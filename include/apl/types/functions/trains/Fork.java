@@ -11,7 +11,7 @@ public class Fork extends Fun {
     this.g = g;
     this.h = h;
   }
-  
+
   public Value call(Value w) {
     Value right = h.call(w);
     Value left = !(f instanceof Fun)? (Value) f : ((Fun) f).call(w);
@@ -28,26 +28,26 @@ public class Fork extends Fun {
     Value left = !(f instanceof Fun)? (Value) f : ((Fun) f).call(a, w);
     return g.call(left, right);
   }
-  
+
   public Value callInvW(Value a, Value w) {
     if (f instanceof Fun) throw new DomainError("A(f g h)B cannot be inverted", this);
     Value left = (Value) f;
     return h.callInvW(a, g.callInvW(left, w));
   }
-  
+
   public Value callInvA(Value a, Value w) {
     if (f instanceof Fun) throw new DomainError("A(f g h)B cannot be inverted", this);
     return h.callInvA(g.callInvW((Value) f, a), w);
   }
-  
-  public String repr() {
+
+  public std::string repr() {
     return "("+f+" "+g+" "+h+")";
   }
-  
+
   public Value under(Obj o, Value w) {
     if (!(f instanceof Value)) throw new DomainError("(f g h)A cannot be inverted", this);
     Value fa = (Value) f;
-    return h.under(new Fun() { public String repr() { return g.repr(); }
+    return h.under(new Fun() { public std::string repr() { return g.repr(); }
       public Value call(Value w) {
         return g.underW(o, fa, w);
       }

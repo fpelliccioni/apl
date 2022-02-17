@@ -5,11 +5,11 @@ import APL.types.*;
 import APL.types.functions.*;
 
 public class JotBuiltin extends Dop {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "∘";
   }
-  
-  
+
+
   public Value call(Obj aa, Obj ww, Value w, DerivedDop derv) {
     if (ww instanceof Fun) {
       if (aa instanceof Fun) {
@@ -43,23 +43,23 @@ public class JotBuiltin extends Dop {
     }
     return ((Fun)aa).call(a, ((Fun)ww).call(w));
   }
-  
+
   public Value callInvW(Obj aa, Obj ww, Value a, Value w) {
     Fun aaf = isFn(aa, '⍶'); Fun wwf = isFn(ww, '⍹');
     return wwf.callInv(aaf.callInvW(a, w));
   }
-  
+
   public Value callInvA(Obj aa, Obj ww, Value a, Value w) {
     Fun aaf = isFn(aa, '⍶'); Fun wwf = isFn(ww, '⍹');
     return aaf.callInvA(a, wwf.call(w));
   }
-  
+
   public Value under(Obj aa, Obj ww, Obj o, Value w, DerivedDop derv) {
     if (ww instanceof Fun) {
       Fun wwf = (Fun) ww;
       if (aa instanceof Fun) {
         Fun gf = (Fun) aa;
-        return wwf.under(new Fun() { public String repr() { return gf.repr(); }
+        return wwf.under(new Fun() { public std::string repr() { return gf.repr(); }
           public Value call(Value w) {
             return gf.under(o, w);
           }

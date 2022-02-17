@@ -8,16 +8,16 @@ import APL.types.functions.Builtin;
 import java.math.BigInteger;
 
 public class MulBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "×";
   }
-  
-  
-  
+
+
+
   public Value identity() {
     return Num.ONE;
   }
-  
+
   private static final NumMV NF = new NumMV() {
     public Value call(Num w) {
       double d = w.num;
@@ -33,7 +33,7 @@ public class MulBuiltin extends Builtin {
   public Value call(Value w) {
     return numChrMapM(NF, c -> Num.of(c.getCase()), c -> c.size()>0? Num.ONE : Num.ZERO, w);
   }
-  
+
   static final D_NNeN DNF = new D_NNeN() {
     public double on(double a, double w) {
       return a*w;
@@ -54,7 +54,7 @@ public class MulBuiltin extends Builtin {
   public Value call(Value a, Value w) {
     return numD(DNF, a, w);
   }
-  
+
   public Value callInvW(Value a, Value w) {
     try {
       return new DivBuiltin().call(w, a);
@@ -62,12 +62,12 @@ public class MulBuiltin extends Builtin {
       throw new DomainError(e.getMessage(), this, e.cause);
     }
   }
-  
+
   @Override public Value callInvA(Value a, Value w) {
     return callInvW(w, a);
   }
-  
-  
+
+
   private static final D_NNeN SET_SGN = new D_NNeN() {
     public double on(double o, double n) {
       if (n==0) return 0;
@@ -106,7 +106,7 @@ public class MulBuiltin extends Builtin {
       int ni = BigValue.safeInt(n.i);
       if (oi.signum()==0 && ni!=0) throw new DomainError("⍢×: cannot set sign of 0 to " + ni);
       if (ni== 0) return BigValue.ZERO;
-      boolean neg = oi.signum() == -1;
+      bool neg = oi.signum() == -1;
       if (ni== 1 ^ neg) return o;
       if (ni==-1 ^ neg) return new BigValue(oi.negate());
       else throw new DomainError("⍢×: cannot set sign to " + ni);

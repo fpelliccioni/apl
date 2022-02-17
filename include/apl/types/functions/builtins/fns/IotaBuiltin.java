@@ -10,14 +10,14 @@ import java.util.HashMap;
 
 
 public class IotaBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⍳";
   }
-  
+
   public IotaBuiltin(Scope sc) {
     super(sc);
   }
-  
+
   public Value call(Value w) {
     int IO = sc.IO;
     if (w instanceof Primitive) {
@@ -71,11 +71,11 @@ public class IotaBuiltin extends Builtin {
       return new HArr(arr, shape);
     }
   }
-  
+
   public Value call(Value a, Value w) {
     return on(a, w, sc.IO, this);
   }
-  
+
   public static Value on(Value a, Value w, int IO, Callable blame) {
     if (w.rank > 1) throw new RankError("⍳: ⍵ had rank > 1", blame, w);
     if (a.rank > 1) throw new RankError("⍳: ⍺ had rank > 1", blame, a);

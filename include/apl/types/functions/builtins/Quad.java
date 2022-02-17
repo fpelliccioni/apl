@@ -9,11 +9,11 @@ public class Quad extends Settable {
     super(null);
     this.sc = sc;
   }
-  
+
   public void set(Obj v, Callable blame) {
     sc.sys.println((Main.debug? "[log] " : "")+v);
   }
-  
+
   @Override
   public Obj get() {
     return Main.exec(sc.sys.input(), sc);
@@ -21,8 +21,8 @@ public class Quad extends Settable {
   public Type type() {
     return Type.gettable;
   }
-  
-  public String toString() {
+
+  public std::string toString() {
     return "⎕";
   }
 }

@@ -8,7 +8,7 @@ static class ROText extends Drawable {
   int xoff = 0; // scroll
   int yoff = 0;
   int border = 10;
-  boolean redraw;
+  bool redraw;
   void redraw() {
     beginClip(d, x+border, y, w-border*2, h);
     d.fill(#101010);
@@ -36,8 +36,8 @@ static class ROText extends Drawable {
       redraw = true;
       yoff+= a.mouseY-a.pmouseY;
       if (yoff < h-border) yoff = h-border;
-      
-      
+
+
       xoff+= a.mouseX-a.pmouseX;
       int max = 0;
       for (String s : s) max = max(max, s.length());
@@ -46,12 +46,12 @@ static class ROText extends Drawable {
       if (w > (max + 5)*chw) xoff = 0;
       if (xoff > 0) xoff = 0;
     }
-    
+
     if (redraw) redraw();
   }
-  
+
   ArrayList<String> s;
-  boolean newline;
+  bool newline;
   void appendLns(String a) {
     redraw = true;
     String[] lns = split(a, '\n');

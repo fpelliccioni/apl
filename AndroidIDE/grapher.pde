@@ -6,13 +6,13 @@ static class Graph extends Plane {
   int pts = 1000;
   float ph = 3;
   int mul = 1;
-  boolean joined = true;
-  
+  bool joined = true;
+
   Graph(int x, int y, int w, int h) {
     super(x, y, w, h);
   }
-  
-  
+
+
   void newFun(Fun fn) {
     this.fn = fn;
     points.clear();
@@ -21,7 +21,7 @@ static class Graph extends Plane {
     add(b[0], points.start);
     add(b[1], points.last());
   }
-  
+
   class Line {
     ArrayList<Double> ptsx = new ArrayList<Double>();
     ArrayList<Double> ptsy = new ArrayList<Double>();
@@ -30,7 +30,7 @@ static class Graph extends Plane {
       ptsy.add(y);
     }
     void draw() {
-      boolean drawing = false;
+      bool drawing = false;
       int len = ptsx.size();
       for (int i = 0; i < len; i++) {
         double x = ptsx.get(i);
@@ -63,7 +63,7 @@ static class Graph extends Plane {
       if (drawing) d.endShape();
     }
   }
-  
+
   void draw() {
     bounds();
     double sCut = b[0]-b[2];
@@ -76,15 +76,15 @@ static class Graph extends Plane {
       else break;
       n = n.next;
     }
-    boolean sInR = n != points.end && n.v.x < sEnd; // start in range
+    bool sInR = n != points.end && n.v.x < sEnd; // start in range
     n = points.last();
     while (n != points.start) {
       if (n.v.x > eCut) remove(n);
       else break;
       n = n.prev;
     }
-    boolean eInR = n != points.start && n.v.x > eSrt; 
-    
+    bool eInR = n != points.start && n.v.x > eSrt;
+
     if (!sInR) add(b[0], points.start);
     if (!eInR) add(b[1], points.last());
     long nt = System.nanoTime();
@@ -94,7 +94,7 @@ static class Graph extends Plane {
       if (bg.m > b[2]) {
         Point p = bg.v;
         if (mul > 1) {
-          
+
           ArrayList<Point> ps = new ArrayList<Point>();
           ps.add(split((p.x + p.pnode.next.v.x)/2, p.pnode, null));
           while (pq.size() > 0 && ps.size() < mul) {
@@ -112,7 +112,7 @@ static class Graph extends Plane {
           try {
             res = (Value) fn.call(new DoubleArr(ds));
           } catch (Throwable e) { res = null; }
-          
+
           for (int i = 0; i < ds.length; i++) {
             ps.get(i).y = new double[0];
             if (res != null) try {
@@ -120,9 +120,9 @@ static class Graph extends Plane {
             } catch (Throwable t) { /*ignore */ }
           }
           ptsadded+= ds.length;
-          
-          
-          
+
+
+
         } else {
           add((p.x + p.pnode.next.v.x)/2,  p.pnode);
           ptsadded++;
@@ -131,14 +131,14 @@ static class Graph extends Plane {
       if (System.nanoTime()-nt > 5E6) break;
     }
     //println(points.size, ptsadded, ptsadded*1f/(System.nanoTime()-nt)*1E9, frameRate);
-    
+
     while (pq.size() > 0) {
       PQNode<Double, Point> sm = pq.smallest(); // can't be PQ<Double, Point>.Item because Processing :|
       if ((Double) sm.m < b[2]/4) {
         remove(sm.v.pnode);
       } else break;
     }
-    
+
     d.noFill();
     d.stroke(0xffd2d2d2);
     d.strokeWeight(ph);
@@ -178,7 +178,7 @@ static class Graph extends Plane {
       //endShape();
     }
   }
-  
+
   void add(double pos, LLNode<Point> l) {
     double[] res;
     try {
@@ -188,7 +188,7 @@ static class Graph extends Plane {
     }
     split(pos, l, res);
   }
-  
+
   Point split(double pos, LLNode<Point> l, double[] res) {
     Point p = new Point(pos, res);
     LLNode<Point> r = l.next;
@@ -222,9 +222,9 @@ static class Graph extends Plane {
       addPQ(l, r);
     }
   }
-  
-  
-  
+
+
+
   void bounds() {
     b = new double[] {
       fullX, // starting visible x
@@ -232,27 +232,27 @@ static class Graph extends Plane {
       (d.width/fullS) / pts,
     };
   }
-  
-  
+
+
   class LL<T> {
     LLNode<T> start = new SNode<T>(this);
     LLNode<T> end = new ENode<T>(this);
-    
+
     LL() {
       start.next = end;
       end.prev = start;
     }
-    
+
     int size = 0;
-    
+
     void addLast(T v) {
       end.addBefore(v);
     }
-    
+
     void addFirst(T v) {
       start.addAfter(v);
     }
-    
+
     void clear() {
       start.next = end;
       end.prev = start;
@@ -308,9 +308,9 @@ static class Graph extends Plane {
       ll.size--;
       if(rmd)throw null;rmd=true;
     }
-    boolean rmd;
+    bool rmd;
   }
-  
+
   class Point {
     double x;
     double[] y;
@@ -324,7 +324,7 @@ static class Graph extends Plane {
       return x+"";
     }
   }
-  
+
   void mouseWheel(int dir) {
     double sc = Math.pow(.8, dir);
     double pS = fullS;

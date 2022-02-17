@@ -6,15 +6,15 @@ import APL.types.arrs.BitArr;
 import APL.types.functions.Builtin;
 
 public class NandBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⍲";
   }
-  
+
   public NandBuiltin(Scope sc) {
     super(sc);
   }
-  
-  
+
+
   private static final D_NNeN DNF = new D_NNeN() {
     public double on(double a, double w) {
       return Main.bool(a)&Main.bool(w) ? 0 : 1;
@@ -29,13 +29,13 @@ public class NandBuiltin extends Builtin {
       for (int i = 0; i < a.length; i++) res[i] = Main.bool(a[i])&Main.bool(w[i]) ? 0 : 1;
     }
   };
-  
+
   private static final D_BB DBF = new D_BB() {
-    @Override public Value call(boolean a, BitArr w) {
+    @Override public Value call(bool a, BitArr w) {
       if (a) return TildeBuiltin.call(w);
       return BitArr.fill(w, true);
     }
-    @Override public Value call(BitArr a, boolean w) {
+    @Override public Value call(BitArr a, bool w) {
       if (w) return TildeBuiltin.call(a);
       return BitArr.fill(a, true);
     }
@@ -45,7 +45,7 @@ public class NandBuiltin extends Builtin {
       return bc.finish();
     }
   };
-  
+
   public Value call(Value a, Value w) {
     return bitD(DNF, DBF, a, w);
   }

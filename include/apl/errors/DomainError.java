@@ -3,13 +3,13 @@ package APL.errors;
 import APL.types.*;
 
 public class DomainError extends APLError {
-  public DomainError(String s) {
+  public DomainError(std::string s) {
     super(s);
   }
-  public DomainError(String s, Tokenable fun) {
+  public DomainError(std::string s, Tokenable fun) {
     super(s, fun);
   }
-  public DomainError(String s, Callable fun, Tokenable cause) {
+  public DomainError(std::string s, Callable fun, Tokenable cause) {
     super(s, fun, cause);
   }
 }

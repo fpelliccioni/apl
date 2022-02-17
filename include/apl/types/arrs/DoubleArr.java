@@ -18,7 +18,7 @@ public class DoubleArr extends Arr {
     super(new int[]{arr.length});
     this.arr = arr;
   }
-  
+
   public DoubleArr(int[] arr) { // 1D
     super(new int[]{arr.length});
     double[] a = new double[ia];
@@ -35,7 +35,7 @@ public class DoubleArr extends Arr {
     }
     this.arr = a;
   }
-  
+
   public DoubleArr(ArrayList<Double> arrl) {
     super(new int[]{arrl.size()});
     arr = new double[ia];
@@ -44,12 +44,12 @@ public class DoubleArr extends Arr {
       arr[j++] = d;
     }
   }
-  
+
   public static Value safe(double[] vs, int[] sh) {
     if (sh.length==0 && !Main.enclosePrimitives) return new Num(vs[0]);
     return new DoubleArr(vs, sh);
   }
-  
+
   @Override
   public int[] asIntArrClone() {
     int[] r = new int[ia];
@@ -60,47 +60,47 @@ public class DoubleArr extends Arr {
     }
     return r;
   }
-  
+
   @Override
   public int asInt() {
     throw new DomainError("Using a number array as integer", this);
   }
-  
+
   @Override
   public Value get(int i) {
     return Num.of(arr[i]);
   }
-  
+
   @Override public Value first() {
     if (ia > 0) return new Num(arr[0]);
     return Num.ZERO;
   }
-  
+
   @Override
-  public String asString() {
+  public std::string asString() {
     throw new DomainError("Using number array as string", this);
   }
-  
+
   public Value prototype() {
     return Num.ZERO;
   }
   public Value safePrototype() {
     return Num.ZERO;
   }
-  
+
   @Override
   public Value ofShape(int[] sh) {
     if (sh.length==0 && !Main.enclosePrimitives) return get(0);
     return new DoubleArr(arr, sh);
   }
-  
+
   @Override
   public double sum() {
     double r = 0;
     for (double val : arr) r += val;
     return r;
   }
-  
+
   @Override
   public double[] asDoubleArr() {
     return arr;
@@ -109,24 +109,24 @@ public class DoubleArr extends Arr {
   public double[] asDoubleArrClone() {
     return arr.clone();
   }
-  
+
   @Override
-  public boolean quickDoubleArr() {
+  public bool quickDoubleArr() {
     return true;
   }
-  
+
   @Override
   public Value squeeze() {
     return this;
   }
-  
+
   @Override
   public Value[] valuesCopy() {
     Value[] vs = new Value[ia];
     for (int i = 0; i < ia; i++) vs[i] = new Num(arr[i]);
     return vs;
   }
-  
+
   public Arr reverseOn(int dim) {
     if (rank == 0) {
       if (dim != 0) throw new DomainError("rotating a scalar with a non-⎕IO axis", this);
@@ -155,9 +155,9 @@ public class DoubleArr extends Arr {
     }
     return new DoubleArr(res, shape);
   }
-  
+
   @Override
-  public boolean equals(Obj o) {
+  public bool equals(Obj o) {
     if (o instanceof DoubleArr) {
       DoubleArr da = (DoubleArr) o;
       if ((hash!=0 && da.hash!=0 && hash != da.hash) || !Arrays.equals(shape, da.shape)) return false;

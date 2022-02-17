@@ -18,7 +18,7 @@ public class VarArr extends Settable {
     Collections.reverse(arr);
     this.arr = arr;
   }
-  
+
   public Arr get() {
     if (this.token != null) Main.faulty = this;
     Value[] res = new Value[arr.size()];
@@ -28,22 +28,22 @@ public class VarArr extends Settable {
     }
     return Arr.create(res);
   }
-  
+
   @Override
   public Type type() {
     return Type.array;
   }
-  
+
   @Override public void set(Obj v, Callable blame) {
     set(v, false);
   }
-  
+
   @Override
-  public String toString() {
+  public std::string toString() {
     if (Main.debug) return "vararr:"+arr;
     return get().toString();
   }
-  
+
   public static Obj of(ArrayList<Obj> vs) {
     int sz = vs.size();
     if (sz == 0) return EmptyArr.SHAPE0Q;
@@ -78,7 +78,7 @@ public class VarArr extends Settable {
       }
       if (a != null) return new DoubleArr(a);
     } else if (fst instanceof Char) {
-      String s = "";
+      std::string s = "";
       int i = sz -1;
       while (i >= 0) {
         Obj c = vs.get(i);
@@ -94,8 +94,8 @@ public class VarArr extends Settable {
     }
     return new VarArr(vs);
   }
-  
-  public void set(Obj w, boolean update) {
+
+  public void set(Obj w, bool update) {
     Value ow = (Value) w;
     if (ow.rank == 0) {
       ow = ow.first();

@@ -21,9 +21,9 @@ static class APLTextarea extends Drawable implements TextReciever {
   void redraw() {
     if (hl!=null) hl.g = d;
   }
-  boolean saveUndo = true;
-  boolean modified = false;
-  boolean cursorMoved = false;
+  bool saveUndo = true;
+  bool modified = false;
+  bool cursorMoved = false;
   final int hsz = 300;
   final State[] history = new State[hsz];
   int hptr = 0; // points to the current modification
@@ -65,7 +65,7 @@ static class APLTextarea extends Drawable implements TextReciever {
       if (w > (max + 5)*chw) xoff = 0;
       float maxy = tsz * (lines.size() - 2);
       if (yoff < -maxy) yoff = (int) -maxy;
-      
+
       if (yoff > 0) yoff = 0;
       if (xoff > 0) xoff = 0;
     }
@@ -93,7 +93,7 @@ static class APLTextarea extends Drawable implements TextReciever {
     //  dy++;
     //}
     hl.draw(x + xoff, y + yoff, y, y+h, tsz, fullPos());
-    
+
     tt--;
     if (tt < 0) tt = 60;
     if (tt > 30 || this != textInput) {
@@ -266,7 +266,7 @@ static class APLTextarea extends Drawable implements TextReciever {
       return r;
     }
   }
-  
+
   void left() {
     cursorMoved = true;
     cx--;
@@ -289,7 +289,7 @@ static class APLTextarea extends Drawable implements TextReciever {
       }
     }
   }
-  
+
   void rdelete() {
     right();
     ldelete();

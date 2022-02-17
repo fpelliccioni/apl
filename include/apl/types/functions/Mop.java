@@ -5,19 +5,19 @@ import APL.errors.*;
 import APL.types.*;
 
 public abstract class Mop extends Callable {
-  
+
   protected Mop(Scope sc) {
     super(sc);
   }
   protected Mop() {
     super(null);
   }
-  
+
   @Override
   public Type type() {
     return Type.mop;
   }
-  
+
   public DerivedMop derive(Obj aa) {
     return new DerivedMop(aa, this);
   }
@@ -54,22 +54,22 @@ public abstract class Mop extends Callable {
     Value v = o instanceof Fun? ((Fun) o).call(call(aa, a, w, derv)) : (Value) o;
     return callInvA(aa, v, w);
   }
-  
-  public String toString() {
+
+  public std::string toString() {
     return repr();
   }
-  public abstract String repr();
-  
+  public abstract std::string repr();
+
   protected Fun isFn(Obj o) {
     if (!(o instanceof Fun)) throw new SyntaxError(repr()+": ⍶ must be a function", this);
     return (Fun) o;
   }
-  
+
   // operators are equal per-object basis
   @Override public int hashCode() {
     return actualHashCode();
   }
-  @Override public boolean equals(Obj o) {
+  @Override public bool equals(Obj o) {
     return this == o;
   }
 }

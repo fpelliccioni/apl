@@ -9,27 +9,27 @@ import java.math.BigInteger;
 import java.util.*;
 
 public class DTackBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⊤";
   }
-  
-  
-  
+
+
+
   public Value call(Value w) {
     return call(Num.NUMS[2], w);
   }
-  
+
   public Value callInv(Value w) {
     return UTackBuiltin.on(Num.NUMS[2], w, this);
   }
   public Value callInvW(Value a, Value w) {
     return UTackBuiltin.on(a, w, this);
   }
-  
+
   public Value call(Value a, Value w) {
     return on(a, w, this);
   }
-  
+
   public static Value on(Value a, Value w, Callable blame) {
     if (!(a instanceof Primitive)) {
       if (w instanceof BigValue) {
@@ -46,7 +46,7 @@ public class DTackBuiltin extends Builtin {
       }
       int[] sh = new int[w.rank+a.rank];
       if (a.rank != 1) throw new NYIError(blame+": ⍺ with rank≥2 not yet implemented", blame);
-      
+
       System.arraycopy(a.shape, 0, sh, 0, a.rank); // ≡ for (int i = 0; i < a.rank; i++) sh[i] = a.shape[i];
       System.arraycopy(w.shape, 0, sh, a.rank, w.rank); // ≡ for (int i = 0; i < w.rank; i++) sh[i+a.rank] = w.shape[i];
       if (a.ia == 0) return new EmptyArr(sh, Num.ZERO);
@@ -71,7 +71,7 @@ public class DTackBuiltin extends Builtin {
     if (!(w instanceof Num)) {
       if (w instanceof BigValue) {
         BigInteger base = BigValue.bigint(a);
-        boolean bigBase = a instanceof BigValue;
+        bool bigBase = a instanceof BigValue;
         BigInteger wlr = ((BigValue) w).i;
         int sign = wlr.signum();
         BigInteger wl = wlr.abs();
@@ -99,7 +99,7 @@ public class DTackBuiltin extends Builtin {
           }
         }
         if (ibase <= Character.MAX_RADIX) { // utilize the actually optimized base conversion of BigInteger.toString
-          String str = wl.toString(ibase);
+          std::string str = wl.toString(ibase);
           Value[] res = new Value[str.length()];
           for (int i = 0; i < res.length; i++) {
             char c = str.charAt(i);

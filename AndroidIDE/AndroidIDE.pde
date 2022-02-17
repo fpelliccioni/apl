@@ -1,4 +1,4 @@
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.Atomicbool;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.text.DecimalFormat;
 import java.io.PrintStream;
@@ -38,19 +38,19 @@ void setup() {
   background(#0a0a0a);
   int max = max(width, height);
   top = isz = max/40;
-  
-  
+
+
   newKb();
   if (topbar==null) { // don't reset variables if orientation has changed
     topbar = new TopBar(0, 0, width, top);
     topbar.toNew(mainInit());
-    
+
     topbar.show();
   }
   textFont(createFont("APL385+.ttf", 48));
   redrawAll();
 }
-static boolean redraw;
+static bool redraw;
 void newKb() {
   if (width>height) keyboard(0, 0, width, width/3, "L.json");
   else              keyboard(0, 0, width, (int)(width*.8), "P.json");
@@ -61,7 +61,7 @@ static void redrawAll() {
   a.newKb();
   topbar.resize(d.width, top);
 }
-static boolean pmousePressed;
+static bool pmousePressed;
 static int smouseX, smouseY;
 static int mouseStart;
 void draw() {
@@ -84,8 +84,8 @@ void draw() {
   }
   pmousePressed = mousePressed;
 }
-static boolean shift, ctrl;
-void handleExtraJAVA2D(boolean pressed) {
+static bool shift, ctrl;
+void handleExtraJAVA2D(bool pressed) {
   if (key==65535) {
     if (keyCode == 16) shift = pressed;
     if (keyCode == 17) ctrl  = pressed;
@@ -139,11 +139,11 @@ void keyReleased(KeyEvent e) {
   }
 }
 
-static boolean shift() {
+static bool shift() {
   return shift || (textInput!=null? kb.shiftMode>0 : false);
 }
-static boolean cshift() {
-  boolean r = shift || (kb!=null? kb.shiftMode>0 : false);
+static bool cshift() {
+  bool r = shift || (kb!=null? kb.shiftMode>0 : false);
   if (kb!=null && kb.shiftMode>0) kb.shiftMode = 2;
   return r;
 }

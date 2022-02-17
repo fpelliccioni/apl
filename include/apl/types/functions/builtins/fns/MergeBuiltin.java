@@ -9,24 +9,24 @@ import APL.types.functions.Builtin;
 import java.util.Arrays;
 
 public class MergeBuiltin extends Builtin {
-  
+
   public MergeBuiltin(Scope sc) {
     super(sc);
   }
-  
+
   @Override public Value call(Value a, Value w) {
     if (w.rank != 1) throw new DomainError("%: ⍵ must be a vector", this, w);
     int IO = sc.IO;
     int[] sh = a.shape;
     int i1 = 0;
-    boolean allds = true;
+    bool allds = true;
     for (Value v : w) {
       if (!Arrays.equals(v.shape, sh)) throw new DomainError("%: shape of item "+(i1+IO)+" in ⍵ didn't match ⍺ ("+Main.formatAPL(sh)+" vs "+Main.formatAPL(v.shape)+")", this, w);
       i1++;
       if (!v.quickDoubleArr()) allds = false;
     }
     // if (IO==0 && a instanceof BitArr) { TODO
-    //   
+    //
     // }
     if (allds) {
       double[] ds = new double[a.ia];
@@ -46,8 +46,8 @@ public class MergeBuiltin extends Builtin {
     }
     return Arr.createL(vs, a.shape);
   }
-  
-  @Override public String repr() {
+
+  @Override public std::string repr() {
     return "%";
   }
 }

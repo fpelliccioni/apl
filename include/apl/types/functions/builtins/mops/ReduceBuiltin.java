@@ -9,18 +9,18 @@ import APL.types.functions.*;
 import APL.types.functions.builtins.fns.*;
 
 public class ReduceBuiltin extends Mop implements DimMMop {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "/";
   }
-  
-  
-  
+
+
+
   @Override
   public Value call(Obj f, Value w, int dim) {
     if (!(f instanceof Fun)) throw new SyntaxError("/ is only reduce. To use as replicate, use ⌿", f);
     return ngnReduce(w, dim, (Fun)f);
   }
-  
+
   public Value call(Obj f, Value w, DerivedMop derv) {
     if (!(f instanceof Fun)) throw new SyntaxError("/ is only reduce. To use as replicate, use ⌿", f);
     Fun ff = (Fun) f;
@@ -65,14 +65,14 @@ public class ReduceBuiltin extends Mop implements DimMMop {
                 Value v = w.get(i);
                 if (v instanceof Char) cs[ri++] = ((Char) v).chr;
                 else {
-                  String s = ((ChrArr) v).s;
+                  std::string s = ((ChrArr) v).s;
                   s.getChars(0, s.length(), cs, ri);
                   ri+= s.length();
                 }
               }
-              return Main.toAPL(new String(cs));
-              
-              
+              return Main.toAPL(new std::string(cs));
+
+
             } else if (first.quickDoubleArr()) {
               for (Value v : w) {
                 if (v.rank > 1) break special;
@@ -81,7 +81,7 @@ public class ReduceBuiltin extends Mop implements DimMMop {
                 chki++;
               }
               double[] ds = new double[am];
-              
+
               int ri = 0;
               for (int i = 0; i < w.ia; i++) {
                 Value v = w.get(i);
@@ -95,13 +95,13 @@ public class ReduceBuiltin extends Mop implements DimMMop {
               return new DoubleArr(ds);
             }
           }
-          
+
           for (; chki < w.ia; chki++) {
             Value v = w.get(chki);
             if (v.rank > 1) break special;
             am+= v.ia;
           }
-          
+
           Value[] vs = new Value[am];
           int ri = 0;
           for (Value v : w) {
@@ -124,7 +124,7 @@ public class ReduceBuiltin extends Mop implements DimMMop {
     }
     return last;
   }
-  
+
   public Value call(Obj f, Value a, Value w, DerivedMop derv) {
     Fun ff = isFn(f);
     if (w.rank != 1) throw new NYIError("A f/ B with 2≤⍴⍴B hasn't been implemented", this, w);
@@ -152,7 +152,7 @@ public class ReduceBuiltin extends Mop implements DimMMop {
     if (ra.length == 0) return new EmptyArr(EmptyArr.SHAPE0, w.safePrototype());
     return Arr.create(ra);
   }
-  
+
   private Value ngnReduce(Value x, int axis, Fun f) { // https://chat.stackexchange.com/transcript/message/47158587#47158587
     if (x.rank == 0) return x;
     int n0 = 1; // product of all dimensions before "axis"
@@ -162,7 +162,7 @@ public class ReduceBuiltin extends Mop implements DimMMop {
     int n1 = x.shape[axis]; // the dimension at "axis" - what's getting removed/reduced
     int n2 = x.ia / (n1*n0); // product of the rest of the shape
     int[] ns = x.eraseDim(axis);
-    
+
     Value[] r = new Value[n0 * n2];
     for (int i = 0; i < n0; i++) {
       for (int k = 0; k < n2; k++) {

@@ -7,10 +7,10 @@ import APL.types.arrs.DoubleArr;
 import APL.types.functions.*;
 
 public class ScanBuiltin extends Mop {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "\\";
   }
-  
+
   public Value call(Obj aa, Value w, DerivedMop derv) {
     Fun aaf = isFn(aa);
     // TODO ranks
@@ -25,14 +25,14 @@ public class ScanBuiltin extends Mop {
     }
     return Arr.create(res);
   }
-  
+
   public Value call(Obj aa, Value a, Value w, DerivedMop derv) {
     Fun aaf = isFn(aa);
     int n = a.asInt();
     int len = w.ia;
     if (n < 0) throw new DomainError("\\: ⍺ should be non-negative (was "+n+")", this);
     if (w.rank > 1) throw new RankError("\\: rank of ⍵ should be less than 2 (was "+w.rank+")", this);
-    
+
     if (w.quickDoubleArr()) {
       Value[] res = new Value[len-n+1];
       double[] wa = w.asDoubleArr();
@@ -43,7 +43,7 @@ public class ScanBuiltin extends Mop {
       }
       return Arr.create(res);
     }
-    
+
     Value[] res = new Value[len-n+1];
     Value[] wa = w.values();
     for (int i = 0; i < res.length; i++) {

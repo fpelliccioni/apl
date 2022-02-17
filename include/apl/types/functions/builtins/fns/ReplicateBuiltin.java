@@ -10,16 +10,16 @@ import APL.types.functions.builtins.dops.AtBuiltin;
 import java.util.Arrays;
 
 public class ReplicateBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⌿";
   }
-  
-  
-  
+
+
+
   public Value call(Value a, Value w) {
     return replicate(a, w, this);
   }
-  
+
   public static Value replicate(Value a, Value w, Callable blame) {
     if (a.rank == 0) {
       if (w.rank > 1) throw new RankError("⌿: rank of ⍵ should be ≤1 if ⍺ is a scalar", blame);
@@ -33,7 +33,7 @@ public class ReplicateBuiltin extends Builtin {
         Arrays.fill(res, n);
         return Arr.create(res);
       }
-      
+
       int am = w.ia*sz;
       if (w instanceof BitArr) {
         BitArr.BA res = new BitArr.BA(am);
@@ -66,11 +66,11 @@ public class ReplicateBuiltin extends Builtin {
       }
       return Arr.create(res);
     }
-    
+
     // ⍺.rank ≠ 0
     if (a.rank != w.rank) throw new RankError("⌿: shapes of ⍺ & ⍵ must be equal (ranks "+a.rank+" vs "+w.rank + ")", blame);
     if (!Arrays.equals(a.shape, w.shape)) throw new LengthError("⌿: shapes of ⍺ & ⍵ must be equal ("+ Main.formatAPL(a.shape) + " vs " + Main.formatAPL(w.shape) + ")", blame);
-    
+
     if (a instanceof BitArr) {
       BitArr ab = (BitArr) a;
       ab.setEnd(false);
@@ -81,7 +81,7 @@ public class ReplicateBuiltin extends Builtin {
         ((BitArr) a).setEnd(false);
         long[] aba = ((BitArr) a).arr;
         int ia = wba.length;
-        
+
         for (int i = 0; i < ia; i++) {
           long wcb = wba[i];
           long acb = aba[i];
@@ -99,7 +99,7 @@ public class ReplicateBuiltin extends Builtin {
         if (sum > w.ia*.96) {
           double[] ds = w.asDoubleArr();
           double[] res = new double[sum];
-          
+
           long[] la = ab.arr;
           int l = la.length;
           int am = 0, pos = 0;
@@ -142,7 +142,7 @@ public class ReplicateBuiltin extends Builtin {
         // return new DoubleArr(res);
       }
       if (w instanceof ChrArr) {
-        String ws = ((ChrArr) w).s;
+        std::string ws = ((ChrArr) w).s;
         char[] chars = new char[sum];
         BitArr.BR r = ab.read();
         int pos = 0;
@@ -163,14 +163,14 @@ public class ReplicateBuiltin extends Builtin {
       }
       return Arr.create(res);
     }
-    
-    
+
+
     int total = 0;
     int[] sizes = a.asIntArr();
     for (int i = 0; i < a.ia; i++) {
       total+= Math.abs(sizes[i]);
     }
-    
+
     if (w instanceof BitArr) {
       BitArr.BA res = new BitArr.BA(total);
       BitArr.BR r = ((BitArr) w).read();
@@ -199,7 +199,7 @@ public class ReplicateBuiltin extends Builtin {
         }
       }
       return new DoubleArr(res);
-      
+
     } else {
       int ptr = 0;
       Value[] res = new Value[total];
@@ -217,12 +217,12 @@ public class ReplicateBuiltin extends Builtin {
       return Arr.create(res);
     }
   }
-  
-  
+
+
   public Value underW(Obj o, Value a, Value w) {
     Value v = o instanceof Fun? ((Fun) o).call(call(a, w)) : (Value) o;
     return AtBuiltin.at(v, new Fun() { // lazy version
-      public String repr() { return "{⌿.⍺}"; }
+      public std::string repr() { return "{⌿.⍺}"; }
       public Value call(Value w) { return a; }
     }, w, -1234, this);
   }

@@ -6,10 +6,10 @@ import APL.types.*;
 import APL.types.functions.*;
 
 public class RepeatBuiltin extends Dop {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⍣";
   }
-  
+
   public RepeatBuiltin(Scope sc) {
     super(sc);
   }
@@ -38,7 +38,7 @@ public class RepeatBuiltin extends Dop {
       return w;
     }
   }
-  
+
   public Value callInv(Obj aa, Obj ww, Value w) {
     Fun aaf = isFn(aa, '⍶');
     if (!(ww instanceof Num)) throw new DomainError("(f⍣g)A cannot be inverted", this);
@@ -52,7 +52,7 @@ public class RepeatBuiltin extends Dop {
     }
     return w;
   }
-  
+
   public Value call(Obj aa, Obj ww, Value a, Value w, DerivedDop derv) {
     Fun aaf = isFn(aa, '⍶');
     if (ww instanceof Fun) {
@@ -78,7 +78,7 @@ public class RepeatBuiltin extends Dop {
       return w;
     }
   }
-  
+
   public Value callInvW(Obj aa, Obj ww, Value a, Value w) {
     Fun aaf = isFn(aa, '⍶');
     if (!(ww instanceof Num)) throw new DomainError("⍣: expected ⍹ to be a number, got "+ww.humanType(true), this, ww);
@@ -98,10 +98,10 @@ public class RepeatBuiltin extends Dop {
     int am = ((Num) ww).asInt();
     if (am== 1) return aaf.callInvA(a, w);
     if (am==-1) return aaf.callInvA(w, a);
-    
+
     throw new DomainError("f⍣N: ⍺-inverting is only possible when N∊¯1 1", this, ww);
   }
-  
+
   public Value under(Obj aa, Obj ww, Obj o, Value w, DerivedDop derv) {
     Fun aaf = isFn(aa, '⍶');
     if (!(ww instanceof Value)) throw new DomainError("⍣: expected ⍹ to be a number, got "+ww.humanType(true), this, ww);
@@ -112,8 +112,8 @@ public class RepeatBuiltin extends Dop {
     if (n==0) {
       return o instanceof Fun? ((Fun) o).call(w) : (Value) o;
     }
-    
-    return repeat(aa, n-1, new Fun() { public String repr() { return aa.repr(); }
+
+    return repeat(aa, n-1, new Fun() { public std::string repr() { return aa.repr(); }
       public Value call(Value w) {
         return aa.under(o, w);
       }

@@ -10,15 +10,15 @@ import APL.types.functions.Builtin;
 import java.util.Arrays;
 
 public class CatBuiltin extends Builtin implements DimDFn {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return ",";
   }
-  
-  
+
+
   public Value call(Value w) {
     if (w instanceof Primitive) {
       if (w instanceof Num) return new DoubleArr(new double[]{((Num) w).num});
-      if (w instanceof Char) return new ChrArr(String.valueOf(((Char) w).chr));
+      if (w instanceof Char) return new ChrArr(std::string.valueOf(((Char) w).chr));
       return new Shape1Arr(w);
     }
     return w.ofShape(new int[]{w.ia});
@@ -32,11 +32,11 @@ public class CatBuiltin extends Builtin implements DimDFn {
     if (dim < 0 || dim >= Math.max(a.rank, w.rank)) throw new DomainError("dimension "+dim+" is out of range", this);
     return cat(a, w, dim, this);
   }
-  
+
   public static Value cat(Value a, Value w, int k, Callable blame) {
-    boolean aScalar = a.rank==0, wScalar = w.rank==0;
+    bool aScalar = a.rank==0, wScalar = w.rank==0;
     if (aScalar && wScalar) return cat(new Shape1Arr(a.first()), w, 0, blame);
-    
+
     int[] rs = aScalar? w.shape.clone() : a.shape.clone(); // shape of the result
     if (!aScalar && !wScalar) {
       if (a.rank != w.rank) throw new RankError("ranks not matchable", blame, w);
@@ -48,15 +48,15 @@ public class CatBuiltin extends Builtin implements DimDFn {
     if (k<=0 && a.rank==w.rank) {
       if ((a instanceof BitArr || Main.isBool(a))
         && (w instanceof BitArr || Main.isBool(w))) {
-        boolean ab = a instanceof BitArr;
-        boolean wb = w instanceof BitArr;
-  
+        bool ab = a instanceof BitArr;
+        bool wb = w instanceof BitArr;
+
         BitArr.BA res = new BitArr.BA(rs);
         if (ab) res.add((BitArr) a);
         else    res.add(Main.bool(a));
         if (wb) res.add((BitArr) w);
         else    res.add(Main.bool(w));
-  
+
         return res.finish();
       }
       if (a instanceof DoubleArr && w instanceof DoubleArr) {
@@ -75,7 +75,7 @@ public class CatBuiltin extends Builtin implements DimDFn {
     int n2 = 1; for (int i = k + 1; i < rs.length; i++) n2 *= rs[i]; // product of minor dimensions
     int ad = aScalar ? n2 : a.shape[k] * n2;                         // chunk size for ⍺
     int wd = wScalar ? n2 : w.shape[k] * n2;                         // chunk size for ⍵
-    
+
     if (a.quickDoubleArr() && w.quickDoubleArr()) {
       double[] rv = new double[n0 * n1 * n2];                            // result values
       copyChunksD(aScalar, a.asDoubleArr(), rv,  0, ad, ad + wd);
@@ -88,7 +88,7 @@ public class CatBuiltin extends Builtin implements DimDFn {
       return Arr.create(rv, rs);
     }
   }
-  private static void copyChunks(boolean scalar, Value[] av, Value[] rv, int offset, int ad, int rd) {
+  private static void copyChunks(bool scalar, Value[] av, Value[] rv, int offset, int ad, int rd) {
     if (scalar) {
       for (int i = offset; i < rv.length; i += rd) {
         Arrays.fill(rv, i, i + ad, av[0]);
@@ -99,8 +99,8 @@ public class CatBuiltin extends Builtin implements DimDFn {
       }
     }
   }
-  
-  private static void copyChunksD(boolean scalar, double[] av, double[] rv, int offset, int ad, int rd) {
+
+  private static void copyChunksD(bool scalar, double[] av, double[] rv, int offset, int ad, int rd) {
     if (scalar) {
       for (int i = offset; i < rv.length; i += rd) {
         Arrays.fill(rv, i, i + ad, av[0]);
@@ -111,15 +111,15 @@ public class CatBuiltin extends Builtin implements DimDFn {
       }
     }
   }
-  
-  
-  
+
+
+
   public Value under(Obj o, Value w) {
     Value v = o instanceof Fun? ((Fun) o).call(call(w)) : (Value) o;
     if (v.ia != w.ia) throw new DomainError("⍢, expected equal amount of output & output items", this);
     return v.ofShape(w.shape);
   }
-  
+
   public Value underW(Obj o, Value a, Value w) {
     Value v = o instanceof Fun? ((Fun) o).call(call(a, w)) : (Value) o;
     if (a.rank>1) throw new NYIError(", inverted on rank "+a.rank+" ⍺", this);

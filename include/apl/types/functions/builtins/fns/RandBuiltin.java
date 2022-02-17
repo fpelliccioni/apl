@@ -10,14 +10,14 @@ import java.math.BigInteger;
 import java.util.*;
 
 public class RandBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "?";
   }
-  
+
   public RandBuiltin(Scope sc) {
     super(sc);
   }
-  
+
   private final NumMV nf = new NumMV() {
     @Override public Value call(Num v) {
       if (v.num == 0) return new Num(sc.rand(1d));
@@ -37,7 +37,7 @@ public class RandBuiltin extends Builtin {
       return new BigValue(sc.IO==0? n : n.add(BigInteger.ONE));
     }
   };
-  
+
   public Value call(Value w) {
     if (sc.IO==0 && w instanceof SingleItemArr) {
       Value f = w.first();
@@ -51,7 +51,7 @@ public class RandBuiltin extends Builtin {
     }
     return numM(nf, w);
   }
-  
+
   public Value call(Value a, Value w) {
     int IO = sc.IO;
     ArrayList<Integer> vs = new ArrayList<>(w.ia);

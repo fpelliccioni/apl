@@ -10,7 +10,7 @@ public class Atop extends Fun {
     this.g = g;
     this.h = h;
   }
-  
+
   public Value call(Value w) {
     if (g instanceof Fun) return ((Fun) g).call(h.call(w));
     return h.call((Value) g, w);
@@ -27,21 +27,21 @@ public class Atop extends Fun {
     if (!(g instanceof Fun)) throw new SyntaxError("dyadically calling an A f train");
     return ((Fun) g).call(h.call(a, w));
   }
-  
+
   public Value callInvW(Value a, Value w) {
     if (!(g instanceof Fun)) throw new SyntaxError("inverting a dyadically called A f train");
     return h.callInvW(a, ((Fun) g).callInv(w));
   }
-  
+
   public Value callInvA(Value a, Value w) {
     if (!(g instanceof Fun)) throw new SyntaxError("inverting a dyadically called A f train");
     return h.callInvA(((Fun) g).callInv(a), w);
   }
-  
+
   public Value under(Obj o, Value w) {
     if (g instanceof Fun) {
       Fun gf = (Fun) g;
-      return h.under(new Fun() { public String repr() { return gf.repr(); }
+      return h.under(new Fun() { public std::string repr() { return gf.repr(); }
         public Value call(Value w) {
           return gf.under(o, w);
         }
@@ -50,8 +50,8 @@ public class Atop extends Fun {
       return h.underW(o, (Value) g, w);
     }
   }
-  
-  @Override public String repr() {
+
+  @Override public std::string repr() {
     return "("+g+" "+h+")";
   }
 }

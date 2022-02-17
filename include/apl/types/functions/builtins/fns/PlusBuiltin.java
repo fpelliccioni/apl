@@ -6,23 +6,23 @@ import APL.types.functions.Builtin;
 
 
 public class PlusBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "+";
   }
-  
-  
-  
+
+
+
   public Value identity() {
     return Num.ZERO;
   }
-  
+
   public Value call(Value w) {
     return allM(v -> {
       if (!(v instanceof Num)) throw new DomainError("Conjugating a non-number", this, w); // TODO decide whether this should exist
       return ((Num)v).conjugate();
     }, w);
   }
-  
+
   public static final D_NNeN DNF = new D_NNeN() {
     public double on(double a, double w) {
       return a + w;
@@ -47,7 +47,7 @@ public class PlusBuiltin extends Builtin {
   public Value callInvW(Value a, Value w) {
     return numD(MinusBuiltin.DNF, w, a);
   }
-  
+
   @Override public Value callInvA(Value a, Value w) {
     return callInvW(w, a);
   }

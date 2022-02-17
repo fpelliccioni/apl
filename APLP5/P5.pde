@@ -22,7 +22,7 @@ class P5 extends SimpleMap {
         thisobj.size((int)p.x, (int)p.y);
         break;
       }
-      
+
       case "cursor": {
         if (((Value) v).ia == 0) {
           noCursor();
@@ -49,25 +49,25 @@ class P5 extends SimpleMap {
     switch (s) {
       case "g": return mainGraphics;
       case "size": return arr(width, height);
-      
+
       case "dispsize":      case "ds": return Main.toAPL(new int[]{displayWidth, displayHeight});
       case "displaywidth":  case "dw": return new Num(displayWidth);
       case "displayheight": case "dh": return new Num(displayHeight);
-      
+
       case   "w": case   "width": return w;
       case   "h": case  "height": return h;
       case  "mx": case  "mousex": return mx;
       case  "my": case  "mousey": return my;
       case "pmx": case "pmousex": return new Num(pmouseX);
       case "pmy": case "pmousey": return new Num(pmouseY);
-      
+
       case  "mpos": case "mousepos" : return mpos;
       case "pmpos": case "pmousepos": return arr(pmouseX, pmouseY);
-      
+
       case  "lm": case "leftmouse"  : return lm;
       case  "mm": case "middlemouse": return mm;
       case  "rm": case "rightmouse" : return rm;
-      
+
       case "key": return new Char(key);
       case "fps": case "framerate": return new Num(frameRate);
       case "fc": case "framecount": return new Num(frameCount);
@@ -97,7 +97,7 @@ class P5 extends SimpleMap {
         public String repr() {return "P5.noise"; }
       };
       // files
-      
+
       case "bytes": return new Fun() {
         public Value call(Value w) {
           return APL(loadBytes(w.asString()));
@@ -206,7 +206,7 @@ void keyReleased(KeyEvent e) {// println("release", kr, mr);
   keyHandle(e, key, kr, mr, false);
 }
 HashSet<String> pressedKeys = new HashSet();
-void keyHandle(KeyEvent e, char key, Fun kp, Fun mp, boolean press) {
+void keyHandle(KeyEvent e, char key, Fun kp, Fun mp, bool press) {
   if (e.getNative() instanceof java.awt.event.KeyEvent) {
     java.awt.event.KeyEvent ne = (java.awt.event.KeyEvent) e.getNative();
     String skey = java.awt.event.KeyEvent.getKeyText(e.getKeyCode());
@@ -217,11 +217,11 @@ void keyHandle(KeyEvent e, char key, Fun kp, Fun mp, boolean press) {
       case "Alt Graph":    call(mp, ALTGR); return;
       case "Alt":          call(mp, ALT  ); return;
       default:
-        boolean shift = ne.isShiftDown();
-        boolean ctrl = ne.isControlDown();
-        boolean alt = ne.isAltDown();
-        boolean meta = ne.isMetaDown();
-        boolean altgr = ne.isAltGraphDown();
+        bool shift = ne.isShiftDown();
+        bool ctrl = ne.isControlDown();
+        bool alt = ne.isAltDown();
+        bool meta = ne.isMetaDown();
+        bool altgr = ne.isAltGraphDown();
         Value v;
         if (key == 65535 || key == 127) {
           v = Main.toAPL(skey);

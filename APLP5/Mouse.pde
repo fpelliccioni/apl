@@ -10,7 +10,7 @@ class MouseButton extends SimpleMap {
   }
   void draw() {
     ppressed = pressed;
-    boolean p = mousePressed && mouseButton == m;
+    bool p = mousePressed && mouseButton == m;
     pressed = p? Num.ONE : Num.ZERO;
     if (ppressed == Num.ZERO && p) {
       sX = mx;

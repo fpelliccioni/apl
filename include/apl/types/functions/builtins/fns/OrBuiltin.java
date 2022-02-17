@@ -5,16 +5,16 @@ import APL.types.arrs.BitArr;
 import APL.types.functions.Builtin;
 
 public class OrBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "∨";
   }
-  
-  
-  
+
+
+
   public Value identity() {
     return Num.ZERO;
   }
-  
+
   public Value call(Value w) {
     if (w instanceof BitArr) {
       BitArr wb = (BitArr) w;
@@ -24,7 +24,7 @@ public class OrBuiltin extends Builtin {
     }
     return new Num(Num.gcd(w.asDoubleArr()));
   }
-  
+
   private static final D_NNeN DNF = new D_NNeN() {
     public double on(double a, double w) {
       return Num.gcd2(a, w);
@@ -42,13 +42,13 @@ public class OrBuiltin extends Builtin {
       return new BigValue(a.i.gcd(w.i));
     }
   };
-  
+
   private static final D_BB DBF = new D_BB() {
-    @Override public Value call(boolean a, BitArr w) {
+    @Override public Value call(bool a, BitArr w) {
       if (a) return BitArr.fill(w, true);
       return w;
     }
-    @Override public Value call(BitArr a, boolean w) {
+    @Override public Value call(BitArr a, bool w) {
       if (w) return BitArr.fill(a, true);
       return a;
     }

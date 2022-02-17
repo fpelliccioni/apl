@@ -7,12 +7,12 @@ import APL.types.functions.Builtin;
 import java.math.BigInteger;
 
 public class StarBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "*";
   }
-  
-  
-  
+
+
+
   public static final NumMV NF = new NumMV() {
     public Value call(Num w) {
       return Num.E.pow(w);
@@ -27,7 +27,7 @@ public class StarBuiltin extends Builtin {
   public Value callInv(Value w) {
     return numM(LogBuiltin.NF, w);
   }
-  
+
   static final D_NNeN DNF = new D_NNeN() {
     public double on(double a, double w) {
       return Math.pow(a, w);

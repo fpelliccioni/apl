@@ -7,17 +7,17 @@ import APL.types.arrs.*;
 import APL.types.functions.Builtin;
 
 public class TildeBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "~";
   }
   public Value call(Value w) {
     return rec(w);
   }
-  
+
   public Value callInv(Value w) {
     return rec(w);
   }
-  
+
   private Value rec(Value w) {
     if (w instanceof Arr) {
       if (w instanceof BitArr) {
@@ -26,14 +26,14 @@ public class TildeBuiltin extends Builtin {
         for (int i = 0; i < res.length; i++) res[i] = ~wb.arr[i];
         return new BitArr(res, w.shape);
       }
-      
+
       if (w.quickDoubleArr()) {
         // for (int i = 0; i < w.length; i++) if (w[i] == 0) res[i>>6]|= 1L << (i&63);
         BitArr.BA a = new BitArr.BA(w.shape);
         for (double v : w.asDoubleArr()) a.add(v == 0);
         return a.finish();
       }
-      
+
       Arr o = (Arr) w;
       if (o.ia>0 && o.get(0) instanceof Num) {
         BitArr.BA a = new BitArr.BA(w.ia); // it's probably worth going all-in on creating a bitarr
@@ -54,9 +54,9 @@ public class TildeBuiltin extends Builtin {
       }
       return new HArr(arr, o.shape);
     } else if (w instanceof Num) return Main.bool(w)? Num.ZERO : Num.ONE;
-    else throw new DomainError("Expected boolean, got "+w.humanType(false), this, w);
+    else throw new DomainError("Expected bool, got "+w.humanType(false), this, w);
   }
-  
+
   public static BitArr call(BitArr w) {
     BitArr.BC bc = BitArr.create(w.shape);
     for (int i = 0; i < bc.arr.length; i++) {
@@ -64,10 +64,10 @@ public class TildeBuiltin extends Builtin {
     }
     return bc.finish();
   }
-  
+
   public Value call(Value a, Value w) {
     int ia = 0;
-    boolean[] leave = new boolean[a.ia];
+    bool[] leave = new bool[a.ia];
     a: for (int i = 0; i < a.ia; i++) {
       Value v = a.get(i);
       for (var c : w) {

@@ -8,7 +8,7 @@ import APL.types.functions.Builtin;
 import java.util.*;
 
 public class LShoeStileBuiltin extends Builtin {
-  
+
   @Override public Value call(Value a, Value w) {
     HashMap<Value, Integer> counts = new HashMap<>();
     for (Value ca : a) counts.put(ca, 0);
@@ -24,7 +24,7 @@ public class LShoeStileBuiltin extends Builtin {
     }
     return DoubleArr.safe(res, a.shape);
   }
-  
+
   @Override public Value call(Value w) {
     if (w.rank != 1) throw new RankError("⍧: rank of argument must be 1", this, w);
     HashSet<Value> encountered = new HashSet<>();
@@ -38,8 +38,8 @@ public class LShoeStileBuiltin extends Builtin {
     }
     return res.finish();
   }
-  
-  @Override public String repr() {
+
+  @Override public std::string repr() {
     return "⍧";
   }
 }

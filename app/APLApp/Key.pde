@@ -17,7 +17,7 @@ class Key {
   void draw() {
     int rx = x*w;
     int ry = y*h + height-vC*h;
-  
+
     fill(index[col]);
     noStroke();
     rect(rx, ry, w, h);
@@ -27,7 +27,7 @@ class Key {
     float adx = Math.abs(dx);
     float ady = Math.abs(dy);
     if (adx < .5 && ady < .5) return N;
-    
+
     if (adx > ady) { // horiz
       if (dx > 0) return R;
       return L;
@@ -62,8 +62,8 @@ class Action {
   String disp;
   String type;
   String special;
-  boolean repeat = false;
-  boolean sd = false;
+  bool repeat = false;
+  bool sd = false;
   d dir;
   int diri, x, y;
   Action() {}
@@ -84,8 +84,8 @@ class Action {
     } else if (o.hasKey("spec")) {
       special = o.getString("spec");
     } else type = disp;
-    if (o.hasKey("rep")) repeat = o.getBoolean("rep");
-    if (o.hasKey("sd")) sd = o.getBoolean("sd");
+    if (o.hasKey("rep")) repeat = o.getbool("rep");
+    if (o.hasKey("sd")) sd = o.getbool("sd");
     if (o.hasKey("to")) special = o.getString("to");
   }
   void draw(int rx, int ry) {
@@ -115,7 +115,7 @@ class Action {
     if (special != null) {
       switch (special) {
         case "exec": exec(); break;
-        case "delete": 
+        case "delete":
           if (ptr == 0) break;
           program = program.substring(0, ptr-1)+program.substring(ptr);
           ptr--;

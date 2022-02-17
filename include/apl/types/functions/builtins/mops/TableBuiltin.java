@@ -5,30 +5,30 @@ import APL.types.arrs.*;
 import APL.types.functions.*;
 
 public final class TableBuiltin extends Mop {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "∘.";
   }
-  
-  
+
+
   public Value call(Obj f, Value a, Value w, DerivedMop derv) {
     int[] shape = new int[a.rank+w.rank];
     System.arraycopy(a.shape, 0, shape, 0, a.rank);
     System.arraycopy(w.shape, 0, shape, a.rank, w.rank);
-    
+
     if (a.ia==0 || w.ia==0) return new EmptyArr(shape, a.safePrototype());
-    
+
     Fun ff = (Fun) f;
-    
-    
+
+
     int i = 0;
     Value first = ff.call(a.first(), w.first());
-    
+
     if (first instanceof Num) {
       double[] dres = new double[a.ia * w.ia];
-      boolean allNums = true;
-      boolean firstSkipped = false;
+      bool allNums = true;
+      bool firstSkipped = false;
       Value failure = null;
-      
+
       numatt: for (Value na : a) {
         for (Value nw : w) {
           Value r;
@@ -70,7 +70,7 @@ public final class TableBuiltin extends Mop {
         return Arr.create(res, shape);
       }
     }
-    boolean firstSkipped = false;
+    bool firstSkipped = false;
     Value[] arr = new Value[a.ia*w.ia];
     for (Value na : a) {
       for (Value nw : w) {

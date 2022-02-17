@@ -22,15 +22,15 @@ public class Exec {
   private final Scope sc;
   private final List<Token> tokens;
   private final LineTok allToken;
-  
+
   public Exec(LineTok ln, Scope sc) {
     tokens = ln.tokens;
     allToken = ln;
     this.sc = sc;
   }
-  
-  
-  
+
+
+
   private void printlvl(Object... args) {
     if (!Main.debug) return;
     Main.printdbg(sc, Main.repeat("  ", Main.printlvl), args);
@@ -69,7 +69,7 @@ public class Exec {
             && left.get(ptr - 2) instanceof NameTok) ptr -= 2;
           else break;
         }
-        String[] names = new String[(left.size() - ptr >> 1) + 1];
+        std::string[] names = new std::string[(left.size() - ptr >> 1) + 1];
         names[names.length - 1] = ((NameTok) t).name;
         for (int i = names.length - 2; i >= 0; i--) {
           OpTok dot = (OpTok) left.pop();
@@ -77,7 +77,7 @@ public class Exec {
           NameTok name = (NameTok) left.pop();
           names[i] = name.name;
         }
-        
+
         if (Main.debug) printlvl("dotnot", Arrays.toString(names)); // todo fix (m).a (m).b0
         Obj d = null;
         Settable r = sc.getVar(names[0]);
@@ -104,7 +104,7 @@ public class Exec {
         } else if (d == null) throw new SyntaxError("what?");
         c = d;
         if (Main.debug) printlvl(llToString());
-        
+
       } else {
         c = valueOf(t);
       }
@@ -127,16 +127,16 @@ public class Exec {
       else addS(VarArr.of(arr));
     }
     update(true);
-    
-    
+
+
     Main.printlvl--;
     if (Main.debug) printlvl("END:", llToString());
     if (llSize != 1) {
       if (llSize == 0) return null;
       if (pollS().token != null) Main.faulty = pollS().token;
       // try to figure out what went wrong
-      
-      
+
+
       for (Node cn = LN.l; cn != FN; cn = cn.l) {
         Obj obj = cn.val;
         if (obj instanceof Variable) {
@@ -147,13 +147,13 @@ public class Exec {
           if (settable.getOrThis() == obj) throw new SyntaxError("Couldn't find the value of " + obj, obj);
         }
       }
-      
+
       // oh well that failed
       throw new SyntaxError("Failed to parse expression", pollL());
     }
     return pollS();
   }
-  private void update(boolean end) {
+  private void update(bool end) {
     if (llSize == 1 && pollS() == null) return;
     while (llSize != 1) {
       if (Main.debug) printlvl(llToString());
@@ -221,9 +221,9 @@ public class Exec {
         var w = firstVar();
         addFirst(w.get());
       }
-      
+
       if (llSize>2 && LN.l.l.type=='←') {
-        if (is(new String[]{"D!|V←[#NFMD]","#←[#NFMDV]","D!|D←D","D!|M←M","D!|F←F","D!|N←N"}, end, false)) { // "D!|.←." to allow changing type
+        if (is(new std::string[]{"D!|V←[#NFMD]","#←[#NFMDV]","D!|D←D","D!|M←M","D!|F←F","D!|N←N"}, end, false)) { // "D!|.←." to allow changing type
           if (Main.debug) printlvl("N←.");
           var w = lastObj();
           var s = (AbstractSet) popE(); // ←
@@ -247,7 +247,7 @@ public class Exec {
           continue;
         }
       }
-  
+
       if (llSize == 2 && is("F←", false, false)) {
         if (Main.debug) printlvl("F←");
         var s0 = popE(); // ←
@@ -257,7 +257,7 @@ public class Exec {
         addE(new DerivedSet(s, f));
         continue;
       }
-      
+
       if (is("!D|[FN]M", end, true)) {
         if (Main.debug) printlvl("FM");
         var f = firstObj();
@@ -327,7 +327,7 @@ public class Exec {
       else throw new SyntaxError("creating an atop with "+g.humanType(true), g);
     }
   }
-  
+
   private Value lastVal() {
     var r = popE();
     if (r instanceof Settable) r = ((Settable) r).get();
@@ -335,14 +335,14 @@ public class Exec {
     if (r instanceof VarArr) return ((VarArr) r).get();
     throw new SyntaxError("Expected value, got "+r, r);
   }
-  
+
   private Fun lastFun() {
     var r = popE();
     if (r instanceof Settable) r = ((Settable) r).get();
     if (r instanceof Fun) return (Fun) r;
     throw new SyntaxError("Expected function, got "+r, r);
   }
-  
+
   private Value firstVal() {
     var r = popB();
     if (r instanceof Settable) r = ((Settable) r).get();
@@ -356,7 +356,7 @@ public class Exec {
     if (r instanceof Dop) return (Dop) r;
     throw new SyntaxError("Expected dop, got "+r, r);
   }
-  
+
   private Obj lastObj() {
     var r = popE();
     if (r instanceof Settable) r = ((Settable) r).get();
@@ -383,10 +383,10 @@ public class Exec {
   private void addFirst(Obj o) {
     addB(o);
   }
-  
-  
-  
-  
+
+
+
+
   private int llSize;
   private Obj popS() {
     llSize--;
@@ -469,15 +469,15 @@ public class Exec {
       r.l = l;
       return val;
     }
-    public String toString() {
+    public std::string toString() {
       // return hashCode()+"{"+l.hashCode()+"; "+r.hashCode()+"}\n";
       return val==null? "null" : val.toString();
     }
   }
-  private String llToString() {
+  private std::string llToString() {
     StringBuilder r = new StringBuilder("[");
     Node c = FN.r;
-    boolean first = true;
+    bool first = true;
     while (c != LN) {
       if (first) first = false;
       else r.append(", ");
@@ -486,19 +486,19 @@ public class Exec {
     }
     return r.append("]").toString();
   }
-  
-  
-  
-  
-  private boolean is(String[] pts, boolean everythingDone, boolean fromStart) {
-    for (String pt : pts) if (is(pt, everythingDone, fromStart)) return true;
+
+
+
+
+  private bool is(std::string[] pts, bool everythingDone, bool fromStart) {
+    for (std::string pt : pts) if (is(pt, everythingDone, fromStart)) return true;
     return false;
   }
   private Node barNode;
-  private boolean is(String pt, boolean everythingDone, boolean fromStart) {
+  private bool is(std::string pt, bool everythingDone, bool fromStart) {
     return is(pt, everythingDone, fromStart, 4);
   }
-  private boolean is(String pt, boolean everythingDone, boolean fromStart, int am) {
+  private bool is(std::string pt, bool everythingDone, bool fromStart, int am) {
     if(!fromStart && llSize > am) return false;
     if (everythingDone && is(pt, false, fromStart)) return true;
     if (fromStart && everythingDone) {
@@ -508,12 +508,12 @@ public class Exec {
     }
     int len = pt.length();
     int ptrinc = fromStart ? 1 : -1;
-    boolean pass = false;
+    bool pass = false;
     barNode = FN.r;
     Node cn = fromStart? FN.r : LN.l;
     for (int i = fromStart ? 0 : len - 1; fromStart ? i<len : i>=0; i += ptrinc) {
       char p = pt.charAt(i);
-      boolean inv = false;
+      bool inv = false;
       if (p == '|') {
         pass = everythingDone;
         barNode = cn;
@@ -536,11 +536,11 @@ public class Exec {
         cn = fromStart? cn.r : cn.l;
         continue;
       }
-      
+
       char type = cn.type;
       if (p == ']') { // regular guaranteed
         i--;
-        boolean nf = true;
+        bool nf = true;
         while (true) {
           char c = pt.charAt(i);
           if (c == '[') break;
@@ -550,7 +550,7 @@ public class Exec {
         if (nf) return false; // no inv for []s!
       } else if (p == '[') { // reverse guaranteed
         i++;
-        boolean nf = true;
+        bool nf = true;
         while (true) {
           char c = pt.charAt(i);
           if (c == ']') break;
@@ -565,13 +565,13 @@ public class Exec {
     }
     return true;
   }
-  
+
   private Obj valueOf(Token t) {
     Obj o = valueOfRaw(t);
     o.token = t;
     return o;
   }
-  
+
   private Obj valueOfRaw(Token t) {
     if (t instanceof OpTok) {
       OpTok t1 = (OpTok) t;
@@ -598,7 +598,7 @@ public class Exec {
         case '~': return new TildeBuiltin();
         case '○': return new TrigBuiltin();
         case '!': return new ExclBuiltin();
-        
+
         case '∊': return new EpsilonBuiltin();
         case '⍷': return new FindBuiltin();
         case '⊂': return new LShoeBuiltin();
@@ -622,7 +622,7 @@ public class Exec {
         case '⍉': return new TransposeBuiltin();
         case '⊖': return new FlipBuiltin();
         case '⌽': return new ReverseBuiltin();
-        
+
         case '…': return new EllipsisBuiltin();
         case '⍮': return new SemiUBBuiltin();
         case '⍕': return new FormatBuiltin();
@@ -633,7 +633,7 @@ public class Exec {
         case '⍀': return new ExpandBuiltin();
         case '⍧': return new LShoeStileBuiltin();
         case '%': return new MergeBuiltin(sc);
-        
+
         // comparisons
         case '<': return new LTBuiltin();
         case '≤': return new LEBuiltin();
@@ -641,7 +641,7 @@ public class Exec {
         case '≥': return new GEBuiltin();
         case '>': return new GTBuiltin();
         case '≠': return new NEBuiltin();
-        
+
         // mops
         case '/': return new ReduceBuiltin();
         case '\\':return new ScanBuiltin();
@@ -653,7 +653,7 @@ public class Exec {
         case '⍩':
         case 'ᐵ': return new EachLeft();
         case 'ᑈ': return new EachRight();
-        
+
         // dops
         case '∘': return new JotBuiltin();
         case '⍛': return new JotUBBuiltin();
@@ -665,8 +665,8 @@ public class Exec {
         case '⍢': return new DualBuiltin();
         case '@': return new AtBuiltin(sc);
         case '⍫': return new ObverseBuiltin();
-        
-        
+
+
         case '⍬': return new DoubleArr(DoubleArr.EMPTY);
         case '⎕': return new Quad(sc);
         case '⍞': return new QuoteQuad(sc);
@@ -700,13 +700,13 @@ public class Exec {
           Token name = ct.tokens.get(0);
           if (ct.colonPos() ==-1) throw new SyntaxError("expected a colon in expression", ct.tokens.get(0));
           if (ct.colonPos() != 1) throw new SyntaxError("expected : to be the 2nd token in parenthesis", ct.tokens.get(ct.colonPos()));
-          String key;
+          std::string key;
           if (name instanceof NameTok) key = ((NameTok) name).name;
           else if (name instanceof StrTok) key = ((StrTok) name).parsed;
           else if (name instanceof ChrTok) key = ((ChrTok) name).parsed;
           else throw new SyntaxError("expected a key name, got " + name.toRepr(), name);
           List<Token> tokens = ct.tokens.subList(2, ct.tokens.size());
-          
+
           Obj val = Main.exec(LineTok.inherit(tokens), nsc);
           res.setStr(key, val);
         }

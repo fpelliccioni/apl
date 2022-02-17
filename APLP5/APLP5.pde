@@ -3,7 +3,7 @@ import java.io.UnsupportedEncodingException;
 static final Null NULL = Null.NULL;
 Scope global;
 APLP5 thisobj = this;
-boolean inSettings = false;
+bool inSettings = false;
 APLGraphics mainGraphics;
 P5 p5;
 void settings() {
@@ -11,7 +11,7 @@ void settings() {
   mainGraphics = new APLGraphics();
   inSettings = true;
   if (args == null) args = new String[]{"ma"};
-  
+
   global = new Scope();
   String s;
   try {

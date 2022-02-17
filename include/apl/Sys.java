@@ -11,26 +11,26 @@ import java.nio.file.*;
 public abstract class Sys {
   public Scope gsc; // global/top-level scope
   public Scope csc; // current scope in which things happen
-  public boolean ln;
-  public String cd;
-  
+  public bool ln;
+  public std::string cd;
+
   public Sys() {
     gsc = csc = new Scope(this);
     Path p = Paths.get(".").toAbsolutePath().normalize();
     cd = p.toString();
   }
-  
-  public void ucmd(String cr) {
-    String[] parts = cr.split(" ");
-    String t = parts[0].toUpperCase();
-    String rest = parts.length==1? "" : cr.substring(t.length()+1);
+
+  public void ucmd(std::string cr) {
+    std::string[] parts = cr.split(" ");
+    std::string t = parts[0].toUpperCase();
+    std::string rest = parts.length==1? "" : cr.substring(t.length()+1);
     switch (t) {
       case "OFF": case "EXIT": case "STOP":
         if (rest.length()==0) off(0);
         else off(Main.vexec(rest, csc).asInt());
         break;
       case "EX":
-        String full = cr.substring(cr.indexOf(" ")+1);
+        std::string full = cr.substring(cr.indexOf(" ")+1);
         execFile(path(cd, full), gsc);
         break;
       case "DEBUG":
@@ -69,8 +69,8 @@ public abstract class Sys {
         throw new SyntaxError("Undefined user command");
     }
   }
-  
-  public static Path path(String path, String s) {
+
+  public static Path path(std::string path, std::string s) {
     if (path == null) {
       Path p = Paths.get(s);
       if (!p.isAbsolute()) throw new DomainError("Expected code outside files to only use absolute paths");
@@ -78,17 +78,17 @@ public abstract class Sys {
     }
     return Paths.get(path).resolve(s).toAbsolutePath().normalize();
   }
-  
-  public String[] split(Path p) {
+
+  public std::string[] split(Path p) {
     p = p.toAbsolutePath().normalize();
-    return new String[]{p.getParent().toString()+"/", p.getFileName().toString()};
+    return new std::string[]{p.getParent().toString()+"/", p.getFileName().toString()};
   }
   public Obj execFile(Path path, Scope sc) {
-    String code = Main.readFile(path);
+    std::string code = Main.readFile(path);
     return Main.exec(code, sc);
   }
-  
-  public void line(String s) {
+
+  public void line(std::string s) {
     if (s.startsWith(")")) {
       ucmd(s.substring(1));
     } else {
@@ -96,8 +96,8 @@ public abstract class Sys {
       if (res!=null) println(res);
     }
   }
-  
-  public void lineCatch(String s) {
+
+  public void lineCatch(std::string s) {
     try {
       line(s);
     } catch (Throwable t) { report(t); }
@@ -106,19 +106,19 @@ public abstract class Sys {
     Main.lastError = t instanceof APLError? (APLError) t : new ImplementationError(t);
     Main.lastError.print(this);
   }
-  
-  
-  public abstract void println(String s); // may contain newlines
-  public abstract void print(String s);
-  public /*open*/ void colorprint(String s, int col) {
+
+
+  public abstract void println(std::string s); // may contain newlines
+  public abstract void print(std::string s);
+  public /*open*/ void colorprint(std::string s, int col) {
     println(s);
   }
   public abstract void off(int code);
-  
-  
+
+
   public /*open*/ void println(Obj v) {
     println(v.toString());
   }
-  
-  public abstract String input();
+
+  public abstract std::string input();
 }

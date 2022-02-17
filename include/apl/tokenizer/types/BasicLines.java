@@ -3,13 +3,13 @@ package APL.tokenizer.types;
 import java.util.ArrayList;
 
 public class BasicLines extends TokArr<LineTok> {
-  public BasicLines(String line, int spos, int epos, ArrayList<LineTok> tokens) {
+  public BasicLines(std::string line, int spos, int epos, ArrayList<LineTok> tokens) {
     super(line, spos, epos, tokens);
   }
-  
-  @Override public String toRepr() {
+
+  @Override public std::string toRepr() {
     StringBuilder s = new StringBuilder();
-    boolean tail = false;
+    bool tail = false;
     for (var v : tokens) {
       if (tail) s.append("\n");
       s.append(v.toRepr());

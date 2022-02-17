@@ -7,11 +7,11 @@ import APL.types.dimensions.*;
 import APL.types.functions.Builtin;
 
 public class ReverseBuiltin extends Builtin implements DimMFn, DimDFn {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⌽";
   }
-  
-  
+
+
   public Value call(Value w, int dim) {
     return ((Arr) w).reverseOn(-dim-1);
   }
@@ -25,8 +25,8 @@ public class ReverseBuiltin extends Builtin implements DimMFn, DimDFn {
   public Value callInv(Value w) {
     return call(w);
   }
-  
-  
+
+
   public Value call(Value a, Value w) {
     if (a instanceof Primitive) return on(a.asInt(), w.rank-1, w);
     if (a.rank+1 != w.rank) throw new RankError("(1 + ⍴⍴⍺) ≠ ⍴⍴⍵", this);
@@ -62,19 +62,19 @@ public class ReverseBuiltin extends Builtin implements DimMFn, DimDFn {
       return Arr.create(res, w.shape);
     }
   }
-  
+
   @Override public Value call(Value a, Value w, DervDimFn dims) {
     int dim = dims.singleDim(w.rank);
     if (a instanceof Primitive) return on(a.asInt(), dim, w);
     throw new DomainError("A⌽[n]B not implemented for non-scalar A", this);
   }
-  
+
   @Override public Value callInvW(Value a, Value w) {
     return call(numM(MinusBuiltin.NF, a), w);
   }
-  
-  
-  
+
+
+
   public static Value on(int a, int dim, Value w) {
     if (w.ia==0) return w;
     if (a == 0) return w;

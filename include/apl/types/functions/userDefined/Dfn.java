@@ -45,9 +45,9 @@ public class Dfn extends Fun {
     if (res instanceof Settable) return ((Settable)res).get();
     return res;
   }
-  public String repr() {
+  public std::string repr() {
     return code.toRepr();
   }
-  
-  public String name() { return "dfn"; }
+
+  public std::string name() { return "dfn"; }
 }

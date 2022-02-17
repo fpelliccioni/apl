@@ -7,12 +7,12 @@ import APL.types.functions.*;
 import APL.types.functions.builtins.fns.UpArrowBuiltin;
 
 public class ObliqueBuiltin extends Mop {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⍁";
   }
-  
-  
-  
+
+
+
   public Value call(Obj f, Value w, DerivedMop derv) {
     if (w.rank != 2) throw new DomainError("⍁: ⍵ must be a rank 2 array", this, w);
     Fun ff = isFn(f);
@@ -23,9 +23,9 @@ public class ObliqueBuiltin extends Mop {
     int szm = Math.min(H, W);
     int ram = H + W - 1;
     if (ram <= 0) return new EmptyArr(EmptyArr.SHAPE0, w.safePrototype());
-    
+
     Value[] res = new Value[ram];
-    
+
     if (w.quickDoubleArr()) {
       double[] vals = w.asDoubleArr();
       double[][] rows = new double[ram][];
@@ -71,7 +71,7 @@ public class ObliqueBuiltin extends Mop {
         res[i] = v;
       }
     }
-    
+
     return UpArrowBuiltin.merge(res, new int[]{res.length}, this);
   }
 }

@@ -6,22 +6,22 @@ import APL.types.arrs.SingleItemArr;
 public class Null extends Primitive {
   public static final Null NULL = new Null();
   private Null() { }
-  
+
   @Override
-  public String toString() {
+  public std::string toString() {
     return "⎕NULL";
   }
-  
+
   @Override
   public Type type() {
     return Type.nul;
   }
-  
+
   @Override
   public Value ofShape(int[] sh) {
     return SingleItemArr.maybe(this, sh);
   }
-  
+
   @Override public int hashCode() {
     return 387678968; // random yay
   }

@@ -8,10 +8,10 @@ import APL.types.dimensions.*;
 import APL.types.functions.Builtin;
 
 public class UpArrowBuiltin extends Builtin implements DimDFn {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "↑";
   }
-  
+
   public Value call(Value w) {
     if (w instanceof Arr) {
       if (w instanceof DoubleArr || w instanceof ChrArr || w instanceof BitArr) return w;
@@ -19,18 +19,18 @@ public class UpArrowBuiltin extends Builtin implements DimDFn {
       return merge(subs, w.shape, this);
     } else return w;
   }
-  
+
   public static Value merge(Value[] vals, int[] sh, Tokenable blame) {
     if (vals.length == 0) return EmptyArr.SHAPE0N;
-  
+
     Value first = vals[0];
     int[] def = new int[first.rank];
     System.arraycopy(first.shape, 0, def, 0, def.length);
-    boolean allNums = true;
-    boolean eqShapes = true;
+    bool allNums = true;
+    bool eqShapes = true;
     for (Value v : vals) {
       if (v.rank != def.length) {
-        String msg = blame + ": expected equal ranks of items (shapes " + Main.formatAPL(first.shape) + " vs " + Main.formatAPL(v.shape) + ")";
+        std::string msg = blame + ": expected equal ranks of items (shapes " + Main.formatAPL(first.shape) + " vs " + Main.formatAPL(v.shape) + ")";
         if (blame instanceof Callable) throw new RankError(msg, (Callable) blame, v);
         else throw new RankError(msg, v);
       }
@@ -51,11 +51,11 @@ public class UpArrowBuiltin extends Builtin implements DimDFn {
     int[] resShape = new int[def.length + sh.length];
     System.arraycopy(sh, 0, resShape, 0, sh.length);
     System.arraycopy(def, 0, resShape, sh.length, def.length);
-  
+
     if (eqShapes) {
       if (allNums) {
         double[] res = new double[totalIA];
-      
+
         int i = 0;
         for (Value v : vals) {
           double[] da = v.asDoubleArr();
@@ -65,7 +65,7 @@ public class UpArrowBuiltin extends Builtin implements DimDFn {
         return new DoubleArr(res, resShape);
       }
       Value[] res = new Value[totalIA];
-    
+
       int i = 0;
       for (Value v : vals) {
         Value[] va = v.values();
@@ -74,10 +74,10 @@ public class UpArrowBuiltin extends Builtin implements DimDFn {
       }
       return Arr.create(res, resShape);
     }
-  
+
     if (allNums) {
       double[] res = new double[totalIA];
-    
+
       int i = 0;
       for (Value v : vals) {
         double[] c = v.asDoubleArr();
@@ -88,11 +88,11 @@ public class UpArrowBuiltin extends Builtin implements DimDFn {
         // automatic zero padding
         i+= subIA;
       }
-    
+
       return new DoubleArr(res, resShape);
     }
-  
-  
+
+
     Value[] res = new Value[totalIA];
     int i = 0;
     for (Value v : vals) {
@@ -103,10 +103,10 @@ public class UpArrowBuiltin extends Builtin implements DimDFn {
     }
     return Arr.create(res, resShape);
   }
-  
-  
-  
-  
+
+
+
+
   public Value call(Value a, Value w) {
     int[] gsh = a.asIntVec();
     if (gsh.length == 0) return w;
@@ -124,7 +124,7 @@ public class UpArrowBuiltin extends Builtin implements DimDFn {
     }
     return on(sh, off, w, this);
   }
-  
+
   public Value call(Value a, Value w, DervDimFn dims) {
     int[] axV = a.asIntVec();
     int[] axK = dims.dims(w.rank);
@@ -139,7 +139,7 @@ public class UpArrowBuiltin extends Builtin implements DimDFn {
     }
     return on(sh, off, w, this);
   }
-  
+
   public static Value on(int[] sh, int[] off, Value w, Callable blame) {
     int rank = sh.length;
     assert rank==off.length && rank==w.rank;
@@ -164,7 +164,7 @@ public class UpArrowBuiltin extends Builtin implements DimDFn {
       }
       if (w instanceof ChrArr) {
         char[] res = new char[l];
-        String ws = ((ChrArr) w).s;
+        std::string ws = ((ChrArr) w).s;
         ws.getChars(s, s+l, res, 0); // ≡ for (int i = 0; i < l; i++) res[i] = ws.charAt(s+i);
         return new ChrArr(res);
       }
@@ -174,7 +174,7 @@ public class UpArrowBuiltin extends Builtin implements DimDFn {
         System.arraycopy(wd, s, res, 0, l); // ≡ for (int i = 0; i < l; i++) res[i] = wd[s+i];
         return new DoubleArr(res);
       }
-      
+
       Value[] res = new Value[l];
       for (int i = 0; i < l; i++) res[i] = w.get(s+i);
       return Arr.create(res);
@@ -182,7 +182,7 @@ public class UpArrowBuiltin extends Builtin implements DimDFn {
     int ia = Arr.prod(sh);
     if (w instanceof ChrArr) {
       char[] arr = new char[ia];
-      String s = ((ChrArr) w).s;
+      std::string s = ((ChrArr) w).s;
       int i = 0;
       for (int[] index : new Indexer(sh, off)) {
         arr[i] = s.charAt(Indexer.fromShape(w.shape, index, 0));
@@ -208,10 +208,10 @@ public class UpArrowBuiltin extends Builtin implements DimDFn {
     }
     return Arr.create(arr, sh);
   }
-  
-  
-  
-  
+
+
+
+
   public Value underW(Obj o, Value a, Value w) {
     Value v = o instanceof Fun? ((Fun) o).call(call(a, w)) : (Value) o;
     return undo(a.asIntVec(), v, w, this);
@@ -237,7 +237,7 @@ public class UpArrowBuiltin extends Builtin implements DimDFn {
     int[] tmp = new int[e.length];
     for (int[] i : idx) {
       Value c;
-      boolean in = true;
+      bool in = true;
       for (int j = 0; j < e.length; j++) {
         int ep = e[j];
         int ip = i[j];
@@ -256,9 +256,9 @@ public class UpArrowBuiltin extends Builtin implements DimDFn {
         c = origW.simpleAt(i);
       }
       r[idx.pos()] = c;
-      
+
     }
-    
+
     return Arr.create(r, s);
   }
 }

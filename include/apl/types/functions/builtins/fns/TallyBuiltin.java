@@ -4,11 +4,11 @@ import APL.types.*;
 import APL.types.functions.Builtin;
 
 public class TallyBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "≢";
   }
-  
-  
+
+
   public Value call(Value w) {
     if (w.rank==0) return Num.ONE;
     return Num.of(w.shape[0]);

@@ -9,14 +9,14 @@ import APL.types.functions.*;
 import java.util.*;
 
 public class KeyBuiltin extends Mop {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⌸";
   }
-  
+
   public KeyBuiltin(Scope sc) {
     super(sc);
   }
-  
+
   public Value call(Obj f, Value w, DerivedMop derv) {
     Obj o = callObj(f, w, derv);
     if (o instanceof Value) return (Value) o;
@@ -57,7 +57,7 @@ public class KeyBuiltin extends Mop {
     }
     throw new DomainError("⌸: ⍶ must be a function or a map, was "+aa.humanType(true), derv, aa);
   }
-  
+
   public Value call(Obj aa, Value a, Value w, DerivedMop derv) {
     if (aa instanceof APLMap) {
       ((APLMap)aa).set(a, w);

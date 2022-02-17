@@ -6,10 +6,10 @@ import APL.types.functions.*;
 import APL.types.functions.builtins.fns.DepthBuiltin;
 
 public class OverBuiltin extends Dop {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⍥";
   }
-  
+
   public Value call(Obj aa, Obj ww, Value w, DerivedDop derv) {
     Fun aaf = isFn(aa, '⍶');
     if (ww instanceof Value) {
@@ -30,7 +30,7 @@ public class OverBuiltin extends Dop {
     Fun g = isFn(ww, '⍹');
     return g.callInv(f.callInvA(a, g.call(w)));
   }
-  
+
   public static Value on(Fun caller, Fun f, int d, Value w) {
     int ld = DepthBuiltin.lazy(w);
     if (ld==d || ld <= -d) {

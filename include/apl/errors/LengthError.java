@@ -3,13 +3,13 @@ package APL.errors;
 import APL.types.*;
 
 public class LengthError extends APLError {
-  // public LengthError(String s) {
+  // public LengthError(std::string s) {
   //   super(s);
   // }
-  public LengthError(String s, Tokenable fun) {
+  public LengthError(std::string s, Tokenable fun) {
     super(s, fun);
   }
-  public LengthError(String s, Callable fun, Tokenable cause) {
+  public LengthError(std::string s, Callable fun, Tokenable cause) {
     super(s, fun, cause);
   }
 }

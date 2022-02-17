@@ -2,10 +2,10 @@ static class APLField extends Drawable implements TextReciever {
   float tsz, chw;
   SyntaxHighlight hl;
   Theme th = aplTheme;
-  
+
   float extraH = 1.2;
   float xoff = 0;
-  
+
   APLField(int x, int y, int w, int h) {
     this(x, y, w, h, "");
   }
@@ -14,17 +14,17 @@ static class APLField extends Drawable implements TextReciever {
     line = text;
   }
   int tt = 0; // caret flicker timer
-  
+
   void modified() { } // for overriding
-  
+
   void redraw() {
     tsz = h/extraH;
     d.textSize(tsz);
     if (hl!=null) hl.g = d;
     chw = d.textWidth("H");
   }
-  boolean saveUndo = true;
-  boolean modified = false;
+  bool saveUndo = true;
+  bool modified = false;
   final int hsz = 300;
   final State[] history = new State[hsz];
   int hptr = 0; // points to the current modification
@@ -39,7 +39,7 @@ static class APLField extends Drawable implements TextReciever {
     float maxx = w*.8/chw > line.length()? 0 : (line.length() - 2)*chw;
     if (xoff < -maxx) xoff = (int) -maxx;
     if (xoff > 0) xoff = 0;
-    
+
     if (modified || saveUndo) {
       modified();
       hl = new SyntaxHighlight(line, th, d);
@@ -72,7 +72,7 @@ static class APLField extends Drawable implements TextReciever {
     }
     tt--;
     if (tt < 0) tt = 60;
-    
+
     float spx = x + max(d.textWidth(line.substring(0, sx)), 3) + xoff;
     float epx = x + max(d.textWidth(line.substring(0, ex)), 3) + xoff;
     float sy = y + h*.1;
@@ -90,14 +90,14 @@ static class APLField extends Drawable implements TextReciever {
     }
     endClip(d);
   }
-  
+
   String line;
   int sx;
   int ex;
-  boolean one() {
+  bool one() {
     return sx == ex;
   }
-  boolean apl() {
+  bool apl() {
     return true;
   }
   String allText() {
@@ -208,7 +208,7 @@ static class APLField extends Drawable implements TextReciever {
       //println(allText());
       //println(cx, cy);
       //cx--;
-    } 
+    }
     else if (s.equals("undo")) {
       hptr+= hsz-1;
       hptr%= hsz;

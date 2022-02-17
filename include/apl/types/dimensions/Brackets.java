@@ -6,31 +6,31 @@ import APL.types.*;
 import APL.types.functions.builtins.fns.UpArrowBuiltin;
 
 public class Brackets extends Callable {
-  
+
   public final Value val;
-  
+
   public Brackets(Value val) {
     super(null);
     this.val = val;
   }
-  
+
   public Integer toInt() {
     return val==null? null : val.asInt();
   }
   public int[] toInts() {
     return val==null? null : val.asIntVec();
   }
-  
+
   @Override
   public Type type() {
     return Type.dim;
   }
-  
+
   @Override
-  public String toString() {
+  public std::string toString() {
     return "["+val+"]";
   }
-  
+
   public static Obj of(BracketTok t, Scope sc) {
     if (t.array) {
       Value[] lns = new Value[t.tokens.size()];
@@ -46,5 +46,5 @@ public class Brackets extends Callable {
       return new Brackets(res);
     }
   }
-  
+
 }

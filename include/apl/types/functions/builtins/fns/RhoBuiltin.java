@@ -10,11 +10,11 @@ import java.util.Arrays;
 
 
 public class RhoBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⍴";
   }
-  
-  
+
+
   public Value call(Value w) {
     return Main.toAPL(w.shape);
   }
@@ -41,7 +41,7 @@ public class RhoBuiltin extends Builtin {
         } else throw new DomainError("⍴: shape contained "+v.humanType(true), this, v);
       }
     }
-    
+
     if (emptyPos != null) {
       if (w.ia % ia != 0) {
         StringBuilder b = new StringBuilder();
@@ -52,13 +52,13 @@ public class RhoBuiltin extends Builtin {
       sh[emptyPos] = w.ia/ia;
       return w.ofShape(sh);
     } else if (ia == w.ia) return w.ofShape(sh);
-    
+
     if (w.ia == 0) {
       return SingleItemArr.maybe(w.prototype(), sh);
-      
+
     } else if (w.scalar()) {
       return SingleItemArr.maybe(w.first(), sh);
-      
+
     } else if (w instanceof BitArr) {
       if (sh.length == 0 && !Main.enclosePrimitives) return w.get(0);
       BitArr wb = (BitArr) w;
@@ -81,7 +81,7 @@ public class RhoBuiltin extends Builtin {
       return new DoubleArr(res, sh);
     } else if (w instanceof ChrArr) {
       if (sh.length == 0 && !Main.enclosePrimitives) return w.get(0);
-      String inp = ((ChrArr) w).s;
+      std::string inp = ((ChrArr) w).s;
       char[] res = new char[ia];
       int p = 0;
       for (int i = 0; i < ia; i++) {
@@ -100,7 +100,7 @@ public class RhoBuiltin extends Builtin {
       return Arr.create(arr, sh);
     }
   }
-  
+
   public Value underW(Obj o, Value a, Value w) {
     Value v = o instanceof Fun? ((Fun) o).call(call(a, w)) : (Value) o;
     for (int i = 0; i < a.ia; i++) {
@@ -120,11 +120,11 @@ public class RhoBuiltin extends Builtin {
     System.arraycopy(w.values(), am, vs, am, vs.length-am);
     return Arr.createL(vs, w.shape);
   }
-  
+
   // public Value under(Obj o, Value w) {
   //   Value v = o instanceof Fun? ((Fun) o).call(call(w)) : (Value) o;
   //   int[] sh = v.asIntVec();
-  //   
+  //
   //   if (Arr.prod(sh) != w.ia) throw new DomainError("⍢⍴ expected equal amount of output & output items", this);
   //   return w.ofShape(sh);
   // }

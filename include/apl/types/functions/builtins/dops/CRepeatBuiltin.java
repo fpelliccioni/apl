@@ -7,21 +7,21 @@ import APL.types.functions.*;
 import java.util.ArrayList;
 
 public class CRepeatBuiltin extends Dop {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⍡";
   }
-  
+
   public CRepeatBuiltin(Scope sc) {
     super(sc);
   }
-  
+
   @Override public Value call(Obj aa, Obj ww, Value w, DerivedDop derv) {
     Fun aaf = isFn(aa, '⍶');
     if (ww instanceof Fun) {
       ArrayList<Value> res = new ArrayList<>();
       Value prev = w;
       res.add(prev);
-      
+
       Value next = aaf.call(prev);
       res.add(next);
       Fun wwf = (Fun) ww;

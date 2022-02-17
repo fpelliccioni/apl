@@ -6,14 +6,14 @@ import APL.types.arrs.DoubleArr;
 import APL.types.functions.Builtin;
 
 public class GradeUpBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⍋";
   }
-  
+
   public GradeUpBuiltin(Scope sc) {
     super(sc);
   }
-  
+
   public Value call(Value w) {
     double[] res = new double[w.ia];
     int IO = sc.IO;
@@ -23,6 +23,6 @@ public class GradeUpBuiltin extends Builtin {
     }
     return new DoubleArr(res);
   }
-  
+
   // TODO dyadic ⍋ & ⍒
 }

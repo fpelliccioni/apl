@@ -9,18 +9,18 @@ import java.util.ArrayList;
 
 
 public class EpsilonBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "∊";
   }
-  
-  
-  
+
+
+
   public Value call(Value w) {
     var res = new ArrayList<Value>();
     rec(res, w);
     return Arr.create(res);
   }
-  
+
   private void rec(ArrayList<Value> arr, Value v) {
     if (v instanceof Primitive) {
       arr.add(v);
@@ -31,14 +31,14 @@ public class EpsilonBuiltin extends Builtin {
       } else if (v.quickDoubleArr()) {
         for (double d : v.asDoubleArr()) arr.add(Num.of(d));
       } else if (v instanceof ChrArr) {
-        String s = ((ChrArr) v).s;
+        std::string s = ((ChrArr) v).s;
         for (int i = 0; i < s.length(); i++) {
           arr.add(Char.of(s.charAt(i)));
         }
       } else for (Value c : v) rec(arr, c);
     }
   }
-  
+
   public Value call(Value a, Value w) {
     if (a.scalar()) {
       Value a1 = a.first();
@@ -52,7 +52,7 @@ public class EpsilonBuiltin extends Builtin {
     BitArr.BA ba = new BitArr.BA(a.shape);
     for (int i = 0; i < a.ia; i++) {
       Value av = a.get(i);
-      boolean b = false;
+      bool b = false;
       for (Value v : w) {
         if (v.equals(av)) {
           b = true;
@@ -63,8 +63,8 @@ public class EpsilonBuiltin extends Builtin {
     }
     return ba.finish();
   }
-  
-  
+
+
   public Value under(Obj o, Value w) {
     Value v = o instanceof Fun? ((Fun) o).call(call(w)) : (Value) o;
     Value[] vs = v.values();

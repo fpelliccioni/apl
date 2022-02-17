@@ -9,16 +9,16 @@ import APL.types.functions.*;
 
 public class Dmop extends Mop {
   public final DfnTok code;
-  
-  @Override public String repr() {
+
+  @Override public std::string repr() {
     return code.toRepr();
   }
-  
+
   Dmop(DfnTok t, Scope sc) {
     super(sc);
     code = t;
   }
-  
+
   public Value call(Obj f, Value w, DerivedMop derv) {
     Obj o = callObj(f, w, derv);
     if (o instanceof Value) return (Value) o;
@@ -36,7 +36,7 @@ public class Dmop extends Mop {
     if (res instanceof Settable) return ((Settable)res).get();
     return res;
   }
-  
+
   public Value call(Obj f, Value a, Value w, DerivedMop derv) {
     Obj o = callObj(f, a, w, derv);
     if (o instanceof Value) return (Value) o;

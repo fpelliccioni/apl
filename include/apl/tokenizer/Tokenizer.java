@@ -9,34 +9,34 @@ import java.util.ArrayList;
 
 public class Tokenizer {
   private static final char[] validNames = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_∆".toCharArray();
-  private static final String ops = "⍺⍳⍴⍵!%*+,-./<=>?@\\^|~⍬⊢⊣⌷¨⍨⌿⍀≤≥≠∨∧÷×∊↑↓○⌈⌊∇∘⊂⊃∩∪⊥⊤⍱⍲⍒⍋⍉⌽⊖⍟⌹⍕⍎⍫⍪≡≢⍷→⎕⍞⍣⍶⍸⍹⌸⌺⍇⍢⍤⍁⍂⊆⊇⊙⌾⌻⌼⍃⍄⍅⍆⍈⍊⍌⍍⍏⍐⍑⍓⍔⍖⍗⍘⍚⍛⍜⍠⍡⍥⍦⍧⍩⍭⍮⍯⍰√‽⊗ϼ∍⋾…ᑈᐵ"; // stolen from https://bitbucket.org/zacharyjtaylor/rad/src/master/RAD_document.txt?fileviewer=file-view-default
-  private static boolean validNameStart(char c) {
+  private static final std::string ops = "⍺⍳⍴⍵!%*+,-./<=>?@\\^|~⍬⊢⊣⌷¨⍨⌿⍀≤≥≠∨∧÷×∊↑↓○⌈⌊∇∘⊂⊃∩∪⊥⊤⍱⍲⍒⍋⍉⌽⊖⍟⌹⍕⍎⍫⍪≡≢⍷→⎕⍞⍣⍶⍸⍹⌸⌺⍇⍢⍤⍁⍂⊆⊇⊙⌾⌻⌼⍃⍄⍅⍆⍈⍊⍌⍍⍏⍐⍑⍓⍔⍖⍗⍘⍚⍛⍜⍠⍡⍥⍦⍧⍩⍭⍮⍯⍰√‽⊗ϼ∍⋾…ᑈᐵ"; // stolen from https://bitbucket.org/zacharyjtaylor/rad/src/master/RAD_document.txt?fileviewer=file-view-default
+  private static bool validNameStart(char c) {
     for (char l : validNames) if (l == c) return true;
     return false;
   }
-  public static boolean validNameMid(char c) {
+  public static bool validNameMid(char c) {
     return validNameStart(c) || c >= '0' && c <= '9';
   }
   static class Line {
     final ArrayList<Token> ts;
-    final String line;
+    final std::string line;
     final int pos;
     Integer annoyingBacktickPos;
-    
-    Line(String line, int pos, ArrayList<Token> ts) {
+
+    Line(std::string line, int pos, ArrayList<Token> ts) {
       this.ts = ts;
       this.line = line;
       this.pos = pos;
     }
-    
-    Line(String line, int pos) {
+
+    Line(std::string line, int pos) {
       this(line, pos, new ArrayList<>());
     }
-    
+
     public int size() {
       return ts.size();
     }
-    
+
     public void add(Token r) {
       if (annoyingBacktickPos != null) {
         ts.add(new BacktickTok(line, annoyingBacktickPos, r.epos, r));
@@ -45,7 +45,7 @@ public class Tokenizer {
         ts.add(r);
       }
     }
-    
+
     LineTok tok() {
       if (annoyingBacktickPos != null) throw new SyntaxError("Nothing after backtick");
       int spos = size()==0? pos : ts.get(0).spos;
@@ -56,31 +56,31 @@ public class Tokenizer {
   static class Block { // temp storage of multiple lines
     final ArrayList<Line> a;
     final char b;
-    boolean hasDmd = false;
+    bool hasDmd = false;
     private final int pos;
-    
+
     Block(ArrayList<Line> a, char b, int pos) {
       this.a = a;
       this.b = b;
       this.pos = pos;
     }
-    public String toString() {
+    public std::string toString() {
       return "<"+a+","+b+">";
     }
   }
-  
-  public static BasicLines tokenize(String raw) {
+
+  public static BasicLines tokenize(std::string raw) {
     return tokenize(raw, false);
   }
-  
-  public static BasicLines tokenize(String raw, boolean pointless) { // pointless means unevaled things get tokens; mainly for syntax highlighting
+
+  public static BasicLines tokenize(std::string raw, bool pointless) { // pointless means unevaled things get tokens; mainly for syntax highlighting
     int li = 0;
     int len = raw.length();
-    
+
     var levels = new ArrayList<Block>();
     levels.add(new Block(new ArrayList<>(), '⋄', 0));
     levels.get(0).a.add(new Line(raw, 0, new ArrayList<>()));
-    
+
     for (int i = 0; i < len; li = i) {
       Block expr = levels.get(levels.size() - 1);
       ArrayList<Line> lines = expr.a;
@@ -88,7 +88,7 @@ public class Tokenizer {
       try {
         char c = raw.charAt(i);
         char next = i + 1 < len? raw.charAt(i + 1) : ' ';
-        String cS = String.valueOf(c);
+        std::string cS = std::string.valueOf(c);
         if (c == '(' || c == '{' || c == '[') {
           char match;
           switch (c) {
@@ -107,7 +107,7 @@ public class Tokenizer {
           levels.add(new Block(new ArrayList<>(), match, i));
           lines = levels.get(levels.size() - 1).a;
           lines.add(new Line(raw, i));
-          
+
           i++;
         } else if (c == ')' || c == '}' || c == ']') {
           Block closed = levels.remove(levels.size() - 1);
@@ -120,7 +120,7 @@ public class Tokenizer {
             throw new SyntaxError("mismatched parentheses of " + c + " and " + closed.b);
           }
           if (lines.size() > 0 && lines.get(lines.size() - 1).size() == 0) lines.remove(lines.size() - 1); // no trailing empties!!
-          
+
           var lineTokens = new ArrayList<LineTok>();
           for (Line ta : closed.a) lineTokens.add(ta.tok());
           Token r;
@@ -154,10 +154,10 @@ public class Tokenizer {
           i++;
           tokens.add(new NumTok(raw, li, i, Double.POSITIVE_INFINITY));
         } else if (c>='0' && c<='9' || c=='¯' || c=='.' && next>='0' && next<='9') {
-          boolean negative = c=='¯';
+          bool negative = c=='¯';
           if (negative) i++;
           int si = i;
-          boolean hasPoint = false;
+          bool hasPoint = false;
           while(i < len) {
             c = raw.charAt(i);
             if (hasPoint) {
@@ -172,13 +172,13 @@ public class Tokenizer {
           if (negative) f = -f;
           if (i < len) {
             c = raw.charAt(i);
-            boolean hasE = c=='e' | c=='E';
+            bool hasE = c=='e' | c=='E';
             if (hasE && i+1==len) throw new SyntaxError("unfinished number");
-            boolean hasExp = hasE && !validNameStart(raw.charAt(i+1));
+            bool hasExp = hasE && !validNameStart(raw.charAt(i+1));
             if (hasExp) {
               i++;
               c = raw.charAt(i);
-              boolean negExp = c == '¯';
+              bool negExp = c == '¯';
               if (negExp) i++;
               si = i;
               while (i < len) {
@@ -277,7 +277,7 @@ public class Tokenizer {
           if (c=='⋄' && pointless) tokens.add(new DiamondTok(raw, i));
           if (c=='⋄' || c=='\n') expr.hasDmd = true;
           if (c == ';') tokens.add(new SemiTok(raw, i, i + 1));
-          
+
           if (tokens.size() > 0) {
             lines.add(new Line(raw, li));
           }
@@ -292,8 +292,8 @@ public class Tokenizer {
         } else if (c == ' ' || c == '\t') {i++;} else {
           if (pointless) tokens.add(new ErrTok(raw, i, i + 1));
           else {
-            String hex = Integer.toHexString(c);
-            
+            std::string hex = Integer.toHexString(c);
+
             while(hex.length() < 4)
               //noinspection StringConcatenationInLoop \\ shut UUuuppp
               hex = "0"+hex;
@@ -319,7 +319,7 @@ public class Tokenizer {
       // else, attempt to recover
       while (levels.size() > 1) {
         Block closed = levels.remove(levels.size() - 1);
-        
+
         var lineTokens = new ArrayList<LineTok>();
         for (Line ta : closed.a) lineTokens.add(ta.tok());
         Token r;

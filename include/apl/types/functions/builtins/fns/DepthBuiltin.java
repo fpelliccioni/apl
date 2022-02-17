@@ -5,11 +5,11 @@ import APL.types.arrs.*;
 import APL.types.functions.Builtin;
 
 public class DepthBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "≡";
   }
-  
-  
+
+
   public static int lazy(Value w) {
     int depth = 0;
     while (!(w instanceof Primitive)) {
@@ -21,8 +21,8 @@ public class DepthBuiltin extends Builtin {
   public static int full(Value w) {
     if (w instanceof Primitive) return 0;
     if (w instanceof DoubleArr || w instanceof ChrArr || w instanceof BitArr) return 1;
-    boolean first = true;
-    boolean uneven = false;
+    bool first = true;
+    bool uneven = false;
     int sub = 0;
     for (Value v : w) {
       int cd = full(v);
@@ -41,7 +41,7 @@ public class DepthBuiltin extends Builtin {
     sub++;
     return uneven? -sub : sub;
   }
-  
+
   public Value call(Value w) {
     return Num.of(full(w));
   }

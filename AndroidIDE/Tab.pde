@@ -24,7 +24,7 @@ abstract static class Tab extends SimpleMap {
     }
   }
   String toString() { return "tab["+name()+"]"; }
-  boolean equals(Object o) { return this == o; }
+  bool equals(Object o) { return this == o; }
 }
 
 
@@ -36,16 +36,16 @@ static class REPL extends Tab {
   ArrayList<String> inputs = new ArrayList();
   String tmpSaved;
   int iptr = 0; // can be ==input.size()
-  boolean main;
+  bool main;
   final Interpreter it;
-  
+
   void addln(String s) {
     add(s+"\n");
   }
   void add(String s) {
     historyView.appendLns(s);
   }
-  
+
   REPL(String name, final Interpreter it) {
     this.it = it;
     this.name = name;
@@ -62,7 +62,7 @@ static class REPL extends Tab {
       public String input() {
         return "";
       }
-      public void inputMode(boolean enabled, boolean highlight) {
+      public void inputMode(bool enabled, bool highlight) {
         if (!enabled) input.th = errTheme;
         else if (highlight) input.th = it.theme();
         else input.th = whiteTheme;
@@ -75,7 +75,7 @@ static class REPL extends Tab {
       }
     };
     input = new APLField(0, 350, a.width, 40) {
-      boolean apl() {
+      bool apl() {
         return !(line.startsWith(":") || line.startsWith(")") || line.startsWith("]"));
       }
       void eval() {
@@ -85,7 +85,7 @@ static class REPL extends Tab {
         if (line.startsWith(":") || line.equals(")help") && it instanceof DzaimaAPL) {
           addln("  "+line);
           String cmd = line.substring(1);
-          int i = cmd.indexOf(" "); 
+          int i = cmd.indexOf(" ");
           String nm = i==-1? cmd : cmd.substring(0, i);
           final String arg = i==-1? "" : cmd.substring(i+1);
           if (nm.equals("hsz")) historyView.setSize(int(arg));
@@ -152,14 +152,14 @@ static class REPL extends Tab {
           //else if (nm.equals(""))
           return;
         }
-        
+
         it.sendLn(line);
       }
       void extraSpecial(String s) {
         if (s.equals("up")) {
           if (inputs.size() == 0) return;
           modified = true;
-          
+
           if (line.length() != 0 && iptr == inputs.size()) {
             tmpSaved = line;
           }
@@ -170,7 +170,7 @@ static class REPL extends Tab {
         } else if (s.equals("down")) {
           if (inputs.size() == 0) return;
           modified = true;
-          
+
           iptr++;
           if (iptr >= inputs.size()) {
             iptr = inputs.size();
@@ -295,7 +295,7 @@ static class Grapher extends Tab {
       }
     };
   }
-  
+
   void show() {
     int ih = int(isz*input.extraH);
     g.move(0, top, d.width, freey()-top-ih);

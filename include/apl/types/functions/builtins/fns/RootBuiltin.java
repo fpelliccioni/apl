@@ -4,12 +4,12 @@ import APL.types.*;
 import APL.types.functions.Builtin;
 
 public class RootBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "√";
   }
-  
-  
-  
+
+
+
   private static final NumMV NF = new NumMV() {
     public Value call(Num w) {
       return w.root(Num.NUMS[2]);
@@ -32,7 +32,7 @@ public class RootBuiltin extends Builtin {
   public Value callInv(Value w) {
     return numM(NFi, w);
   }
-  
+
   public static final D_NNeN DNF = new D_NNeN() {
     public double on(double a, double w) {
       return Math.pow(w, 1/a);
@@ -51,7 +51,7 @@ public class RootBuiltin extends Builtin {
   public Value call(Value a0, Value w0) {
     return numD(DNF, a0, w0);
   }
-  
+
   public Value callInvW(Value a, Value w) {
     return numD(StarBuiltin.DNF, w, a);
   }

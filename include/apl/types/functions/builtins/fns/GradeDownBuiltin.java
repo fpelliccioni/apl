@@ -6,14 +6,14 @@ import APL.types.arrs.DoubleArr;
 import APL.types.functions.Builtin;
 
 public class GradeDownBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⍒";
   }
-  
+
   public GradeDownBuiltin(Scope sc) {
     super(sc);
   }
-  
+
   public Value call(Value w) {
     double[] res = new double[w.ia];
     int IO = sc.IO;

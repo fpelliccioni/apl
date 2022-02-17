@@ -6,12 +6,12 @@ import APL.types.arrs.DoubleArr;
 import APL.types.functions.Builtin;
 
 public class TransposeBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⍉";
   }
-  
-  
-  
+
+
+
   public Value call(Value w) {
     if (w.scalar()) return w;
     if (w instanceof DoubleArr) {

@@ -3,13 +3,13 @@ package APL.errors;
 import APL.types.*;
 
 public class ImplementationError extends APLError {
-  public ImplementationError(String s) {
+  public ImplementationError(std::string s) {
     super(s);
   }
-  public ImplementationError(String s, Tokenable fun) {
+  public ImplementationError(std::string s, Tokenable fun) {
     super(s, fun);
   }
-  public ImplementationError(String s, Callable fun, Tokenable cause) {
+  public ImplementationError(std::string s, Callable fun, Tokenable cause) {
     super(s, fun, cause);
   }
   public ImplementationError(Throwable t) {

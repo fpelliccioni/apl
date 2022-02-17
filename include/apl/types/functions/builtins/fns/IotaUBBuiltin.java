@@ -9,10 +9,10 @@ import APL.types.functions.builtins.mops.ReduceBuiltin;
 
 public class IotaUBBuiltin extends Builtin {
   private static final Fun fn = new ReduceBuiltin().derive(new CeilingBuiltin());
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⍸";
   }
-  
+
   public IotaUBBuiltin(Scope sc) {
     super(sc);
   }
@@ -25,7 +25,7 @@ public class IotaUBBuiltin extends Builtin {
       }
       var sub = new double[sum];
       int p = 0;
-      
+
       if (w instanceof BitArr) {
         BitArr.BR r = ((BitArr) w).read();
         for (int i = 0; i < w.ia; i++) {

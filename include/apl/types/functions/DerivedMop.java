@@ -11,7 +11,7 @@ public class DerivedMop extends Fun {
     this.op = op;
     token = op.token;
   }
-  
+
   public Value call(Value w) {
     return op.call(aa, w, this);
   }
@@ -33,11 +33,11 @@ public class DerivedMop extends Fun {
   public Value callInvA(Value a, Value w) {
     return op.callInvA(aa, a, w);
   }
-  
-  @Override public String repr() {
+
+  @Override public std::string repr() {
     return op instanceof TableBuiltin? "∘."+aa.toString() : aa.toString()+op.repr();
   }
-  
+
   public Value under(Obj o, Value w) {
     return op.under(aa, o, w, this);
   }

@@ -7,12 +7,12 @@ import APL.types.arrs.BitArr;
 import APL.types.functions.Builtin;
 
 public class FindBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⍷";
   }
-  
-  
-  
+
+
+
   public Value call(Value a, Value w) {
     if (a.rank != w.rank) throw new RankError("⍷: argument ranks should be equal ("+a.rank+" ≠ "+w.rank+")", this, w);
     BitArr.BC bc = new BitArr.BC(w.shape);

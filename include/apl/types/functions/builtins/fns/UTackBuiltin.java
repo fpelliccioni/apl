@@ -8,27 +8,27 @@ import APL.types.functions.Builtin;
 import java.math.BigInteger;
 
 public class UTackBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⊥";
   }
-  
-  
-  
+
+
+
   public Value call(Value w) {
     return call(Num.NUMS[2], w);
   }
-  
+
   public Value callInv(Value w) {
     return DTackBuiltin.on(Num.NUMS[2], w, this);
   }
   public Value callInvW(Value a, Value w) {
     return DTackBuiltin.on(a, w, this);
   }
-  
+
   public Value call(Value a, Value w) {
     return on(a, w, this);
   }
-  
+
   public static Value on(Value a, Value w, Callable blame) {
     if (w.rank == 0) throw new DomainError("A⊥num is pointless", blame);
     if (a instanceof BigValue || a.first() instanceof BigValue || w.first() instanceof BigValue) {
@@ -65,14 +65,14 @@ public class UTackBuiltin extends Builtin {
         System.arraycopy(w.shape, 1, sh, 0, w.rank - 1);
         int layers = w.shape[0];
         double[] r = new double[w.ia / layers];
-        
+
         System.arraycopy(d, 0, r, 0, r.length);
         for (int i = 1; i < layers; i++) {
           for (int j = 0; j < r.length; j++) {
             r[j] = r[j]*base + d[j+r.length*i];
           }
         }
-        
+
         return new DoubleArr(r, sh);
       }
     } else {
@@ -83,7 +83,7 @@ public class UTackBuiltin extends Builtin {
       System.arraycopy(w.shape, 1, sh, 0, w.rank - 1);
       int layers = w.shape[0];
       double[] r = new double[w.ia/layers];
-      
+
       System.arraycopy(d, 0, r, 0, r.length);
       for (int i = 1; i < layers; i++) {
         double base = bases[i];

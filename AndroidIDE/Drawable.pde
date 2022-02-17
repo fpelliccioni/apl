@@ -1,7 +1,7 @@
 static class Drawable {
   int x, y;
   int w, h;
-  boolean visible;
+  bool visible;
   Drawable(int x, int y, int w, int h) {
     this.x = x;
     this.y = y;
@@ -49,10 +49,10 @@ static class Drawable {
     visible = false;
     x = y = w = h = -1111111;
   }
-  boolean mouseInMe() {
+  bool mouseInMe() {
     return a.mouseX > x && a.mouseY > y && a.mouseX < x+w && a.mouseY < y+h;
   }
-  boolean smouseIn() {
+  bool smouseIn() {
     return smouseX > x && smouseY > y && smouseX < x+w && smouseY < y+h;
   }
   void pasted(String s) {

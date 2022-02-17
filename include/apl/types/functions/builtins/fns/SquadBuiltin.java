@@ -8,20 +8,20 @@ import APL.types.functions.Builtin;
 import java.util.Arrays;
 
 public class SquadBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "⌷";
   }
-  
+
   public SquadBuiltin(Scope sc) {
     super(sc);
   }
-  
+
   public Value call(Value w) {
     if (w instanceof Arr) return w;
     if (w instanceof APLMap) return ((APLMap) w).kvPair();
     throw new DomainError("⍵ not array nor map", this, w);
   }
-  
+
   public Value call(Value a, Value w) {
     int[] p = a.asIntVec();
     int al = p.length;

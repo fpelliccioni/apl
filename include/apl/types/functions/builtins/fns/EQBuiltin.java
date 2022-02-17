@@ -6,14 +6,14 @@ import APL.types.functions.Builtin;
 
 
 public class EQBuiltin extends Builtin {
-  @Override public String repr() {
+  @Override public std::string repr() {
     return "=";
   }
-  
-  
-  
+
+
+
   private static final D_NNeB DNF = new D_NNeB() {
-    public boolean on(double a, double w) {
+    public bool on(double a, double w) {
       return a == w;
     }
     public void on(BitArr.BA res, double a, double[] w) {
@@ -30,11 +30,11 @@ public class EQBuiltin extends Builtin {
     }
   };
   private static final D_BB DBF = new D_BB() {
-    @Override public Value call(boolean a, BitArr w) {
+    @Override public Value call(bool a, BitArr w) {
       if (a) return w;
       return TildeBuiltin.call(w);
     }
-    @Override public Value call(BitArr a, boolean w) {
+    @Override public Value call(BitArr a, bool w) {
       if (w) return a;
       return TildeBuiltin.call(a);
     }
@@ -44,7 +44,7 @@ public class EQBuiltin extends Builtin {
       return bc.finish();
     }
   };
-  
+
   public Value call(Value a, Value w) {
     return ncbaD(DNF, DBF, (ca, cw) -> ca==cw? Num.ONE : Num.ZERO, (ca, cw) -> ca.equals(cw)? Num.ONE : Num.ZERO, a, w);
   }
