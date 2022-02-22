@@ -18,19 +18,19 @@ public class Tokenizer {
     return validNameStart(c) || c >= '0' && c <= '9';
   }
   static class Line {
-    final ArrayList<Token> ts;
+    finalstd::vector<Token> ts;
     final std::string line;
     final int pos;
     Integer annoyingBacktickPos;
 
-    Line(std::string line, int pos, ArrayList<Token> ts) {
+    Line(std::string line, int pos,std::vector<Token> ts) {
       this.ts = ts;
       this.line = line;
       this.pos = pos;
     }
 
     Line(std::string line, int pos) {
-      this(line, pos, new ArrayList<>());
+      this(line, pos, new std::vector<>());
     }
 
     public int size() {
@@ -54,12 +54,12 @@ public class Tokenizer {
     }
   }
   static class Block { // temp storage of multiple lines
-    final ArrayList<Line> a;
+    finalstd::vector<Line> a;
     final char b;
     bool hasDmd = false;
     private final int pos;
 
-    Block(ArrayList<Line> a, char b, int pos) {
+    Block(std::vector<Line> a, char b, int pos) {
       this.a = a;
       this.b = b;
       this.pos = pos;
@@ -77,13 +77,13 @@ public class Tokenizer {
     int li = 0;
     int len = raw.length();
 
-    var levels = new ArrayList<Block>();
-    levels.add(new Block(new ArrayList<>(), '⋄', 0));
-    levels.get(0).a.add(new Line(raw, 0, new ArrayList<>()));
+    auto levels = new std::vector<Block>();
+    levels.add(new Block(new std::vector<>(), '⋄', 0));
+    levels.get(0).a.add(new Line(raw, 0, new std::vector<>()));
 
     for (int i = 0; i < len; li = i) {
       Block expr = levels.get(levels.size() - 1);
-      ArrayList<Line> lines = expr.a;
+     std::vector<Line> lines = expr.a;
       Line tokens = lines.get(lines.size() - 1);
       try {
         char c = raw.charAt(i);
@@ -104,7 +104,7 @@ public class Tokenizer {
             default:
               throw new Error("this should really not happen");
           }
-          levels.add(new Block(new ArrayList<>(), match, i));
+          levels.add(new Block(new std::vector<>(), match, i));
           lines = levels.get(levels.size() - 1).a;
           lines.add(new Line(raw, i));
 
@@ -121,7 +121,7 @@ public class Tokenizer {
           }
           if (lines.size() > 0 && lines.get(lines.size() - 1).size() == 0) lines.remove(lines.size() - 1); // no trailing empties!!
 
-          var lineTokens = new ArrayList<LineTok>();
+          auto lineTokens = new std::vector<LineTok>();
           for (Line ta : closed.a) lineTokens.add(ta.tok());
           Token r;
           switch (c) {
@@ -144,7 +144,7 @@ public class Tokenizer {
         } else if (validNameStart(c) || c == '⎕' && validNameStart(next)) {
           i++;
           while (i < len && validNameMid(raw.charAt(i))) i++;
-          var name = raw.substring(li, i);
+          auto name = raw.substring(li, i);
           if (c == '⎕') name = name.toUpperCase();
           tokens.add(new NameTok(raw, li, i, name));
         } else if (c=='¯' && next=='∞') {
@@ -320,7 +320,7 @@ public class Tokenizer {
       while (levels.size() > 1) {
         Block closed = levels.remove(levels.size() - 1);
 
-        var lineTokens = new ArrayList<LineTok>();
+        auto lineTokens = new std::vector<LineTok>();
         for (Line ta : closed.a) lineTokens.add(ta.tok());
         Token r;
         switch (closed.b) {
@@ -336,14 +336,14 @@ public class Tokenizer {
           default:
             throw new Error("this should really not happen "+closed.b);
         }
-        var lines = levels.get(levels.size() - 1).a;
+        auto lines = levels.get(levels.size() - 1).a;
         Line tokens = lines.get(lines.size() - 1);
         tokens.add(r);
       }
     }
-    var lines = levels.get(0).a;
+    auto lines = levels.get(0).a;
     if (lines.size() > 0 && lines.get(lines.size()-1).size() == 0) lines.remove(lines.size()-1); // no trailing empties!!
-    var expressions = new ArrayList<LineTok>();
+    auto expressions = new std::vector<LineTok>();
     for (Line line : lines) {
       expressions.add(line.tok());
     }

@@ -15,7 +15,7 @@ public abstract class Dop extends Callable {
 
   @Override
   public Type type() {
-    return Type.dop;
+    return Type::dop;
   }
 
   public DerivedDop derive(Obj aa, Obj ww) {

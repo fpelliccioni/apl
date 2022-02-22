@@ -19,7 +19,7 @@ public class QuoteQuad extends Settable {
     return Main.toAPL(sc.sys.input());
   }
   public Type type() {
-    return Type.gettable;
+    return Type::gettable;
   }
 
   public std::string toString() {

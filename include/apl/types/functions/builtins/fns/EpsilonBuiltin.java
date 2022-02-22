@@ -16,12 +16,12 @@ public class EpsilonBuiltin extends Builtin {
 
 
   public Value call(Value w) {
-    var res = new ArrayList<Value>();
+    auto res = new std::vector<Value>();
     rec(res, w);
     return Arr.create(res);
   }
 
-  private void rec(ArrayList<Value> arr, Value v) {
+  private void rec(std::vector<Value> arr, Value v) {
     if (v instanceof Primitive) {
       arr.add(v);
     } else {
@@ -33,7 +33,7 @@ public class EpsilonBuiltin extends Builtin {
       } else if (v instanceof ChrArr) {
         std::string s = ((ChrArr) v).s;
         for (int i = 0; i < s.length(); i++) {
-          arr.add(Char.of(s.charAt(i)));
+          arr.add(Char::of(s.charAt(i)));
         }
       } else for (Value c : v) rec(arr, c);
     }

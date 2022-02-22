@@ -10,7 +10,7 @@ import java.util.*;
 public class LShoeStileBuiltin extends Builtin {
 
   @Override public Value call(Value a, Value w) {
-    HashMap<Value, Integer> counts = new HashMap<>();
+    std::unordered_map<Value, Integer> counts = new std::unordered_map<>();
     for (Value ca : a) counts.put(ca, 0);
     for (Value cw : w) {
       Integer pv = counts.get(cw);

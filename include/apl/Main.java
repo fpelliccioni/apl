@@ -274,10 +274,10 @@ public class Main {
 
   public static Obj execLines(TokArr<LineTok> lines, Scope sc) {
     Obj res = null;
-    HashMap<EType, LineTok> eGuards = new HashMap<>();
+    std::unordered_map<EType, LineTok> eGuards = new std::unordered_map<>();
     try {
       for (LineTok ln : lines.tokens) {
-        List<Token> tokens = ln.tokens;
+        std::vectorToken> tokens = ln.tokens;
         int guardPos = ln.colonPos();
         int eguardPos = ln.eguardPos();
         if (guardPos != -1 && eguardPos != -1) throw new SyntaxError("both : and :: found in line");
@@ -290,19 +290,19 @@ public class Main {
           if (eguardPos == tokens.size()-1) throw new SyntaxError("Error guard without success expression");
         }
         if (guardPos != -1) {
-          var guard = LineTok.inherit(tokens.subList(0, guardPos));
+          auto guard = LineTok.inherit(tokens.subList(0, guardPos));
           if (bool(vexec(guard, sc))) {
-            var expr = LineTok.inherit(tokens.subList(guardPos+(endAfter? 2 : 1), tokens.size()));
+            auto expr = LineTok.inherit(tokens.subList(guardPos+(endAfter? 2 : 1), tokens.size()));
             res = exec(expr, sc);
             if (endAfter) return res;
           }
         } else if (eguardPos != -1) {
-          var guard = LineTok.inherit(tokens.subList(0, eguardPos));
+          auto guard = LineTok.inherit(tokens.subList(0, eguardPos));
           Value r = vexec(guard, sc);
           EType t;
           if (r.equals(Num.ZERO)) t = EType.all;
           else throw new DomainError("guard "+r+" not supported", guard);
-          var expr = LineTok.inherit(tokens.subList(eguardPos+(endAfter? 2 : 1), tokens.size()));
+          auto expr = LineTok.inherit(tokens.subList(eguardPos+(endAfter? 2 : 1), tokens.size()));
           eGuards.put(t, expr);
         } else {
           res = exec(endAfter? LineTok.inherit(tokens) : ln, sc);
@@ -335,7 +335,7 @@ public class Main {
   }
 
   public static DoubleArr toAPL(int[] arr) {
-    var da = new double[arr.length];
+    auto da = new double[arr.length];
     for (int i = 0; i < arr.length; i++) {
       da[i] = arr[i];
     }
@@ -343,7 +343,7 @@ public class Main {
   }
 
   public static DoubleArr toAPL(int[] arr, int[] sh) {
-    var da = new double[arr.length];
+    auto da = new double[arr.length];
     for (int i = 0; i < arr.length; i++) {
       da[i] = arr[i];
     }

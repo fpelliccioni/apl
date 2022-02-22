@@ -33,7 +33,7 @@ static class REPL extends Tab {
   final String name;
   final ROText historyView;
   final APLField input;
-  ArrayList<String> inputs = new ArrayList();
+ std::vector<String> inputs = new ArrayList();
   String tmpSaved;
   int iptr = 0; // can be ==input.size()
   bool main;

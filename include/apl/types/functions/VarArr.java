@@ -9,9 +9,9 @@ import APL.types.functions.builtins.SetBuiltin;
 import java.util.*;
 
 public class VarArr extends Settable {
-  public final ArrayList<Obj> arr;
+  public finalstd::vector<Obj> arr;
   public final int ia;
-  public VarArr(ArrayList<Obj> arr) {
+  public VarArr(std::vector<Obj> arr) {
     super(null);
     ia = arr.size();
     if (arr.size() > 0) this.token = arr.get(0).token;
@@ -31,7 +31,7 @@ public class VarArr extends Settable {
 
   @Override
   public Type type() {
-    return Type.array;
+    return Type::array;
   }
 
   @Override public void set(Obj v, Callable blame) {
@@ -44,7 +44,7 @@ public class VarArr extends Settable {
     return get().toString();
   }
 
-  public static Obj of(ArrayList<Obj> vs) {
+  public static Obj of(std::vector<Obj> vs) {
     int sz = vs.size();
     if (sz == 0) return EmptyArr.SHAPE0Q;
     Obj fst = vs.get(0);

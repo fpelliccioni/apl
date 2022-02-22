@@ -50,7 +50,7 @@ static class ROText extends Drawable {
     if (redraw) redraw();
   }
 
-  ArrayList<String> s;
+ std::vector<String> s;
   bool newline;
   void appendLns(String a) {
     redraw = true;
@@ -72,7 +72,7 @@ static class ROText extends Drawable {
     newline = true;
     redraw = true;
   }
-  void set(ArrayList<String> a) {
+  void set(std::vector<String> a) {
     s = a;
     yoff = h-border;
     xoff = 0;

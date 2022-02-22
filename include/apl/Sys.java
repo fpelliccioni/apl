@@ -37,10 +37,10 @@ public abstract class Sys {
         Main.debug = !Main.debug;
         break;
       case "QUOTE":
-        Main.quotestrings = !Main.quotestrings;
+        Config::quotestrings = !Config::quotestrings;
         break;
       case "LN":
-        if (rest.length()==0) Main.noBoxing^= true;
+        if (rest.length()==0) Config::noBoxing^= true;
         else println(Main.vexec(rest, csc).oneliner());
         break;
       case "TOKENIZE"    : println(Tokenizer.tokenize(rest).toTree("")); break;

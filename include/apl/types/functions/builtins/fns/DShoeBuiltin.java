@@ -14,12 +14,12 @@ public class DShoeBuiltin extends Builtin {
 
 
   public Value call(Value w) {
-    var res = new LinkedHashSet<Value>(Arrays.asList(w.values()));
+    auto res = new LinkedHashSet<Value>(Arrays.asList(w.values()));
     return Arr.create(res.toArray(new Value[0]));
   }
 
   public Value call(Value a, Value w) {
-    var m = new LinkedHashSet<Value>(Arrays.asList(a.values()));
+    auto m = new LinkedHashSet<Value>(Arrays.asList(a.values()));
     m.addAll(Arrays.asList(w.values()));
     return Arr.create(m.toArray(new Value[0]));
   }

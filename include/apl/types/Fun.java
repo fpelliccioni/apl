@@ -568,7 +568,7 @@ public abstract class Fun extends Callable {
 
   @Override
   public Type type() {
-    return Type.fn;
+    return Type::fn;
   }
 
 

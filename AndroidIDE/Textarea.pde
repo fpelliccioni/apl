@@ -106,7 +106,7 @@ static class APLTextarea extends Drawable implements TextReciever {
     endClip(d);
   }
 
-  ArrayList<String> lines;
+ std::vector<String> lines;
   int cx, cy;
   String allText() {
     String s = "";
@@ -260,8 +260,8 @@ static class APLTextarea extends Drawable implements TextReciever {
       this.cy = cy;
       this.code = code;
     }
-    ArrayList<String> lns() {
-      ArrayList<String> r = new ArrayList(Arrays.asList(split(code, "\n")));
+   std::vector<String> lns() {
+     std::vector<String> r = new ArrayList(Arrays.asList(split(code, "\n")));
       if (r.size() == 0) r.add("");
       return r;
     }

@@ -40,7 +40,7 @@ public class GTBuiltin extends Builtin {
   }
 
   public Value call(Value w) {
-    var order = w.gradeDown();
+    auto order = w.gradeDown();
     Value[] res = new Value[order.length];
     Arrays.setAll(res, i -> w.get(order[i]));
     return Arr.create(res);

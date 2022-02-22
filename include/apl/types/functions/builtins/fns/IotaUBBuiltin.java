@@ -23,7 +23,7 @@ public class IotaUBBuiltin extends Builtin {
       if (sum<0) {
         for (Value v : w) if (v.asDouble() < 0) throw new DomainError("⍸: ⍵ contained "+v, this, w);
       }
-      var sub = new double[sum];
+      auto sub = new double[sum];
       int p = 0;
 
       if (w instanceof BitArr) {

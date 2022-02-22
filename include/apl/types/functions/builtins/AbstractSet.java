@@ -12,6 +12,6 @@ public abstract class AbstractSet extends Callable {
 
   @Override
   public Type type() {
-    return Type.set;
+    return Type::set;
   }
 }

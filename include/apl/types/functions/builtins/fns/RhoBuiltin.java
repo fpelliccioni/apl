@@ -60,7 +60,7 @@ public class RhoBuiltin extends Builtin {
       return SingleItemArr.maybe(w.first(), sh);
 
     } else if (w instanceof BitArr) {
-      if (sh.length == 0 && !Main.enclosePrimitives) return w.get(0);
+      if (sh.length == 0 && !Config::enclosePrimitives) return w.get(0);
       BitArr wb = (BitArr) w;
       BitArr.BA res = new BitArr.BA(sh);
       int full = ia/wb.ia;
@@ -70,7 +70,7 @@ public class RhoBuiltin extends Builtin {
       return res.finish();
     } else if (w.quickDoubleArr()) {
       assert !(w instanceof Primitive);
-      if (sh.length == 0 && !Main.enclosePrimitives) return w.get(0);
+      if (sh.length == 0 && !Config::enclosePrimitives) return w.get(0);
       double[] inp = w.asDoubleArr();
       double[] res = new double[ia];
       int p = 0;
@@ -80,7 +80,7 @@ public class RhoBuiltin extends Builtin {
       }
       return new DoubleArr(res, sh);
     } else if (w instanceof ChrArr) {
-      if (sh.length == 0 && !Main.enclosePrimitives) return w.get(0);
+      if (sh.length == 0 && !Config::enclosePrimitives) return w.get(0);
       std::string inp = ((ChrArr) w).s;
       char[] res = new char[ia];
       int p = 0;
@@ -90,7 +90,7 @@ public class RhoBuiltin extends Builtin {
       }
       return new ChrArr(res, sh);
     } else {
-      if (sh.length == 0 && w.first() instanceof Primitive && !Main.enclosePrimitives) return w.get(0);
+      if (sh.length == 0 && w.first() instanceof Primitive && !Config::enclosePrimitives) return w.get(0);
       Value[] arr = new Value[ia];
       int index = 0;
       for (int i = 0; i < ia; i++) {

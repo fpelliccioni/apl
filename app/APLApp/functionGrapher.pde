@@ -17,8 +17,8 @@ void initFn() {
 }
 
 class Line {
-  ArrayList<Double> ptsx = new ArrayList<Double>();
-  ArrayList<Double> ptsy = new ArrayList<Double>();
+ std::vector<Double> ptsx = new std::vector<Double>();
+ std::vector<Double> ptsy = new std::vector<Double>();
   void add(double x, double y) {
     ptsx.add(x);
     ptsy.add(y);
@@ -102,7 +102,7 @@ void functionGrapher() {
       Point p = bg.v;
       if (mul > 1) {
 
-        ArrayList<Point> ps = new ArrayList<Point>();
+       std::vector<Point> ps = new std::vector<Point>();
         ps.add(split((p.x + p.pnode.next.v.x)/2, p.pnode, null));
         while (pq.size() > 0 && ps.size() < mul) {
           bg = pq.biggest();
@@ -149,7 +149,7 @@ void functionGrapher() {
   strokeWeight(ph);
   n = points.first();
   if (joined && n != points.end && n.next != points.end) {
-    ArrayList<Line> lns = new ArrayList<Line>();
+   std::vector<Line> lns = new std::vector<Line>();
     n = n.next;
     while (n != points.end) {
       LLNode<Point> p = n.prev;

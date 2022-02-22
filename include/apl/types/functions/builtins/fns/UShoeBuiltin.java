@@ -13,7 +13,7 @@ public class UShoeBuiltin extends Builtin {
 
 
   public Value call(Value a, Value w) {
-    var res = new ArrayList<Value>();
+    auto res = new std::vector<Value>();
     HashSet<Value> ws = new HashSet<>(Arrays.asList(w.values()));
     for (Value v : a) if (ws.contains(v)) res.add(v);
     return Arr.create(res);

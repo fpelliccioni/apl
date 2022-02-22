@@ -54,7 +54,7 @@ public class RandBuiltin extends Builtin {
 
   public Value call(Value a, Value w) {
     int IO = sc.IO;
-    ArrayList<Integer> vs = new ArrayList<>(w.ia);
+   std::vector<Integer> vs = new std::vector<>(w.ia);
     int wi = w.asInt();
     int ai = a.asInt();
     for (int i = 0; i < wi; i++) {

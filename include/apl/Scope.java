@@ -16,7 +16,7 @@ import java.util.*;
 
 
 public class Scope {
-  public final HashMap<std::string, Obj> vars = new HashMap<>();
+  public final std::unordered_map<std::string, Obj> vars = new std::unordered_map<>();
   public final Sys sys;
   private Scope parent = null;
   public bool alphaDefined;
@@ -42,7 +42,7 @@ public class Scope {
     else return parent.owner(name);
   }
 
-  public void update(std::string name, Obj val) { // sets wherever var already exists
+  public void update(std::string name, Obj val) { // sets wherever auto already exists
     Scope sc = owner(name);
     if (sc == null) sc = this;
     sc.set(name, val);
@@ -57,7 +57,7 @@ public class Scope {
           nIO = IO==0? Num.ZERO : Num.ONE;
           break;
         case "⎕BOXSIMPLE":
-          Main.enclosePrimitives = ((Value) val).asInt() == 1;
+          Config::enclosePrimitives = ((Value) val).asInt() == 1;
           break;
         case "⎕VI":
           Main.vind = Main.bool(val);
@@ -105,7 +105,7 @@ public class Scope {
         case "⎕HASH": return new Hasher();
         case "⎕IO": return nIO;
         case "⎕VI": return Main.vind? Num.ONE : Num.ZERO;
-        case "⎕BOXSIMPLE": return Main.enclosePrimitives? Num.ONE : Num.ZERO;
+        case "⎕BOXSIMPLE": return Config::enclosePrimitives? Num.ONE : Num.ZERO;
         case "⎕CLASS": return new ClassGetter();
         case "⎕PP": return new DoubleArr(new double[] {Num.pp, Num.sEr, Num.eEr});
         case "⎕PFX": return new Profiler(this);
@@ -185,7 +185,7 @@ public class Scope {
 
       @Override
       public Value ofShape(int[] sh) {
-        return SingleItemArr.maybe(this, sh);
+        return SingleItemArr::maybe(this, sh);
       }
     }
   }
@@ -281,7 +281,7 @@ public class Scope {
     public Value call(Value w) {
       return numChrM(new NumMV() {
         @Override public Value call(Num c) {
-          return Char.of((char) c.asInt());
+          return Char::of((char) c.asInt());
         }
 
         @Override public bool retNum() {
@@ -305,19 +305,19 @@ public class Scope {
       if (w instanceof StrMap) {
         StrMap wm = (StrMap) w;
         // Scope sc;
-        // HashMap<std::string, Obj> vals;
+        // std::unordered_map<std::string, Obj> vals;
         // if (wm.sc == null) {
         //   sc = null;
-        //   vals = new HashMap<>(wm.vals);
+        //   vals = new std::unordered_map<>(wm.vals);
         // } else {
         //   sc = new Scope(wm.sc.parent);
         //   sc.vars.putAll(wm.vals);
         //   vals = sc.vars;
         // }
         // return new StrMap(sc, vals);
-        return new StrMap(new HashMap<>(wm.vals));
+        return new StrMap(new std::unordered_map<>(wm.vals));
       }
-      var map = new StrMap();
+      auto map = new StrMap();
       for (Value v : w) {
         if (v.rank != 1 || v.ia != 2) throw new RankError("⎕map: input pairs should be 2-item vectors", this, v);
         map.set(v.get(0), v.get(1));
@@ -330,7 +330,7 @@ public class Scope {
       if (a.rank != 1) throw new RankError("rank of ⍺ ≠ 1", this, a);
       if (w.rank != 1) throw new RankError("rank of ⍵ ≠ 1", this, w);
       if (a.ia != w.ia) throw new LengthError("both sides lengths should match", this, w);
-      var map = new StrMap();
+      auto map = new StrMap();
       for (int i = 0; i < a.ia; i++) {
         map.set(a.get(i), w.get(i));
       }
@@ -440,7 +440,7 @@ public class Scope {
 
 
           InputStream is = conn.getInputStream();
-          ArrayList<Value> vs = new ArrayList<>();
+         std::vector<Value> vs = new std::vector<>();
           try (BufferedReader rd = new BufferedReader(new InputStreamReader(is))) {
             std::string ln;
             while ((ln = rd.readLine()) != null) vs.add(Main.toAPL(ln));
@@ -584,12 +584,12 @@ public class Scope {
     @Override public Value call(Value w) {
       if (w instanceof Num) {
         int n = w.asInt();
-        ArrayList<Value> res = new ArrayList<>(n);
+       std::vector<Value> res = new std::vector<>(n);
         for (int i = 0; i < n; i++) res.add(Main.toAPL(Main.console.nextLine()));
         return new HArr(res);
       }
       if (w.ia == 0) {
-        ArrayList<Value> res = new ArrayList<>();
+       std::vector<Value> res = new std::vector<>();
         while (Main.console.hasNext()) res.add(Main.toAPL(Main.console.nextLine()));
         return new HArr(res);
       }
@@ -602,7 +602,7 @@ public class Scope {
       super(sc);
     }
 
-    static final HashMap<std::string, Pr> pfRes = new HashMap<>();
+    static final std::unordered_map<std::string, Pr> pfRes = new std::unordered_map<>();
     static Obj results() {
       Value[] arr = new Value[pfRes.size()*4+4];
       arr[0] = new ChrArr("expr");

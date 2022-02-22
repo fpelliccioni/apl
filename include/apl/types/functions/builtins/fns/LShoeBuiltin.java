@@ -16,11 +16,11 @@ public class LShoeBuiltin extends Builtin {
 
 
   public Value call(Value w) {
-    if (!Main.enclosePrimitives && w instanceof Primitive) return w;
+    if (!Config::enclosePrimitives && w instanceof Primitive) return w;
     return new Rank0Arr(w);
   }
   public static Value on(Value w) {
-    return !Main.enclosePrimitives && w instanceof Primitive? w : new Rank0Arr(w);
+    return !Config::enclosePrimitives && w instanceof Primitive? w : new Rank0Arr(w);
   }
 
   @Override public Value call(Value a, Value w) {
@@ -28,11 +28,11 @@ public class LShoeBuiltin extends Builtin {
     if (a.rank != 1) throw new DomainError("⊂: ⍺ should be of rank 1 ("+Main.formatAPL(a.shape)+" ≡ ⍴⍺)", this);
     if (a.ia+1 != w.ia) throw new LengthError("⊂: (1+≢⍺) ≡ ≢⍵ is required ("+Main.formatAPL(a.shape)+" ≡ ⍴⍺; "+Main.formatAPL(w.shape)+" ≡ ⍴⍵)", this);
     int[] aa = a.asIntVec();
-    ArrayList<Value> parts = new ArrayList<>();
+   std::vector<Value> parts = new std::vector<>();
 
     if (w.quickDoubleArr()) {
       double[] vals = w.asDoubleArr();
-      ArrayList<Double> cpart = new ArrayList<>();
+     std::vector<Double> cpart = new std::vector<>();
       for (int i = 0; i < aa.length; i++) {
         int am = aa[i];
         cpart.add(vals[i]);
@@ -46,7 +46,7 @@ public class LShoeBuiltin extends Builtin {
       parts.add(new DoubleArr(cpart));
     } else {
       Value[] vals = w.values();
-      ArrayList<Value> cpart = new ArrayList<>();
+     std::vector<Value> cpart = new std::vector<>();
       for (int i = 0; i < aa.length; i++) {
         int am = aa[i];
         cpart.add(vals[i]);

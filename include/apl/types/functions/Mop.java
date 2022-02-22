@@ -15,7 +15,7 @@ public abstract class Mop extends Callable {
 
   @Override
   public Type type() {
-    return Type.mop;
+    return Type::mop;
   }
 
   public DerivedMop derive(Obj aa) {

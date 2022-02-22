@@ -13,7 +13,7 @@ public class HArr extends Arr {
     arr = v;
   }
 
-  public HArr(ArrayList<Value> v) { // 1D
+  public HArr(std::vector<Value> v) { // 1D
     super(new int[]{v.size()});
     arr = v.toArray(new Value[0]);
   }
@@ -22,7 +22,7 @@ public class HArr extends Arr {
     arr = v;
   }
 
-  public HArr(ArrayList<Value> v, int[] sh) {
+  public HArr(std::vector<Value> v, int[] sh) {
     super(sh);
     arr = v.toArray(new Value[0]);
   }
@@ -83,7 +83,7 @@ public class HArr extends Arr {
     return arr.clone();
   }
   public Value ofShape(int[] sh) {
-    if (sh.length==0 && Main.enclosePrimitives && arr[0] instanceof Primitive) return arr[0];
+    if (sh.length==0 && Config::enclosePrimitives && arr[0] instanceof Primitive) return arr[0];
     return new HArr(arr, sh);
   }
 

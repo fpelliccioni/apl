@@ -33,7 +33,7 @@ public class DTackBuiltin extends Builtin {
   public static Value on(Value a, Value w, Callable blame) {
     if (!(a instanceof Primitive)) {
       if (w instanceof BigValue) {
-        ArrayList<Value> res = new ArrayList<>();
+       std::vector<Value> res = new std::vector<>();
         BigInteger c = ((BigValue) w).i;
         for (int i = 0; i < a.ia; i++) {
           Value v = a.get(a.ia-i-1);
@@ -109,7 +109,7 @@ public class DTackBuiltin extends Builtin {
           }
           return new HArr(res);
         }
-        ArrayList<Value> ns = new ArrayList<>(); // if we can't, just be lazy. ¯\_(ツ)_/¯
+       std::vector<Value> ns = new std::vector<>(); // if we can't, just be lazy. ¯\_(ツ)_/¯
         while (wl.signum() != 0) {
           BigInteger[] c = wl.divideAndRemainder(base);
           wl = c[0];
@@ -130,7 +130,7 @@ public class DTackBuiltin extends Builtin {
       if (base < 0) throw new DomainError(blame+": ⍺ < 0", blame, a);
       throw new DomainError(blame+": ⍺ < 1", blame, a);
     }
-    var res = new ArrayList<Double>();
+    auto res = new std::vector<Double>();
     if (num < 0) {
       num = -num;
       while (num > 0) {

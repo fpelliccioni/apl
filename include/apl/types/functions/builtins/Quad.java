@@ -19,7 +19,7 @@ public class Quad extends Settable {
     return Main.exec(sc.sys.input(), sc);
   }
   public Type type() {
-    return Type.gettable;
+    return Type::gettable;
   }
 
   public std::string toString() {

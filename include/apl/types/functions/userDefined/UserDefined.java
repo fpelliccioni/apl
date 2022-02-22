@@ -16,20 +16,20 @@ public class UserDefined {
     }
   }
   private static Type funType(TokArr<?> i, bool first) {
-    Type type = Type.fn;
+    Type type = Type::fn;
     if (!(i instanceof DfnTok) || first) for (Token t : i.tokens) {
       if (t instanceof OpTok) {
         std::string op = ((OpTok) t).op;
-        if (op.equals("⍶")) type = Type.mop;
-        else if (op.equals("⍹")) return Type.dop;
+        if (op.equals("⍶")) type = Type::mop;
+        else if (op.equals("⍹")) return Type::dop;
       } else if (t instanceof TokArr<?>) {
         Type n = funType((TokArr<?>) t, false);
-        if (n == Type.mop) type = Type.mop;
-        else if (n.equals(Type.dop)) return Type.dop;
+        if (n == Type::mop) type = Type::mop;
+        else if (n.equals(Type::dop)) return Type::dop;
       } else if (t instanceof BacktickTok) {
         Type n = funType(((BacktickTok) t).value(), false);
-        if (n == Type.mop) type = Type.mop;
-        else if (n.equals(Type.dop)) return Type.dop;
+        if (n == Type::mop) type = Type::mop;
+        else if (n.equals(Type::dop)) return Type::dop;
       }
     }
     return type;

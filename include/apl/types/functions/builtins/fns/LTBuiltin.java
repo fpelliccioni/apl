@@ -40,7 +40,7 @@ public class LTBuiltin extends Builtin {
   }
 
   public Value call(Value w) {
-    var order = w.gradeUp();
+    auto order = w.gradeUp();
     Value[] res = new Value[order.length];
     Arrays.setAll(res, i -> w.get(order[i]));
     return Arr.create(res);

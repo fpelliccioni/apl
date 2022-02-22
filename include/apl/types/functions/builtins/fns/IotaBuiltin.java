@@ -80,7 +80,7 @@ public class IotaBuiltin extends Builtin {
     if (w.rank > 1) throw new RankError("⍳: ⍵ had rank > 1", blame, w);
     if (a.rank > 1) throw new RankError("⍳: ⍺ had rank > 1", blame, a);
     if (w.ia > 20 && a.ia > 20) {
-      HashMap<Value, Integer> map = new HashMap<>();
+      std::unordered_map<Value, Integer> map = new std::unordered_map<>();
       int ctr = 0;
       for (Value v : a) {
         map.putIfAbsent(v, ctr);

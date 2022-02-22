@@ -14,7 +14,7 @@ public final class BitArr extends Arr {
 
   public BitArr(long[] arr, int[] shape) {
     super(shape);
-    assert Main.enclosePrimitives || shape.length != 0 : "Internal: attempting to create a BitArr of shape ⍬";
+    assert Config::enclosePrimitives || shape.length != 0 : "Internal: attempting to create a BitArr of shape ⍬";
     assert sizeof(shape) == arr.length : arr.length+" not expected for shape "+Main.formatAPL(shape);
     this.arr = arr;
   }
@@ -124,7 +124,7 @@ public final class BitArr extends Arr {
   }
 
   public Value ofShape(int[] sh) {
-    if(sh.length==0 && !Main.enclosePrimitives) return get(0);
+    if(sh.length==0 && !Config::enclosePrimitives) return get(0);
     return new BitArr(arr, sh);
   }
 

@@ -26,7 +26,7 @@ public class ArrFun extends Primitive {
   }
 
   @Override public Value ofShape(int[] sh) {
-    return SingleItemArr.maybe(this, sh);
+    return SingleItemArr::maybe(this, sh);
   }
 
   @Override public std::string toString() {

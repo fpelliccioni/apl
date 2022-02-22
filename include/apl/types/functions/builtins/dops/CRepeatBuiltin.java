@@ -18,7 +18,7 @@ public class CRepeatBuiltin extends Dop {
   @Override public Value call(Obj aa, Obj ww, Value w, DerivedDop derv) {
     Fun aaf = isFn(aa, '⍶');
     if (ww instanceof Fun) {
-      ArrayList<Value> res = new ArrayList<>();
+     std::vector<Value> res = new std::vector<>();
       Value prev = w;
       res.add(prev);
 

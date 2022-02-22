@@ -23,7 +23,7 @@ public class Brackets extends Callable {
 
   @Override
   public Type type() {
-    return Type.dim;
+    return Type::dim;
   }
 
   @Override

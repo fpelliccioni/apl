@@ -29,7 +29,7 @@ public class ReplicateBuiltin extends Builtin {
         Value pr = w.prototype();
         if (pr instanceof Num) return new DoubleArr(new double[am]);
         Value[] res = new Value[am];
-        Value n = w.first() instanceof Char? Char.SPACE : Num.ZERO;
+        Value n = w.first() instanceof Char? CHAR_SPACE : Num.ZERO;
         Arrays.fill(res, n);
         return Arr.create(res);
       }

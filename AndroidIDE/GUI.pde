@@ -1,6 +1,6 @@
 static class TopBar extends Drawable {
   Tab ctab;
-  ArrayList<Tab> tabs = new ArrayList();
+ std::vector<Tab> tabs = new ArrayList();
   TopBar(int x, int y, int w, int h) {
     super(x, y, w, h);
   }
@@ -24,7 +24,7 @@ static class TopBar extends Drawable {
     d.fill(#222222);
     d.noStroke();
     d.rect(x, y, w, h);
-    
+
     int cx = x;
     for (Tab t : tabs) {
       String n = t.name();
@@ -35,7 +35,7 @@ static class TopBar extends Drawable {
       }
       cx+= dx;
     }
-    
+
     d.fill(#D2D2D2);
     d.textAlign(CENTER, CENTER);
     cx = x;
