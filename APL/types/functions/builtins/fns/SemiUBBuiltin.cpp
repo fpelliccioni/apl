@@ -1,0 +1,73 @@
+#include <APL/SemiUBBuiltin.h>
+#include <APL/arrs/Shape1Arr.h>
+#include <APL/Num.h>
+#include <APL/arrs/DoubleArr.h>
+#include <APL/Char.h>
+#include <APL/arrs/ChrArr.h>
+#include <APL/Arr.h>
+
+namespace APL::types::functions::builtins::fns
+{
+	using DomainError = APL::errors::DomainError;
+	using namespace APL::types;
+	using namespace APL::types::arrs;
+	using Builtin = APL::types::functions::Builtin;
+
+	std::wstring SemiUBBuiltin::repr()
+	{
+	  return L"⍮";
+	}
+
+	std::shared_ptr<Value> SemiUBBuiltin::call(std::shared_ptr<Value> w)
+	{
+	  return std::make_shared<Shape1Arr>(w);
+	}
+
+	std::shared_ptr<Value> SemiUBBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	{
+	  if (std::dynamic_pointer_cast<Num>(a) != nullptr && std::dynamic_pointer_cast<Num>(w) != nullptr)
+	  {
+		return std::make_shared<DoubleArr>(std::vector<double>{(std::static_pointer_cast<Num>(a))->num, (std::static_pointer_cast<Num>(w))->num});
+	  }
+	  if (std::dynamic_pointer_cast<Char>(a) != nullptr && std::dynamic_pointer_cast<Char>(w) != nullptr)
+	  {
+		return std::make_shared<ChrArr>(StringHelper::toString((std::static_pointer_cast<Char>(a))->chr) + L"" + StringHelper::toString((std::static_pointer_cast<Char>(w))->chr));
+	  }
+	  return Arr::create(std::vector<std::shared_ptr<Value>>{a, w});
+	}
+
+	std::shared_ptr<Value> SemiUBBuiltin::callInv(std::shared_ptr<Value> w)
+	{
+	  if (w->rank != 1 || w->shape[0] != 1)
+	  {
+		  throw DomainError(L"monadic ⍮⍣¯1 only works on shape 1 arrays", shared_from_this(), w);
+	  }
+	  return w->first();
+	}
+
+	std::shared_ptr<Value> SemiUBBuiltin::callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	{
+	  if (w->rank != 1 || w->shape[0] != 2)
+	  {
+		  throw DomainError(L"dyadic ⍮⍣¯1 only works on shape 2 arrays", shared_from_this(), w);
+	  }
+	  if (!w[0].equals(a))
+	  {
+		  throw DomainError(L"dyadic ⍮⍣¯1 expected ⍺≡⊃⍵", shared_from_this(), w);
+	  }
+	  return w[1];
+	}
+
+	std::shared_ptr<Value> SemiUBBuiltin::callInvA(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	{
+	  if (a->rank != 1 || a->shape[0] != 2)
+	  {
+		  throw DomainError(L"dyadic ⍮⍨⍣¯1 only works on shape 2 ⍺ arrays", shared_from_this(), a);
+	  }
+	  if (!a[1].equals(w))
+	  {
+		  throw DomainError(L"dyadic ⍮⍨⍣¯1 expected ⍵≡⊃⌽⍺", shared_from_this(), a);
+	  }
+	  return a[0];
+	}
+}
