@@ -180,6 +180,16 @@ add_executable(apl
     APL/errors/NotErrorError.cpp
 )
 
+# target_include_directories(${PROJECT_NAME} PUBLIC
+#   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/mylib>
+#   $<INSTALL_INTERFACE:include/mylib>  # <prefix>/include/mylib
+# )
+
+target_include_directories(${PROJECT_NAME} PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/mylib>
+  $<INSTALL_INTERFACE:include/mylib>  # <prefix>/include/mylib
+)
+
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
