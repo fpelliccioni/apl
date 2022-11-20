@@ -1,7 +1,7 @@
 #pragma once
 
-#include <APL/Token.h>
-#include <APL/LineTok.h>
+#include <APL/tokenizer/Token.h>
+#include <APL/tokenizer/types/LineTok.h>
 #include <string>
 #include <memory>
 

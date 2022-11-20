@@ -1,8 +1,8 @@
 #pragma once
 
 #include <APL/Type.h>
-#include <APL/Callable.h>
-#include <APL/Obj.h>
+#include <APL/types/Callable.h>
+#include <APL/types/Obj.h>
 #include <memory>
 
 namespace APL::types::functions::builtins

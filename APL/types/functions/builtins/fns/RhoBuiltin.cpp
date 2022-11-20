@@ -7,15 +7,15 @@
 
 #include <APL/RhoBuiltin.h>
 #include <APL/errors/DomainError.h>
-#include <APL/Arr.h>
-#include <APL/Num.h>
+#include <APL/types/Arr.h>
+#include <APL/types/Num.h>
 #include <APL/errors/LengthError.h>
-#include <APL/arrs/SingleItemArr.h>
-#include <APL/arrs/BitArr.h>
-#include <APL/Primitive.h>
-#include <APL/arrs/DoubleArr.h>
-#include <APL/arrs/ChrArr.h>
-#include <APL/Fun.h>
+#include <APL/types/arrs/SingleItemArr.h>
+#include <APL/types/arrs/BitArr.h>
+#include <APL/types/Primitive.h>
+#include <APL/types/arrs/DoubleArr.h>
+#include <APL/types/arrs/ChrArr.h>
+#include <APL/types/Fun.h>
 
 namespace APL::types::functions::builtins::fns
 {

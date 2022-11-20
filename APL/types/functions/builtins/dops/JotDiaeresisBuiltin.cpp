@@ -1,5 +1,5 @@
 #include <APL/JotDiaeresisBuiltin.h>
-#include <APL/Fun.h>
+#include <APL/types/Fun.h>
 
 namespace APL::types::functions::builtins::dops
 {

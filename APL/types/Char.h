@@ -1,10 +1,10 @@
 #pragma once
 
 #include <APL/Main.h>
-#include <APL/arrs/ChrArr.h>
-#include <APL/Primitive.h>
-#include <APL/Value.h>
-#include <APL/Obj.h>
+#include <APL/types/arrs/ChrArr.h>
+#include <APL/types/Primitive.h>
+#include <APL/types/Value.h>
+#include <APL/types/Obj.h>
 #include <string>
 #include <vector>
 #include <cctype>

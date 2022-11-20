@@ -1,6 +1,6 @@
 #include <APL/EachRight.h>
-#include <APL/Fun.h>
-#include <APL/Arr.h>
+#include <APL/types/Fun.h>
+#include <APL/types/Arr.h>
 #include <APL/EachBuiltin.h>
 
 namespace APL::types::functions::builtins::mops

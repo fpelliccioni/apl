@@ -1,10 +1,10 @@
 #pragma once
 
 #include <APL/errors/SyntaxError.h>
-#include <APL/APLMap.h>
-#include <APL/Obj.h>
-#include <APL/Value.h>
-#include <APL/Arr.h>
+#include <APL/types/APLMap.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Value.h>
+#include <APL/types/Arr.h>
 #include <string>
 #include <memory>
 #include <helpers/tangible_string_helper.h>

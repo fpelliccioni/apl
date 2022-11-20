@@ -2,7 +2,7 @@
 #include <APL/errors/RankError.h>
 #include <APL/errors/NYIError.h>
 #include <APL/errors/DomainError.h>
-#include <APL/Arr.h>
+#include <APL/types/Arr.h>
 
 namespace APL::types::functions::builtins::fns
 {

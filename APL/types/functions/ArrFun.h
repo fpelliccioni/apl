@@ -2,12 +2,12 @@
 
 #include <APL/errors/DomainError.h>
 #include <APL/tokenizer/types/BacktickTok.h>
-#include <APL/arrs/SingleItemArr.h>
-#include <APL/Primitive.h>
-#include <APL/Obj.h>
-#include <APL/Fun.h>
+#include <APL/types/arrs/SingleItemArr.h>
+#include <APL/types/Primitive.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Fun.h>
 #include <APL/Scope.h>
-#include <APL/Value.h>
+#include <APL/types/Value.h>
 #include <string>
 #include <vector>
 #include <helpers/tangible_exception_helper.h>

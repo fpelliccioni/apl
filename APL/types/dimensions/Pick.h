@@ -1,14 +1,14 @@
 #pragma once
 
 #include <APL/Scope.h>
-#include <APL/functions/builtins/dops/AtBuiltin.h>
-#include <APL/functions/builtins/fns/RShoeUBBuiltin.h>
-#include <APL/Settable.h>
-#include <APL/Variable.h>
-#include <APL/Value.h>
-#include <APL/Brackets.h>
-#include <APL/Callable.h>
-#include <APL/Obj.h>
+#include <APL/types/functions/builtins/dops/AtBuiltin.h>
+#include <APL/types/functions/builtins/fns/RShoeUBBuiltin.h>
+#include <APL/types/Settable.h>
+#include <APL/types/Variable.h>
+#include <APL/types/Value.h>
+#include <APL/types/dimensions/Brackets.h>
+#include <APL/types/Callable.h>
+#include <APL/types/Obj.h>
 #include <string>
 #include <memory>
 

@@ -1,12 +1,12 @@
 #pragma once
 
 #include <APL/Main.h>
-#include <APL/Builtin.h>
-#include <APL/dops/AtBuiltin.h>
-#include <APL/Value.h>
-#include <APL/Callable.h>
-#include <APL/Obj.h>
-#include <APL/Fun.h>
+#include <APL/types/functions/Builtin.h>
+#include <APL/types/functions/builtins/dops/AtBuiltin.h>
+#include <APL/types/Value.h>
+#include <APL/types/Callable.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Fun.h>
 #include <string>
 #include <vector>
 #include <algorithm>

@@ -1,9 +1,9 @@
 #pragma once
 
 #define _USE_MATH_DEFINES
-#include <APL/Builtin.h>
-#include <APL/Num.h>
-#include <APL/Value.h>
+#include <APL/types/functions/Builtin.h>
+#include <APL/types/Num.h>
+#include <APL/types/Value.h>
 #include <string>
 #include <vector>
 #include <cmath>

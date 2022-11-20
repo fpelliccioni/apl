@@ -1,6 +1,6 @@
 #pragma once
 
-#include <APL/APLError.h>
+#include <APL/errors/APLError.h>
 #include <APL/types/Tokenable.h>
 #include <APL/types/Callable.h>
 #include <string>

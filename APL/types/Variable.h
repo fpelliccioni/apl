@@ -1,10 +1,10 @@
 #pragma once
 
 #include <APL/errors/ValueError.h>
-#include <APL/Settable.h>
+#include <APL/types/Settable.h>
 #include <APL/Scope.h>
-#include <APL/Obj.h>
-#include <APL/Callable.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Callable.h>
 #include <string>
 #include <memory>
 #include <helpers/tangible_string_helper.h>

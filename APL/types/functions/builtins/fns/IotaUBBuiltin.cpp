@@ -1,10 +1,10 @@
 #include <APL/IotaUBBuiltin.h>
-#include <APL/arrs/BitArr.h>
-#include <APL/arrs/DoubleArr.h>
+#include <APL/types/arrs/BitArr.h>
+#include <APL/types/arrs/DoubleArr.h>
 #include <APL/Main.h>
 #include <APL/Indexer.h>
-#include <APL/Num.h>
-#include <APL/arrs/HArr.h>
+#include <APL/types/Num.h>
+#include <APL/types/arrs/HArr.h>
 
 namespace APL::types::functions::builtins::fns
 {

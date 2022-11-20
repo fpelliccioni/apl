@@ -1,7 +1,7 @@
 #include <APL/EllipsisBuiltin.h>
-#include <APL/BigValue.h>
-#include <APL/arrs/HArr.h>
-#include <APL/arrs/DoubleArr.h>
+#include <APL/types/BigValue.h>
+#include <APL/types/arrs/HArr.h>
+#include <APL/types/arrs/DoubleArr.h>
 
 namespace APL::types::functions::builtins::fns
 {

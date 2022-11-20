@@ -1,9 +1,9 @@
-#include <APL/DepthBuiltin.h>
-#include <APL/Primitive.h>
-#include <APL/arrs/BitArr.h>
-#include <APL/arrs/ChrArr.h>
-#include <APL/arrs/DoubleArr.h>
-#include <APL/Num.h>
+#include <APL/types/functions/builtins/fns/DepthBuiltin.h>
+#include <APL/types/Primitive.h>
+#include <APL/types/arrs/BitArr.h>
+#include <APL/types/arrs/ChrArr.h>
+#include <APL/types/arrs/DoubleArr.h>
+#include <APL/types/Num.h>
 
 namespace APL::types::functions::builtins::fns
 {

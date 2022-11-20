@@ -6,20 +6,20 @@
 //====================================================================================================
 
 #include <APL/CatBuiltin.h>
-#include <APL/Primitive.h>
-#include <APL/Num.h>
-#include <APL/arrs/DoubleArr.h>
-#include <APL/Char.h>
-#include <APL/arrs/ChrArr.h>
-#include <APL/arrs/Shape1Arr.h>
+#include <APL/types/Primitive.h>
+#include <APL/types/Num.h>
+#include <APL/types/arrs/DoubleArr.h>
+#include <APL/types/Char.h>
+#include <APL/types/arrs/ChrArr.h>
+#include <APL/types/arrs/Shape1Arr.h>
 #include <APL/errors/DomainError.h>
 #include <APL/errors/RankError.h>
 #include <APL/errors/LengthError.h>
-#include <APL/arrs/BitArr.h>
-#include <APL/Arr.h>
-#include <APL/Fun.h>
+#include <APL/types/arrs/BitArr.h>
+#include <APL/types/Arr.h>
+#include <APL/types/Fun.h>
 #include <APL/errors/NYIError.h>
-#include <APL/UpArrowBuiltin.h>
+#include <APL/types/functions/builtins/fns/UpArrowBuiltin.h>
 
 namespace APL::types::functions::builtins::fns
 {

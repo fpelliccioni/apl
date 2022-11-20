@@ -1,4 +1,4 @@
-#include <APL/DimMMop.h>
+#include <APL/types/dimensions/DimMMop.h>
 
 namespace APL::types::dimensions
 {

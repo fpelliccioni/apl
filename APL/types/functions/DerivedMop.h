@@ -1,10 +1,10 @@
 #pragma once
 
-#include <APL/builtins/mops/TableBuiltin.h>
-#include <APL/Fun.h>
-#include <APL/Obj.h>
-#include <APL/Mop.h>
-#include <APL/Value.h>
+#include <APL/types/functions/builtins/mops/TableBuiltin.h>
+#include <APL/types/Fun.h>
+#include <APL/types/Obj.h>
+#include <APL/types/functions/Mop.h>
+#include <APL/types/Value.h>
 #include <string>
 #include <memory>
 

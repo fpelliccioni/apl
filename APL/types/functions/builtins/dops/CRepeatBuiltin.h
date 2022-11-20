@@ -1,10 +1,10 @@
 #pragma once
 
-#include <APL/Dop.h>
+#include <APL/types/functions/Dop.h>
 #include <APL/Scope.h>
-#include <APL/Obj.h>
-#include <APL/Value.h>
-#include <APL/DerivedDop.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Value.h>
+#include <APL/types/functions/DerivedDop.h>
 #include <string>
 #include <vector>
 #include <memory>

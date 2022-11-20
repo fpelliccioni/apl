@@ -1,9 +1,9 @@
 #pragma once
 
 #include <APL/Main.h>
-#include <APL/Value.h>
-#include <APL/arrs/ChrArr.h>
-#include <APL/Builtin.h>
+#include <APL/types/Value.h>
+#include <APL/types/arrs/ChrArr.h>
+#include <APL/types/functions/Builtin.h>
 #include <string>
 #include <memory>
 

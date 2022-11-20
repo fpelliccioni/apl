@@ -1,7 +1,7 @@
-#include <APL/DervDimFn.h>
+#include <APL/types/dimensions/DervDimFn.h>
 #include <APL/Main.h>
 #include <APL/errors/DomainError.h>
-#include <APL/DimDFn.h>
+#include <APL/types/dimensions/DimDFn.h>
 #include <APL/errors/SyntaxError.h>
 #include <APL/DimMFn.h>
 

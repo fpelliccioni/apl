@@ -1,6 +1,6 @@
 #include <APL/LTBuiltin.h>
-#include <APL/Num.h>
-#include <APL/Arr.h>
+#include <APL/types/Num.h>
+#include <APL/types/Arr.h>
 
 namespace APL::types::functions::builtins::fns
 {

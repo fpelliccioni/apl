@@ -1,7 +1,7 @@
 #pragma once
 
 #include <APL/Main.h>
-#include <APL/Token.h>
+#include <APL/tokenizer/Token.h>
 #include <APL/types/arrs/ChrArr.h>
 #include <string>
 #include <memory>

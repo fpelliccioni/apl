@@ -1,10 +1,10 @@
 #pragma once
 
 #include <APL/errors/DomainError.h>
-#include <APL/Mop.h>
-#include <APL/Obj.h>
-#include <APL/Value.h>
-#include <APL/DerivedMop.h>
+#include <APL/types/functions/Mop.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Value.h>
+#include <APL/types/functions/DerivedMop.h>
 #include <string>
 #include <memory>
 

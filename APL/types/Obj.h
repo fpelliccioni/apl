@@ -2,7 +2,7 @@
 
 #include <APL/errors/NYIError.h>
 #include <APL/tokenizer/Token.h>
-#include <APL/Tokenable.h>
+#include <APL/types/Tokenable.h>
 #include <APL/Type.h>
 #include <string>
 #include <any>

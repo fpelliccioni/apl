@@ -2,8 +2,8 @@
 
 #include <APL/Main.h>
 #include <APL/errors/DomainError.h>
-#include <APL/Arr.h>
-#include <APL/Value.h>
+#include <APL/types/Arr.h>
+#include <APL/types/Value.h>
 #include <string>
 #include <vector>
 #include <algorithm>

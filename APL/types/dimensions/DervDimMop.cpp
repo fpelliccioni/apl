@@ -1,6 +1,6 @@
 #include <APL/DervDimMop.h>
 #include <APL/DimDMop.h>
-#include <APL/DimMMop.h>
+#include <APL/types/dimensions/DimMMop.h>
 
 namespace APL::types::dimensions
 {

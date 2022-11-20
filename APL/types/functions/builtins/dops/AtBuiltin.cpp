@@ -1,8 +1,8 @@
-#include <APL/AtBuiltin.h>
-#include <APL/Fun.h>
+#include <APL/types/functions/builtins/dops/AtBuiltin.h>
+#include <APL/types/Fun.h>
 #include <APL/Main.h>
-#include <APL/Arr.h>
-#include <APL/Num.h>
+#include <APL/types/Arr.h>
+#include <APL/types/Num.h>
 
 namespace APL::types::functions::builtins::dops
 {

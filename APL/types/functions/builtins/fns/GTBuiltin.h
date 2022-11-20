@@ -1,10 +1,10 @@
 #pragma once
 
 #include <APL/errors/DomainError.h>
-#include <APL/arrs/BitArr.h>
-#include <APL/Builtin.h>
-#include <APL/BigValue.h>
-#include <APL/Value.h>
+#include <APL/types/arrs/BitArr.h>
+#include <APL/types/functions/Builtin.h>
+#include <APL/types/BigValue.h>
+#include <APL/types/Value.h>
 #include <string>
 #include <vector>
 #include <memory>

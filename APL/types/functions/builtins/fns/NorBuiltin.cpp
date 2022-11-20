@@ -1,8 +1,8 @@
 #include <APL/NorBuiltin.h>
 #include <APL/Main.h>
 #include <APL/TildeBuiltin.h>
-#include <APL/Num.h>
-#include <APL/arrs/DoubleArr.h>
+#include <APL/types/Num.h>
+#include <APL/types/arrs/DoubleArr.h>
 
 namespace APL::types::functions::builtins::fns
 {

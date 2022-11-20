@@ -1,6 +1,6 @@
 #include <APL/LShoeStileBuiltin.h>
-#include <APL/arrs/DoubleArr.h>
-#include <APL/arrs/BitArr.h>
+#include <APL/types/arrs/DoubleArr.h>
+#include <APL/types/arrs/BitArr.h>
 
 namespace APL::types::functions::builtins::fns
 {

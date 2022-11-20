@@ -1,6 +1,6 @@
 #pragma once
 
-#include <APL/Value.h>
+#include <APL/types/Value.h>
 #include <memory>
 
 namespace APL::types::dimensions

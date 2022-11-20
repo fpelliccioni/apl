@@ -1,7 +1,7 @@
 #include <APL/RandBuiltin.h>
-#include <APL/arrs/SingleItemArr.h>
-#include <APL/arrs/BitArr.h>
-#include <APL/arrs/DoubleArr.h>
+#include <APL/types/arrs/SingleItemArr.h>
+#include <APL/types/arrs/BitArr.h>
+#include <APL/types/arrs/DoubleArr.h>
 
 namespace APL::types::functions::builtins::fns
 {

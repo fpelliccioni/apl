@@ -1,4 +1,4 @@
-#include <APL/Primitive.h>
+#include <APL/types/Primitive.h>
 
 namespace APL::types
 {

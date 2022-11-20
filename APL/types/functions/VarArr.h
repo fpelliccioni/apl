@@ -1,12 +1,12 @@
 #pragma once
 
 #include <APL/errors/LengthError.h>
-#include <APL/builtins/SetBuiltin.h>
-#include <APL/Settable.h>
-#include <APL/Obj.h>
-#include <APL/Arr.h>
+#include <APL/types/functions/builtins/SetBuiltin.h>
+#include <APL/types/Settable.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Arr.h>
 #include <APL/Type.h>
-#include <APL/Callable.h>
+#include <APL/types/Callable.h>
 #include <string>
 #include <vector>
 #include <algorithm>

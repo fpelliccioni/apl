@@ -1,7 +1,7 @@
 #include <APL/Shape1Arr.h>
-#include <APL/Char.h>
-#include <APL/SingleItemArr.h>
-#include <APL/Num.h>
+#include <APL/types/Char.h>
+#include <APL/types/arrs/SingleItemArr.h>
+#include <APL/types/Num.h>
 
 namespace APL::types::arrs
 {

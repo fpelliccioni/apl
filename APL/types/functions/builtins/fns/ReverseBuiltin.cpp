@@ -1,12 +1,12 @@
 #include <APL/ReverseBuiltin.h>
-#include <APL/Arr.h>
-#include <APL/Primitive.h>
+#include <APL/types/Arr.h>
+#include <APL/types/Primitive.h>
 #include <APL/errors/RankError.h>
 #include <APL/errors/LengthError.h>
-#include <APL/arrs/DoubleArr.h>
+#include <APL/types/arrs/DoubleArr.h>
 #include <APL/errors/DomainError.h>
 #include <APL/MinusBuiltin.h>
-#include <APL/arrs/BitArr.h>
+#include <APL/types/arrs/BitArr.h>
 
 namespace APL::types::functions::builtins::fns
 {

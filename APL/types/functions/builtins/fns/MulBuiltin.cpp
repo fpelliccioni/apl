@@ -7,7 +7,7 @@
 
 #include <APL/MulBuiltin.h>
 #include <APL/DivBuiltin.h>
-#include <APL/Fun.h>
+#include <APL/types/Fun.h>
 
 namespace APL::types::functions::builtins::fns
 {

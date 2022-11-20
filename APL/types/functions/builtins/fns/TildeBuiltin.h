@@ -2,9 +2,9 @@
 
 #include <APL/Main.h>
 #include <APL/errors/DomainError.h>
-#include <APL/Builtin.h>
-#include <APL/Value.h>
-#include <APL/arrs/BitArr.h>
+#include <APL/types/functions/Builtin.h>
+#include <APL/types/Value.h>
+#include <APL/types/arrs/BitArr.h>
 #include <string>
 #include <vector>
 #include <memory>

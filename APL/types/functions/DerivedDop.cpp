@@ -1,5 +1,5 @@
-#include <APL/DerivedDop.h>
-#include <APL/Arr.h>
+#include <APL/types/functions/DerivedDop.h>
+#include <APL/types/Arr.h>
 
 namespace APL::types::functions
 {

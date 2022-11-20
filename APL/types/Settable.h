@@ -2,8 +2,8 @@
 
 #include <APL/Type.h>
 #include <APL/errors/ValueError.h>
-#include <APL/Obj.h>
-#include <APL/Callable.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Callable.h>
 #include <memory>
 
 namespace APL::types

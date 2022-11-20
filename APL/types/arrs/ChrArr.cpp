@@ -1,5 +1,5 @@
-#include <APL/ChrArr.h>
-#include <APL/Char.h>
+#include <APL/types/arrs/ChrArr.h>
+#include <APL/types/Char.h>
 
 namespace APL::types::arrs
 {

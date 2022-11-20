@@ -1,8 +1,8 @@
 #include <APL/UTackBuiltin.h>
-#include <APL/Num.h>
+#include <APL/types/Num.h>
 #include <APL/DTackBuiltin.h>
 #include <APL/errors/DomainError.h>
-#include <APL/BigValue.h>
+#include <APL/types/BigValue.h>
 #include <APL/errors/NYIError.h>
 
 namespace APL::types::functions::builtins::fns

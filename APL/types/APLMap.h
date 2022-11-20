@@ -1,13 +1,13 @@
 #pragma once
 
 #include <APL/Main.h>
-#include <APL/arrs/SingleItemArr.h>
-#include <APL/Primitive.h>
-#include <APL/Value.h>
-#include <APL/Obj.h>
-#include <APL/Arr.h>
-#include <APL/Settable.h>
-#include <APL/Callable.h>
+#include <APL/types/arrs/SingleItemArr.h>
+#include <APL/types/Primitive.h>
+#include <APL/types/Value.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Arr.h>
+#include <APL/types/Settable.h>
+#include <APL/types/Callable.h>
 #include <string>
 #include <vector>
 #include <memory>

@@ -1,10 +1,10 @@
-#include <APL/RShoeUBBuiltin.h>
-#include <APL/APLMap.h>
-#include <APL/Arr.h>
-#include <APL/Primitive.h>
-#include <APL/arrs/Rank0Arr.h>
-#include <APL/arrs/DoubleArr.h>
-#include <APL/Fun.h>
+#include <APL/types/functions/builtins/fns/RShoeUBBuiltin.h>
+#include <APL/types/APLMap.h>
+#include <APL/types/Arr.h>
+#include <APL/types/Primitive.h>
+#include <APL/types/arrs/Rank0Arr.h>
+#include <APL/types/arrs/DoubleArr.h>
+#include <APL/types/Fun.h>
 
 namespace APL::types::functions::builtins::fns
 {

@@ -1,12 +1,12 @@
 #include <APL/RShoeBuiltin.h>
-#include <APL/Primitive.h>
-#include <APL/APLMap.h>
+#include <APL/types/Primitive.h>
+#include <APL/types/APLMap.h>
 #include <APL/errors/DomainError.h>
-#include <APL/Num.h>
+#include <APL/types/Num.h>
 #include <APL/errors/RankError.h>
 #include <APL/errors/LengthError.h>
 #include <APL/Main.h>
-#include <APL/Arr.h>
+#include <APL/types/Arr.h>
 
 namespace APL::types::functions::builtins::fns
 {

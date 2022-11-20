@@ -1,6 +1,6 @@
 #include <APL/FlipBuiltin.h>
-#include <APL/Arr.h>
-#include <APL/Primitive.h>
+#include <APL/types/Arr.h>
+#include <APL/types/Primitive.h>
 #include <APL/ReverseBuiltin.h>
 #include <APL/MinusBuiltin.h>
 

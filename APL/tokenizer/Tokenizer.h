@@ -2,9 +2,9 @@
 
 #include <APL/errors/SyntaxError.h>
 #include <APL/types/BigValue.h>
-#include <APL/Token.h>
-#include <APL/types/LineTok.h>
-#include <APL/types/BasicLines.h>
+#include <APL/tokenizer/Token.h>
+#include <APL/tokenizer/types/LineTok.h>
+#include <APL/tokenizer/types/BasicLines.h>
 #include <string>
 #include <vector>
 #include <cmath>

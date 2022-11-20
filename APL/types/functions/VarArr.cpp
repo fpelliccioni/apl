@@ -1,12 +1,12 @@
-#include <APL/VarArr.h>
+#include <APL/types/functions/VarArr.h>
 #include <APL/Main.h>
-#include <APL/Value.h>
-#include <APL/arrs/EmptyArr.h>
-#include <APL/Num.h>
-#include <APL/arrs/BitArr.h>
-#include <APL/arrs/DoubleArr.h>
-#include <APL/Char.h>
-#include <APL/arrs/ChrArr.h>
+#include <APL/types/Value.h>
+#include <APL/types/arrs/EmptyArr.h>
+#include <APL/types/Num.h>
+#include <APL/types/arrs/BitArr.h>
+#include <APL/types/arrs/DoubleArr.h>
+#include <APL/types/Char.h>
+#include <APL/types/arrs/ChrArr.h>
 
 namespace APL::types::functions
 {

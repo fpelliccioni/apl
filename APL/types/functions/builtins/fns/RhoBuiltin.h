@@ -1,9 +1,9 @@
 #pragma once
 
 #include <APL/Main.h>
-#include <APL/Builtin.h>
-#include <APL/Value.h>
-#include <APL/Obj.h>
+#include <APL/types/functions/Builtin.h>
+#include <APL/types/Value.h>
+#include <APL/types/Obj.h>
 #include <string>
 #include <vector>
 #include <algorithm>

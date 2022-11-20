@@ -1,10 +1,10 @@
 #include <APL/ObliqueBuiltin.h>
 #include <APL/errors/DomainError.h>
-#include <APL/Fun.h>
-#include <APL/arrs/EmptyArr.h>
-#include <APL/arrs/DoubleArr.h>
+#include <APL/types/Fun.h>
+#include <APL/types/arrs/EmptyArr.h>
+#include <APL/types/arrs/DoubleArr.h>
 #include <APL/errors/RankError.h>
-#include <APL/arrs/HArr.h>
+#include <APL/types/arrs/HArr.h>
 
 namespace APL::types::functions::builtins::mops
 {

@@ -1,12 +1,12 @@
 #pragma once
 
-#include <APL/functions/builtins/fns/UpArrowBuiltin.h>
-#include <APL/Callable.h>
-#include <APL/Value.h>
+#include <APL/types/functions/builtins/fns/UpArrowBuiltin.h>
+#include <APL/types/Callable.h>
+#include <APL/types/Value.h>
 #include <APL/Type.h>
 #include <APL/Scope.h>
 #include <APL/tokenizer/types/BracketTok.h>
-#include <APL/Obj.h>
+#include <APL/types/Obj.h>
 #include <string>
 #include <vector>
 #include <optional>

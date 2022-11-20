@@ -1,11 +1,11 @@
 #pragma once
 
-#include <APL/arrs/HArr.h>
-#include <APL/APLMap.h>
-#include <APL/Obj.h>
+#include <APL/types/arrs/HArr.h>
+#include <APL/types/APLMap.h>
+#include <APL/types/Obj.h>
 #include <APL/Scope.h>
-#include <APL/Value.h>
-#include <APL/Arr.h>
+#include <APL/types/Value.h>
+#include <APL/types/Arr.h>
 #include <string>
 #include <unordered_map>
 #include <vector>

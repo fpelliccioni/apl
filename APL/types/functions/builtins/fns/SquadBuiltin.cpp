@@ -1,6 +1,6 @@
 #include <APL/SquadBuiltin.h>
-#include <APL/Arr.h>
-#include <APL/APLMap.h>
+#include <APL/types/Arr.h>
+#include <APL/types/APLMap.h>
 #include <APL/errors/DomainError.h>
 #include <APL/Main.h>
 #include <APL/errors/RankError.h>

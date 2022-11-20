@@ -1,10 +1,10 @@
 #pragma once
 
 #include <APL/errors/DomainError.h>
-#include <APL/Builtin.h>
+#include <APL/types/functions/Builtin.h>
 #include <APL/Scope.h>
-#include <APL/Value.h>
-#include <APL/Obj.h>
+#include <APL/types/Value.h>
+#include <APL/types/Obj.h>
 #include <string>
 #include <memory>
 #include <helpers/tangible_string_helper.h>

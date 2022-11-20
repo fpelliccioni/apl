@@ -1,10 +1,10 @@
 #include <APL/TableBuiltin.h>
-#include <APL/arrs/EmptyArr.h>
-#include <APL/Fun.h>
-#include <APL/Num.h>
-#include <APL/arrs/DoubleArr.h>
-#include <APL/Primitive.h>
-#include <APL/Arr.h>
+#include <APL/types/arrs/EmptyArr.h>
+#include <APL/types/Fun.h>
+#include <APL/types/Num.h>
+#include <APL/types/arrs/DoubleArr.h>
+#include <APL/types/Primitive.h>
+#include <APL/types/Arr.h>
 
 namespace APL::types::functions::builtins::mops
 {

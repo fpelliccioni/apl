@@ -1,7 +1,7 @@
 #pragma once
 
 #include <APL/Scope.h>
-#include <APL/Fun.h>
+#include <APL/types/Fun.h>
 #include <memory>
 
 namespace APL::types::functions

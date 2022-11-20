@@ -1,9 +1,9 @@
 #pragma once
 
-#include <APL/Builtin.h>
-#include <APL/Value.h>
-#include <APL/Num.h>
-#include <APL/BigValue.h>
+#include <APL/types/functions/Builtin.h>
+#include <APL/types/Value.h>
+#include <APL/types/Num.h>
+#include <APL/types/BigValue.h>
 #include <string>
 #include <vector>
 #include <cmath>

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <APL/tokenizer/Token.h>
-#include <APL/Obj.h>
+#include <APL/types/Obj.h>
 #include <APL/Scope.h>
 #include <APL/tokenizer/types/DfnTok.h>
 #include <APL/Type.h>

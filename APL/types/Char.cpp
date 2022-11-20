@@ -1,5 +1,5 @@
-#include <APL/Char.h>
-#include <APL/Arr.h>
+#include <APL/types/Char.h>
+#include <APL/types/Arr.h>
 
 namespace APL::types
 {

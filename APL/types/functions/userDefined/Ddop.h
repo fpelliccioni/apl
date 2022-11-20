@@ -2,11 +2,11 @@
 
 #include <APL/errors/DomainError.h>
 #include <APL/tokenizer/types/DfnTok.h>
-#include <APL/Dop.h>
+#include <APL/types/functions/Dop.h>
 #include <APL/Scope.h>
-#include <APL/Obj.h>
-#include <APL/Value.h>
-#include <APL/DerivedDop.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Value.h>
+#include <APL/types/functions/DerivedDop.h>
 #include <string>
 #include <vector>
 #include <any>

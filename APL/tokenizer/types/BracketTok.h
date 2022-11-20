@@ -1,8 +1,8 @@
 #pragma once
 
 #include <APL/errors/DomainError.h>
-#include <APL/LineTok.h>
-#include <APL/TokArr.h>
+#include <APL/tokenizer/types/LineTok.h>
+#include <APL/tokenizer/types/TokArr.h>
 #include <string>
 #include <vector>
 #include <memory>

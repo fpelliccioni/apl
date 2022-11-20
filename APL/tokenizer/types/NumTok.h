@@ -1,6 +1,6 @@
 #pragma once
 
-#include <APL/Token.h>
+#include <APL/tokenizer/Token.h>
 #include <APL/types/Num.h>
 #include <string>
 #include <memory>

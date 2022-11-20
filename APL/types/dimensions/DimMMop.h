@@ -1,7 +1,7 @@
 #pragma once
 
-#include <APL/Obj.h>
-#include <APL/Value.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Value.h>
 #include <memory>
 
 namespace APL::types::dimensions

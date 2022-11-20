@@ -1,4 +1,4 @@
-#include <APL/Token.h>
+#include <APL/tokenizer/Token.h>
 
 namespace APL::tokenizer
 {

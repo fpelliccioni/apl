@@ -1,10 +1,10 @@
 #include <APL/SemiUBBuiltin.h>
-#include <APL/arrs/Shape1Arr.h>
-#include <APL/Num.h>
-#include <APL/arrs/DoubleArr.h>
-#include <APL/Char.h>
-#include <APL/arrs/ChrArr.h>
-#include <APL/Arr.h>
+#include <APL/types/arrs/Shape1Arr.h>
+#include <APL/types/Num.h>
+#include <APL/types/arrs/DoubleArr.h>
+#include <APL/types/Char.h>
+#include <APL/types/arrs/ChrArr.h>
+#include <APL/types/Arr.h>
 
 namespace APL::types::functions::builtins::fns
 {

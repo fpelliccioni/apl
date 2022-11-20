@@ -1,6 +1,6 @@
 #include <APL/DerivedSet.h>
-#include <APL/Settable.h>
-#include <APL/Value.h>
+#include <APL/types/Settable.h>
+#include <APL/types/Value.h>
 
 namespace APL::types::functions::builtins
 {

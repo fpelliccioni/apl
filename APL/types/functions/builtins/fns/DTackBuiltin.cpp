@@ -6,17 +6,17 @@
 //====================================================================================================
 
 #include <APL/DTackBuiltin.h>
-#include <APL/Num.h>
+#include <APL/types/Num.h>
 #include <APL/UTackBuiltin.h>
-#include <APL/Primitive.h>
-#include <APL/BigValue.h>
-#include <APL/Arr.h>
+#include <APL/types/Primitive.h>
+#include <APL/types/BigValue.h>
+#include <APL/types/Arr.h>
 #include <APL/errors/NYIError.h>
-#include <APL/arrs/EmptyArr.h>
+#include <APL/types/arrs/EmptyArr.h>
 #include <APL/errors/DomainError.h>
-#include <APL/arrs/DoubleArr.h>
-#include <APL/arrs/HArr.h>
-#include <APL/arrs/BitArr.h>
+#include <APL/types/arrs/DoubleArr.h>
+#include <APL/types/arrs/HArr.h>
+#include <APL/types/arrs/BitArr.h>
 
 namespace APL::types::functions::builtins::fns
 {

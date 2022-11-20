@@ -1,6 +1,6 @@
 #include <string>
 #include <vector>
-#include <APL/APL/Main.h>
+#include <APL/Main.h>
 
 int main(int argc, char **argv)
 {

@@ -1,6 +1,6 @@
-#include <APL/EmptyArr.h>
+#include <APL/types/arrs/EmptyArr.h>
 #include <APL/errors/DomainError.h>
-#include <APL/DoubleArr.h>
+#include <APL/types/arrs/DoubleArr.h>
 #include <APL/errors/ImplementationError.h>
 
 namespace APL::types::arrs

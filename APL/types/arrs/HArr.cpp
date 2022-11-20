@@ -1,6 +1,6 @@
 #include <APL/HArr.h>
-#include <APL/Char.h>
-#include <APL/Primitive.h>
+#include <APL/types/Char.h>
+#include <APL/types/Primitive.h>
 
 namespace APL::types::arrs
 {

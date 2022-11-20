@@ -1,7 +1,7 @@
 #pragma once
 
-#include <APL/Token.h>
-#include <APL/TokArr.h>
+#include <APL/tokenizer/Token.h>
+#include <APL/tokenizer/types/TokArr.h>
 #include <string>
 #include <vector>
 #include <optional>

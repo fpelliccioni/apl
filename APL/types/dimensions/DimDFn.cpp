@@ -1,4 +1,4 @@
-#include <APL/DimDFn.h>
+#include <APL/types/dimensions/DimDFn.h>
 
 namespace APL::types::dimensions
 {

@@ -1,4 +1,4 @@
-#include <APL/Dop.h>
+#include <APL/types/functions/Dop.h>
 #include <APL/errors/IncorrectArgsError.h>
 #include <APL/errors/DomainError.h>
 #include <APL/errors/SyntaxError.h>

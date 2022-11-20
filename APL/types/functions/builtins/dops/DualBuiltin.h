@@ -1,12 +1,12 @@
 #pragma once
 
 #include <APL/errors/DomainError.h>
-#include <APL/mops/InvertBuiltin.h>
-#include <APL/Dop.h>
-#include <APL/Obj.h>
-#include <APL/Value.h>
-#include <APL/DerivedDop.h>
-#include <APL/Fun.h>
+#include <APL/types/functions/builtins/mops/InvertBuiltin.h>
+#include <APL/types/functions/Dop.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Value.h>
+#include <APL/types/functions/DerivedDop.h>
+#include <APL/types/Fun.h>
 #include <string>
 #include <memory>
 #include <helpers/tangible_string_helper.h>

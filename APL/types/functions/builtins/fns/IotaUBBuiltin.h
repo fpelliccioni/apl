@@ -1,11 +1,11 @@
 #pragma once
 
 #include <APL/errors/DomainError.h>
-#include <APL/Builtin.h>
-#include <APL/mops/ReduceBuiltin.h>
-#include <APL/Fun.h>
+#include <APL/types/functions/Builtin.h>
+#include <APL/types/functions/builtins/mops/ReduceBuiltin.h>
+#include <APL/types/Fun.h>
 #include <APL/Scope.h>
-#include <APL/Value.h>
+#include <APL/types/Value.h>
 #include <string>
 #include <vector>
 #include <memory>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <APL/Token.h>
+#include <APL/tokenizer/Token.h>
 #include <APL/types/BigValue.h>
 #include <string>
 #include <memory>

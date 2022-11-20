@@ -1,9 +1,9 @@
 #pragma once
 
 #include <APL/errors/DomainError.h>
-#include <APL/Builtin.h>
-#include <APL/Value.h>
-#include <APL/BigValue.h>
+#include <APL/types/functions/Builtin.h>
+#include <APL/types/Value.h>
+#include <APL/types/BigValue.h>
 #include <string>
 #include <vector>
 #include <memory>

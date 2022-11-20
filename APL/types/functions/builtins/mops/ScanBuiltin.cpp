@@ -1,7 +1,7 @@
 #include <APL/ScanBuiltin.h>
-#include <APL/Fun.h>
+#include <APL/types/Fun.h>
 #include <APL/errors/NYIError.h>
-#include <APL/Arr.h>
+#include <APL/types/Arr.h>
 #include <APL/errors/DomainError.h>
 #include <APL/errors/RankError.h>
 

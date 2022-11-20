@@ -5,7 +5,7 @@
 //https://www.tangiblesoftwaresolutions.com/order/order-java-to-cplus.html
 //====================================================================================================
 
-#include <APL/Num.h>
+#include <APL/types/Num.h>
 
 namespace APL::types
 {

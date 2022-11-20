@@ -1,13 +1,13 @@
 #pragma once
 
 #include <APL/Main.h>
-#include <APL/fns/LShoeBuiltin.h>
-#include <APL/Mop.h>
-#include <APL/Obj.h>
-#include <APL/Value.h>
-#include <APL/DerivedMop.h>
-#include <APL/Fun.h>
-#include <APL/Callable.h>
+#include <APL/types/functions/builtins/fns/LShoeBuiltin.h>
+#include <APL/types/functions/Mop.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Value.h>
+#include <APL/types/functions/DerivedMop.h>
+#include <APL/types/Fun.h>
+#include <APL/types/Callable.h>
 #include <string>
 #include <vector>
 #include <memory>

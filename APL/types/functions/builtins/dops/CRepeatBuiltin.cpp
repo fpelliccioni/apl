@@ -1,7 +1,7 @@
 #include <APL/CRepeatBuiltin.h>
-#include <APL/Fun.h>
+#include <APL/types/Fun.h>
 #include <APL/Main.h>
-#include <APL/Arr.h>
+#include <APL/types/Arr.h>
 
 namespace APL::types::functions::builtins::dops
 {

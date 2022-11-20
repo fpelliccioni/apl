@@ -7,19 +7,19 @@
 
 #include <APL/ReduceBuiltin.h>
 #include <APL/errors/SyntaxError.h>
-#include <APL/fns/PlusBuiltin.h>
-#include <APL/Num.h>
-#include <APL/fns/MulBuiltin.h>
-#include <APL/fns/FloorBuiltin.h>
-#include <APL/fns/CeilingBuiltin.h>
-#include <APL/fns/CatBuiltin.h>
-#include <APL/Char.h>
-#include <APL/arrs/ChrArr.h>
-#include <APL/arrs/DoubleArr.h>
-#include <APL/Arr.h>
+#include <APL/types/functions/builtins/fns/PlusBuiltin.h>
+#include <APL/types/Num.h>
+#include <APL/types/functions/builtins/fns/MulBuiltin.h>
+#include <APL/types/functions/builtins/fns/FloorBuiltin.h>
+#include <APL/types/functions/builtins/fns/CeilingBuiltin.h>
+#include <APL/types/functions/builtins/fns/CatBuiltin.h>
+#include <APL/types/Char.h>
+#include <APL/types/arrs/ChrArr.h>
+#include <APL/types/arrs/DoubleArr.h>
+#include <APL/types/Arr.h>
 #include <APL/errors/DomainError.h>
 #include <APL/errors/NYIError.h>
-#include <APL/arrs/EmptyArr.h>
+#include <APL/types/arrs/EmptyArr.h>
 
 namespace APL::types::functions::builtins::mops
 {

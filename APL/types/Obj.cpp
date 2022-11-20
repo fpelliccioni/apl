@@ -1,18 +1,18 @@
-#include <APL/Obj.h>
-#include <APL/Arr.h>
-#include <APL/Char.h>
-#include <APL/Num.h>
-#include <APL/APLMap.h>
-#include <APL/Fun.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Arr.h>
+#include <APL/types/Char.h>
+#include <APL/types/Num.h>
+#include <APL/types/APLMap.h>
+#include <APL/types/Fun.h>
 #include <APL/Null.h>
-#include <APL/dimensions/Brackets.h>
+#include <APL/types/dimensions/Brackets.h>
 #include <APL/functions/VarArr.h>
-#include <APL/Variable.h>
-#include <APL/dimensions/Pick.h>
-#include <APL/functions/Mop.h>
-#include <APL/functions/Dop.h>
+#include <APL/types/Variable.h>
+#include <APL/types/dimensions/Pick.h>
+#include <APL/types/functions/Mop.h>
+#include <APL/types/functions/Dop.h>
 #include <APL/functions/ArrFun.h>
-#include <APL/BigValue.h>
+#include <APL/types/BigValue.h>
 
 namespace APL::types
 {

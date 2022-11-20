@@ -1,9 +1,9 @@
 #pragma once
 
 #include <APL/Scope.h>
-#include <APL/Value.h>
-#include <APL/arrs/DoubleArr.h>
-#include <APL/Builtin.h>
+#include <APL/types/Value.h>
+#include <APL/types/arrs/DoubleArr.h>
+#include <APL/types/functions/Builtin.h>
 #include <string>
 #include <vector>
 #include <optional>

@@ -1,6 +1,6 @@
 #include <APL/Rank0Arr.h>
-#include <APL/Char.h>
-#include <APL/SingleItemArr.h>
+#include <APL/types/Char.h>
+#include <APL/types/arrs/SingleItemArr.h>
 
 namespace APL::types::arrs
 {

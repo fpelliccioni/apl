@@ -1,9 +1,9 @@
 #include <APL/KeyBuiltin.h>
 #include <APL/errors/DomainError.h>
-#include <APL/APLMap.h>
-#include <APL/Arr.h>
-#include <APL/Fun.h>
-#include <APL/Num.h>
+#include <APL/types/APLMap.h>
+#include <APL/types/Arr.h>
+#include <APL/types/Fun.h>
+#include <APL/types/Num.h>
 #include <APL/errors/RankError.h>
 #include <APL/Main.h>
 #include <APL/errors/LengthError.h>

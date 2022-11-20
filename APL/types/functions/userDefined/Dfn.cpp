@@ -1,7 +1,7 @@
 #include <APL/Dfn.h>
 #include <APL/Main.h>
-#include <APL/Variable.h>
-#include <APL/Settable.h>
+#include <APL/types/Variable.h>
+#include <APL/types/Settable.h>
 
 namespace APL::types::functions::userDefined
 {

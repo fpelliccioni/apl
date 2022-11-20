@@ -1,9 +1,9 @@
 #pragma once
 
-#include <APL/AbstractSet.h>
-#include <APL/SetBuiltin.h>
-#include <APL/Fun.h>
-#include <APL/Obj.h>
+#include <APL/types/functions/builtins/AbstractSet.h>
+#include <APL/types/functions/builtins/SetBuiltin.h>
+#include <APL/types/Fun.h>
+#include <APL/types/Obj.h>
 #include <string>
 #include <memory>
 

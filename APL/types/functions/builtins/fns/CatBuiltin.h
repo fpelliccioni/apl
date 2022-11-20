@@ -1,12 +1,12 @@
 #pragma once
 
 #include <APL/Main.h>
-#include <APL/Builtin.h>
-#include <APL/dimensions/DimDFn.h>
-#include <APL/Value.h>
-#include <APL/dimensions/DervDimFn.h>
-#include <APL/Callable.h>
-#include <APL/Obj.h>
+#include <APL/types/functions/Builtin.h>
+#include <APL/types/dimensions/DimDFn.h>
+#include <APL/types/Value.h>
+#include <APL/types/dimensions/DervDimFn.h>
+#include <APL/types/Callable.h>
+#include <APL/types/Obj.h>
 #include <string>
 #include <vector>
 #include <algorithm>

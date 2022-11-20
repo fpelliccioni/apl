@@ -1,4 +1,4 @@
-#include <APL/LineTok.h>
+#include <APL/tokenizer/types/LineTok.h>
 #include <APL/ColonTok.h>
 #include <APL/DColonTok.h>
 

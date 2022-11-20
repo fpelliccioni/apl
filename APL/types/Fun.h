@@ -7,15 +7,15 @@
 //https://www.tangiblesoftwaresolutions.com/order/order-java-to-cplus.html
 //====================================================================================================
 
-#include <APL/Callable.h>
-#include <APL/Value.h>
+#include <APL/types/Callable.h>
+#include <APL/types/Value.h>
 #include <APL/Scope.h>
-#include <APL/Obj.h>
-#include <APL/Num.h>
-#include <APL/Char.h>
-#include <APL/APLMap.h>
-#include <APL/BigValue.h>
-#include <APL/arrs/BitArr.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Num.h>
+#include <APL/types/Char.h>
+#include <APL/types/APLMap.h>
+#include <APL/types/BigValue.h>
+#include <APL/types/arrs/BitArr.h>
 #include <APL/Type.h>
 #include <string>
 #include <vector>

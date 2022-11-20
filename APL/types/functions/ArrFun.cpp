@@ -1,6 +1,6 @@
 #include <APL/ArrFun.h>
-#include <APL/Dop.h>
-#include <APL/Mop.h>
+#include <APL/types/functions/Dop.h>
+#include <APL/types/functions/Mop.h>
 
 namespace APL::types::functions
 {

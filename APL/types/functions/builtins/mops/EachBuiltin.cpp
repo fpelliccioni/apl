@@ -6,12 +6,12 @@
 //====================================================================================================
 
 #include <APL/EachBuiltin.h>
-#include <APL/arrs/Rank0Arr.h>
-#include <APL/Arr.h>
-#include <APL/arrs/SingleItemArr.h>
+#include <APL/types/arrs/Rank0Arr.h>
+#include <APL/types/Arr.h>
+#include <APL/types/arrs/SingleItemArr.h>
 #include <APL/errors/LengthError.h>
 #include <APL/errors/DomainError.h>
-#include <APL/Primitive.h>
+#include <APL/types/Primitive.h>
 
 namespace APL::types::functions::builtins::mops
 {

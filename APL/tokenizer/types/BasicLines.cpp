@@ -1,4 +1,4 @@
-#include <APL/BasicLines.h>
+#include <APL/tokenizer/types/BasicLines.h>
 
 namespace APL::tokenizer::types
 {

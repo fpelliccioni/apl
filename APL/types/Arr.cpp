@@ -5,15 +5,15 @@
 //https://www.tangiblesoftwaresolutions.com/order/order-java-to-cplus.html
 //====================================================================================================
 
-#include <APL/Arr.h>
-#include <APL/Char.h>
-#include <APL/Primitive.h>
-#include <APL/arrs/ChrArr.h>
-#include <APL/Num.h>
+#include <APL/types/Arr.h>
+#include <APL/types/Char.h>
+#include <APL/types/Primitive.h>
+#include <APL/types/arrs/ChrArr.h>
+#include <APL/types/Num.h>
 #include <APL/errors/DomainError.h>
-#include <APL/arrs/EmptyArr.h>
-#include <APL/arrs/DoubleArr.h>
-#include <APL/arrs/HArr.h>
+#include <APL/types/arrs/EmptyArr.h>
+#include <APL/types/arrs/DoubleArr.h>
+#include <APL/types/arrs/HArr.h>
 #include <APL/errors/RankError.h>
 #include <APL/errors/LengthError.h>
 

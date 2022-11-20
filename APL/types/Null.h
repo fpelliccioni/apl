@@ -1,9 +1,9 @@
 #pragma once
 
 #include <APL/Type.h>
-#include <APL/arrs/SingleItemArr.h>
-#include <APL/Primitive.h>
-#include <APL/Value.h>
+#include <APL/types/arrs/SingleItemArr.h>
+#include <APL/types/Primitive.h>
+#include <APL/types/Value.h>
 #include <string>
 #include <vector>
 #include <memory>

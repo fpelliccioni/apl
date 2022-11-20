@@ -1,7 +1,7 @@
 #include <APL/EvalBuiltin.h>
 #include <APL/ArrFun.h>
 #include <APL/Main.h>
-#include <APL/Fun.h>
+#include <APL/types/Fun.h>
 
 namespace APL::types::functions::builtins::fns
 {

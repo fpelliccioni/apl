@@ -1,10 +1,10 @@
 #pragma once
 
-#include <APL/Builtin.h>
-#include <APL/dimensions/DimDFn.h>
-#include <APL/dimensions/DimMFn.h>
-#include <APL/Value.h>
-#include <APL/dimensions/DervDimFn.h>
+#include <APL/types/functions/Builtin.h>
+#include <APL/types/dimensions/DimDFn.h>
+#include <APL/types/dimensions/DimMFn.h>
+#include <APL/types/Value.h>
+#include <APL/types/dimensions/DervDimFn.h>
 #include <string>
 #include <vector>
 #include <algorithm>

@@ -1,4 +1,4 @@
-#include <APL/APLError.h>
+#include <APL/errors/APLError.h>
 #include <APL/Main.h>
 
 namespace APL::errors

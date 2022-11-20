@@ -1,12 +1,12 @@
 #include <APL/DownArrowBuiltin.h>
-#include <APL/Primitive.h>
-#include <APL/arrs/Rank0Arr.h>
-#include <APL/arrs/DoubleArr.h>
-#include <APL/arrs/HArr.h>
-#include <APL/Arr.h>
+#include <APL/types/Primitive.h>
+#include <APL/types/arrs/Rank0Arr.h>
+#include <APL/types/arrs/DoubleArr.h>
+#include <APL/types/arrs/HArr.h>
+#include <APL/types/Arr.h>
 #include <APL/errors/DomainError.h>
-#include <APL/UpArrowBuiltin.h>
-#include <APL/Fun.h>
+#include <APL/types/functions/builtins/fns/UpArrowBuiltin.h>
+#include <APL/types/Fun.h>
 #include <APL/errors/LengthError.h>
 
 namespace APL::types::functions::builtins::fns

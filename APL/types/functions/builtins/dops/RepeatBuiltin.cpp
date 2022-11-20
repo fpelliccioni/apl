@@ -7,7 +7,7 @@
 
 #include <APL/RepeatBuiltin.h>
 #include <APL/Main.h>
-#include <APL/Num.h>
+#include <APL/types/Num.h>
 #include <APL/errors/SyntaxError.h>
 #include <APL/errors/DomainError.h>
 

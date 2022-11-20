@@ -1,7 +1,7 @@
 #pragma once
 
 #include <APL/types/Obj.h>
-#include <APL/APLError.h>
+#include <APL/errors/APLError.h>
 #include <string>
 #include <memory>
 

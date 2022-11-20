@@ -1,9 +1,9 @@
 #pragma once
 
-#include <APL/Settable.h>
+#include <APL/types/Settable.h>
 #include <APL/Scope.h>
-#include <APL/Callable.h>
-#include <APL/Obj.h>
+#include <APL/types/Callable.h>
+#include <APL/types/Obj.h>
 #include <APL/Type.h>
 #include <string>
 #include <memory>

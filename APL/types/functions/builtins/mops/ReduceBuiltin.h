@@ -1,12 +1,12 @@
 #pragma once
 
 #include <APL/Main.h>
-#include <APL/dimensions/DimMMop.h>
-#include <APL/Mop.h>
-#include <APL/Obj.h>
-#include <APL/Value.h>
-#include <APL/DerivedMop.h>
-#include <APL/Fun.h>
+#include <APL/types/dimensions/DimMMop.h>
+#include <APL/types/functions/Mop.h>
+#include <APL/types/Obj.h>
+#include <APL/types/Value.h>
+#include <APL/types/functions/DerivedMop.h>
+#include <APL/types/Fun.h>
 #include <string>
 #include <vector>
 #include <algorithm>

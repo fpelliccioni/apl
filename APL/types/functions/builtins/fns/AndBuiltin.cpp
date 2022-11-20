@@ -1,5 +1,5 @@
 #include <APL/AndBuiltin.h>
-#include <APL/Num.h>
+#include <APL/types/Num.h>
 
 namespace APL::types::functions::builtins::fns
 {

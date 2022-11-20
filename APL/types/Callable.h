@@ -1,7 +1,7 @@
 #pragma once
 
 #include <APL/Scope.h>
-#include <APL/Obj.h>
+#include <APL/types/Obj.h>
 #include <memory>
 
 namespace APL::types

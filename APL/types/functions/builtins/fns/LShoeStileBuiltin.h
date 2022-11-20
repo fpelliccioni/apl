@@ -1,8 +1,8 @@
 #pragma once
 
 #include <APL/errors/RankError.h>
-#include <APL/Value.h>
-#include <APL/Builtin.h>
+#include <APL/types/Value.h>
+#include <APL/types/functions/Builtin.h>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>

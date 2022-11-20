@@ -5,14 +5,14 @@
 //https://www.tangiblesoftwaresolutions.com/order/order-java-to-cplus.html
 //====================================================================================================
 
-#include <APL/UpArrowBuiltin.h>
-#include <APL/Arr.h>
-#include <APL/arrs/BitArr.h>
-#include <APL/arrs/ChrArr.h>
-#include <APL/arrs/DoubleArr.h>
-#include <APL/arrs/EmptyArr.h>
+#include <APL/types/functions/builtins/fns/UpArrowBuiltin.h>
+#include <APL/types/Arr.h>
+#include <APL/types/arrs/BitArr.h>
+#include <APL/types/arrs/ChrArr.h>
+#include <APL/types/arrs/DoubleArr.h>
+#include <APL/types/arrs/EmptyArr.h>
 #include <APL/Main.h>
-#include <APL/Fun.h>
+#include <APL/types/Fun.h>
 #include <APL/errors/RankError.h>
 #include <APL/SimpleIndexer.h>
 #include <APL/Indexer.h>

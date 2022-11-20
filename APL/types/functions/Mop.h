@@ -1,12 +1,12 @@
 #pragma once
 
-#include <APL/Callable.h>
+#include <APL/types/Callable.h>
 #include <APL/Scope.h>
 #include <APL/Type.h>
-#include <APL/Obj.h>
-#include <APL/DerivedMop.h>
-#include <APL/Value.h>
-#include <APL/Fun.h>
+#include <APL/types/Obj.h>
+#include <APL/types/functions/DerivedMop.h>
+#include <APL/types/Value.h>
+#include <APL/types/Fun.h>
 #include <string>
 #include <memory>
 #include <helpers/tangible_string_helper.h>

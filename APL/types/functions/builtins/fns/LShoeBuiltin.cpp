@@ -1,11 +1,11 @@
 #include <APL/LShoeBuiltin.h>
-#include <APL/Primitive.h>
-#include <APL/arrs/Rank0Arr.h>
+#include <APL/types/Primitive.h>
+#include <APL/types/arrs/Rank0Arr.h>
 #include <APL/errors/DomainError.h>
 #include <APL/errors/LengthError.h>
-#include <APL/arrs/DoubleArr.h>
-#include <APL/arrs/EmptyArr.h>
-#include <APL/Arr.h>
+#include <APL/types/arrs/DoubleArr.h>
+#include <APL/types/arrs/EmptyArr.h>
+#include <APL/types/Arr.h>
 
 namespace APL::types::functions::builtins::fns
 {

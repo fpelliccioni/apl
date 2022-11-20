@@ -1,7 +1,7 @@
 #pragma once
 
-#include <APL/Arr.h>
-#include <APL/Value.h>
+#include <APL/types/Arr.h>
+#include <APL/types/Value.h>
 #include <string>
 #include <vector>
 #include <helpers/tangible_exception_helper.h>

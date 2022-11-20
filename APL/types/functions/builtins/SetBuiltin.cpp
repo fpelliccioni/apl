@@ -1,6 +1,6 @@
-#include <APL/SetBuiltin.h>
-#include <APL/Settable.h>
-#include <APL/Variable.h>
+#include <APL/types/functions/builtins/SetBuiltin.h>
+#include <APL/types/Settable.h>
+#include <APL/types/Variable.h>
 
 namespace APL::types::functions::builtins
 {

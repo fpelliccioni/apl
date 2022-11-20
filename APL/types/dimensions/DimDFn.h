@@ -1,7 +1,7 @@
 #pragma once
 
-#include <APL/Value.h>
-#include <APL/DervDimFn.h>
+#include <APL/types/Value.h>
+#include <APL/types/dimensions/DervDimFn.h>
 #include <memory>
 
 namespace APL::types::dimensions
