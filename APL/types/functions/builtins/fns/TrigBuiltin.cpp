@@ -4,18 +4,18 @@
 
 namespace APL::types::functions::builtins::fns
 {
-	using namespace APL::errors;
-	using namespace APL::types;
+	// using namespace APL::errors;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
 
-	std::wstring TrigBuiltin::repr()
+	std::string TrigBuiltin::repr()
 	{
 	  return L"○";
 	}
 
 const std::shared_ptr<NumMV> TrigBuiltin::NF = std::make_shared<NumMVAnonymousInnerClass>();
 
-	std::shared_ptr<Value> TrigBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> w)
+	std::shared_ptr<APL::types::Value> TrigBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> w)
 	{
 	  return std::make_shared<Num>(w->num * M_PI);
 	}
@@ -30,7 +30,7 @@ const std::shared_ptr<NumMV> TrigBuiltin::NF = std::make_shared<NumMVAnonymousIn
 
 const std::shared_ptr<NumMV> TrigBuiltin::NFi = std::make_shared<NumMVAnonymousInnerClass2>();
 
-	std::shared_ptr<Value> TrigBuiltin::NumMVAnonymousInnerClass2::call(std::shared_ptr<Num> w)
+	std::shared_ptr<APL::types::Value> TrigBuiltin::NumMVAnonymousInnerClass2::call(std::shared_ptr<Num> w)
 	{
 	  return std::make_shared<Num>(w->num / M_PI);
 	}
@@ -43,12 +43,12 @@ const std::shared_ptr<NumMV> TrigBuiltin::NFi = std::make_shared<NumMVAnonymousI
 	  }
 	}
 
-	std::shared_ptr<Value> TrigBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> TrigBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  return numM(NF, w);
 	}
 
-	std::shared_ptr<Value> TrigBuiltin::callInv(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> TrigBuiltin::callInv(std::shared_ptr<APL::types::Value> w)
 	{
 	  return numM(NFi, w);
 	}
@@ -95,11 +95,11 @@ const std::shared_ptr<D_NNeN> TrigBuiltin::DNF = std::make_shared<D_NNeNAnonymou
 		case -4:
 			return std::sqrt(w * w - 1);
 		case -5:
-			throw NYIError(L"inverse hyperbolic functions"); // return Math.asinh(w);
+			throw APL::errors::NYIError(L"inverse hyperbolic functions"); // return Math.asinh(w);
 		case -6:
-			throw NYIError(L"inverse hyperbolic functions"); // return Math.acosh(w);
+			throw APL::errors::NYIError(L"inverse hyperbolic functions"); // return Math.acosh(w);
 		case -7:
-			throw NYIError(L"inverse hyperbolic functions"); // return Math.atanh(w);
+			throw APL::errors::NYIError(L"inverse hyperbolic functions"); // return Math.atanh(w);
 		case -8:
 			return NAN; // pooointleeeessssss
 		case -9:
@@ -114,7 +114,7 @@ const std::shared_ptr<D_NNeN> TrigBuiltin::DNF = std::make_shared<D_NNeNAnonymou
 	  throw DomainError(L"○: ⍺ is out of bounds");
 	}
 
-	std::shared_ptr<Value> TrigBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> TrigBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return numD(DNF, a, w);
 	}
@@ -142,7 +142,7 @@ const std::shared_ptr<D_NNeN> TrigBuiltin::DNFi = std::make_shared<D_NNeNAnonymo
 	  throw DomainError(L"○⍣¯1: ⍵ must be in (+,-)1…3");
 	}
 
-	std::shared_ptr<Value> TrigBuiltin::callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> TrigBuiltin::callInvW(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return numD(DNFi, a, w);
 	}

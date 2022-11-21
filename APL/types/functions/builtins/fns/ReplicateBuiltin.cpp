@@ -18,24 +18,24 @@
 namespace APL::types::functions::builtins::fns
 {
 	using Main = APL::Main;
-	using namespace APL::errors;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
+	// using namespace APL::errors;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
 	using AtBuiltin = APL::types::functions::builtins::dops::AtBuiltin;
 	using Arrays = java::util::Arrays;
 
-	std::wstring ReplicateBuiltin::repr()
+	std::string ReplicateBuiltin::repr()
 	{
 	  return L"⌿";
 	}
 
-	std::shared_ptr<Value> ReplicateBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> ReplicateBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return replicate(a, w, shared_from_this());
 	}
 
-	std::shared_ptr<Value> ReplicateBuiltin::replicate(std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<Callable> blame)
+	std::shared_ptr<APL::types::Value> ReplicateBuiltin::replicate(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<APL::types::Callable> blame)
 	{
 	  if (a->rank == 0)
 	  {
@@ -47,22 +47,22 @@ namespace APL::types::functions::builtins::fns
 		if (sz < 0)
 		{
 		  int am = w->ia * -sz;
-		  std::shared_ptr<Value> pr = w->prototype();
+		  std::shared_ptr<APL::types::Value> pr = w->prototype();
 		  if (std::dynamic_pointer_cast<Num>(pr) != nullptr)
 		  {
 			  return std::make_shared<DoubleArr>(std::vector<double>(am));
 		  }
-		  std::vector<std::shared_ptr<Value>> res(am);
-		  std::shared_ptr<Value> n = std::dynamic_pointer_cast<Char>(w->first()) != nullptr? Char::SPACE : Num::ZERO;
+		  std::vector<std::shared_ptr<APL::types::Value>> res(am);
+		  std::shared_ptr<APL::types::Value> n = std::dynamic_pointer_cast<Char>(w->first()) != nullptr? Char::SPACE : Num::ZERO;
 		  Arrays::fill(res, n);
 		  return Arr::create(res);
 		}
 
 		int am = w->ia * sz;
-		if (std::dynamic_pointer_cast<BitArr>(w) != nullptr)
+		if (std::dynamic_pointer_cast<APL::types::arrs::BitArr>(w) != nullptr)
 		{
-		  std::shared_ptr<BitArr::BA> res = std::make_shared<BitArr::BA>(am);
-		  std::shared_ptr<BitArr::BR> r = (std::static_pointer_cast<BitArr>(w))->read();
+		  std::shared_ptr<APL::types::arrs::BitArr::BA> res = std::make_shared<APL::types::arrs::BitArr::BA>(am);
+		  std::shared_ptr<APL::types::arrs::BitArr::BR> r = (std::static_pointer_cast<APL::types::arrs::BitArr>(w))->read();
 		  for (int i = 0; i < w->ia; i++)
 		  {
 			if (r->read())
@@ -91,11 +91,11 @@ namespace APL::types::functions::builtins::fns
 		  }
 		  return std::make_shared<DoubleArr>(res);
 		}
-		std::vector<std::shared_ptr<Value>> res(am);
+		std::vector<std::shared_ptr<APL::types::Value>> res(am);
 		int ptr = 0;
 		for (int i = 0; i < w->ia; i++)
 		{
-		  std::shared_ptr<Value> c = w[i];
+		  std::shared_ptr<APL::types::Value> c = w[i];
 		  for (int j = 0; j < sz; j++)
 		  {
 			res[ptr++] = c;
@@ -114,17 +114,17 @@ namespace APL::types::functions::builtins::fns
 		  throw LengthError(StringHelper::wstring_to_string(L"⌿: shapes of ⍺ & ⍵ must be equal (" + Main::formatAPL(a->shape) + L" vs " + Main::formatAPL(w->shape) + L")", blame));
 	  }
 
-	  if (std::dynamic_pointer_cast<BitArr>(a) != nullptr)
+	  if (std::dynamic_pointer_cast<APL::types::arrs::BitArr>(a) != nullptr)
 	  {
-		std::shared_ptr<BitArr> ab = std::static_pointer_cast<BitArr>(a);
+		std::shared_ptr<APL::types::arrs::BitArr> ab = std::static_pointer_cast<APL::types::arrs::BitArr>(a);
 		ab->setEnd(false);
 		int sum = ab->isum();
-		if (std::dynamic_pointer_cast<BitArr>(w) != nullptr)
+		if (std::dynamic_pointer_cast<APL::types::arrs::BitArr>(w) != nullptr)
 		{
-		  std::shared_ptr<BitArr::BA> res = std::make_shared<BitArr::BA>(sum);
-		  std::vector<long long> wba = (std::static_pointer_cast<BitArr>(w))->arr;
-		  (std::static_pointer_cast<BitArr>(a))->setEnd(false);
-		  std::vector<long long> aba = (std::static_pointer_cast<BitArr>(a))->arr;
+		  std::shared_ptr<APL::types::arrs::BitArr::BA> res = std::make_shared<APL::types::arrs::BitArr::BA>(sum);
+		  std::vector<long long> wba = (std::static_pointer_cast<APL::types::arrs::BitArr>(w))->arr;
+		  (std::static_pointer_cast<APL::types::arrs::BitArr>(a))->setEnd(false);
+		  std::vector<long long> aba = (std::static_pointer_cast<APL::types::arrs::BitArr>(a))->arr;
 		  int ia = wba.size();
 
 		  for (int i = 0; i < ia; i++)
@@ -198,7 +198,7 @@ namespace APL::types::functions::builtins::fns
 			}
 		  }
 		  return std::make_shared<DoubleArr>(res);
-		  // BitArr.BR r = ab.read();
+		  // APL::types::arrs::BitArr.BR r = ab.read();
 		  // int pos = 0;
 		  // for (int i = 0; i < w.ia; i++) {
 		  //   if (r.read()) {
@@ -207,11 +207,11 @@ namespace APL::types::functions::builtins::fns
 		  // }
 		  // return new DoubleArr(res);
 		}
-		if (std::dynamic_pointer_cast<ChrArr>(w) != nullptr)
+		if (std::dynamic_pointer_cast<APL::types::arrs::ChrArr>(w) != nullptr)
 		{
-		  std::wstring ws = (std::static_pointer_cast<ChrArr>(w))->s;
+		  std::string ws = (std::static_pointer_cast<APL::types::arrs::ChrArr>(w))->s;
 		  std::vector<wchar_t> chars(sum);
-		  std::shared_ptr<BitArr::BR> r = ab->read();
+		  std::shared_ptr<APL::types::arrs::BitArr::BR> r = ab->read();
 		  int pos = 0;
 		  for (int i = 0; i < w->ia; i++)
 		  {
@@ -220,10 +220,10 @@ namespace APL::types::functions::builtins::fns
 			  chars[pos++] = ws[i];
 			}
 		  }
-		  return std::make_shared<ChrArr>(chars);
+		  return std::make_shared<APL::types::arrs::ChrArr>(chars);
 		}
-		std::vector<std::shared_ptr<Value>> res(sum);
-		std::shared_ptr<BitArr::BR> r = ab->read();
+		std::vector<std::shared_ptr<APL::types::Value>> res(sum);
+		std::shared_ptr<APL::types::arrs::BitArr::BR> r = ab->read();
 		int pos = 0;
 		for (int i = 0; i < w->ia; i++)
 		{
@@ -243,10 +243,10 @@ namespace APL::types::functions::builtins::fns
 		total += std::abs(sizes[i]);
 	  }
 
-	  if (std::dynamic_pointer_cast<BitArr>(w) != nullptr)
+	  if (std::dynamic_pointer_cast<APL::types::arrs::BitArr>(w) != nullptr)
 	  {
-		std::shared_ptr<BitArr::BA> res = std::make_shared<BitArr::BA>(total);
-		std::shared_ptr<BitArr::BR> r = (std::static_pointer_cast<BitArr>(w))->read();
+		std::shared_ptr<APL::types::arrs::BitArr::BA> res = std::make_shared<APL::types::arrs::BitArr::BA>(total);
+		std::shared_ptr<APL::types::arrs::BitArr::BR> r = (std::static_pointer_cast<APL::types::arrs::BitArr>(w))->read();
 		for (int i = 0; i < w->ia; i++)
 		{
 		  int am = sizes[i];
@@ -291,10 +291,10 @@ namespace APL::types::functions::builtins::fns
 	  else
 	  {
 		int ptr = 0;
-		std::vector<std::shared_ptr<Value>> res(total);
+		std::vector<std::shared_ptr<APL::types::Value>> res(total);
 		for (int i = 0; i < a->ia; i++)
 		{
-		  std::shared_ptr<Value> c = w[i];
+		  std::shared_ptr<APL::types::Value> c = w[i];
 		  int am = sizes[i];
 		  if (sizes[i] < 0)
 		  {
@@ -310,24 +310,24 @@ namespace APL::types::functions::builtins::fns
 	  }
 	}
 
-	std::shared_ptr<Value> ReplicateBuiltin::underW(std::shared_ptr<Obj> o, std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> ReplicateBuiltin::underW(std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
-	  std::shared_ptr<Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(a, w)) : std::static_pointer_cast<Value>(o);
+	  std::shared_ptr<APL::types::Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(a, w)) : std::static_pointer_cast<APL::types::Value>(o);
 	  return AtBuiltin::at(v, std::make_shared<FunAnonymousInnerClass>(shared_from_this(), a)
 	 , w, -1234, shared_from_this());
 	}
 
-	ReplicateBuiltin::FunAnonymousInnerClass::FunAnonymousInnerClass(std::shared_ptr<ReplicateBuiltin> outerInstance, std::shared_ptr<APL::types::Value> a) : outerInstance(outerInstance)
+	ReplicateBuiltin::FunAnonymousInnerClass::FunAnonymousInnerClass(std::shared_ptr<ReplicateBuiltin> outerInstance, std::shared_ptr<APL::types::APL::types::Value> a) : outerInstance(outerInstance)
 	{
 		this->a = a;
 	}
 
-	std::wstring ReplicateBuiltin::FunAnonymousInnerClass::repr()
+	std::string ReplicateBuiltin::FunAnonymousInnerClass::repr()
 	{
 		return L"{⌿.⍺}";
 	}
 
-	std::shared_ptr<Value> ReplicateBuiltin::FunAnonymousInnerClass::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> ReplicateBuiltin::FunAnonymousInnerClass::call(std::shared_ptr<APL::types::Value> w)
 	{
 		return a;
 	}

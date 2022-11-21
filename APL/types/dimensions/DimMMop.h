@@ -7,11 +7,11 @@
 namespace APL::types::dimensions
 {
 
-	using namespace APL::types;
+    // using namespace APL::types;
 
-	class DimMMop
-	{
+    class DimMMop
+    {
   public:
-	  virtual std::shared_ptr<Value> call(std::shared_ptr<Obj> aa, std::shared_ptr<Value> w, int dim) = 0;
-	};
+      virtual std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Value> w, int dim) = 0;
+    };
 }

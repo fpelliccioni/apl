@@ -9,14 +9,14 @@ namespace APL::types::functions::builtins
 {
 
 	using Type = APL::Type;
-	using namespace APL::types;
+	// using namespace APL::types;
 
 	class AbstractSet : public Callable
 	{
   public:
 	  AbstractSet();
 
-	  virtual std::shared_ptr<Obj> callObj(std::shared_ptr<Obj> a, std::shared_ptr<Obj> w, bool update) = 0;
+	  virtual std::shared_ptr<APL::types::Obj> callObj(std::shared_ptr<APL::types::Obj> a, std::shared_ptr<APL::types::Obj> w, bool update) = 0;
 
 	  Type type() override;
 

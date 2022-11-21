@@ -15,52 +15,51 @@
 namespace APL::types
 {
 
-	using namespace APL;
+    // using namespace APL;
 
 
-	class StrMap : public APLMap
-	{
+    class StrMap : public APLMap
+    {
   public:
 //JAVA TO C++ CONVERTER WARNING: C++ has no equivalent to a 'final' collection which allows modification of internal state:
 //ORIGINAL LINE: public final HashMap<String, Obj> vals;
-	  std::unordered_map<std::wstring, std::shared_ptr<Obj>> vals;
-	  // public final Scope sc;
+      std::unordered_map<std::string, std::shared_ptr<APL::types::Obj>> vals;
+      // public final Scope sc;
 
-	  StrMap(std::shared_ptr<Scope> sc);
+      StrMap(std::shared_ptr<Scope> sc);
 
-	  StrMap(std::unordered_map<std::wstring, std::shared_ptr<Obj>> &vals);
+      StrMap(std::unordered_map<std::string, std::shared_ptr<APL::types::Obj>> &vals);
 
-	  StrMap();
+      StrMap();
 
-	  // public StrMap(Scope sc, HashMap<String, Obj> vals) {
-	  //   this.sc = sc;
-	  //   this.vals = vals;
-	  // }
+      // public StrMap(Scope sc, HashMap<String, Obj> vals) {
+      //   this.sc = sc;
+      //   this.vals = vals;
+      // }
 
 
-	  std::shared_ptr<Obj> getRaw(std::shared_ptr<Value> k) override;
-	  std::shared_ptr<Obj> getRaw(const std::wstring &k) override;
+      std::shared_ptr<APL::types::Obj> getRaw(std::shared_ptr<APL::types::Value> k) override;
+      std::shared_ptr<APL::types::Obj> getRaw(std::string const& k) override;
 
-	  void set(std::shared_ptr<Value> k, std::shared_ptr<Obj> v) override;
+      void set(std::shared_ptr<APL::types::Value> k, std::shared_ptr<APL::types::Obj> v) override;
 
-	  virtual void setStr(const std::wstring &k, std::shared_ptr<Obj> v);
+      virtual void setStr(std::string const& k, std::shared_ptr<APL::types::Obj> v);
 
-	  std::shared_ptr<Arr> allValues() override;
+      std::shared_ptr<Arr> allValues() override;
 
-	  std::shared_ptr<Arr> allKeys() override;
+      std::shared_ptr<Arr> allKeys() override;
 
-	  std::shared_ptr<Arr> kvPair() override;
+      std::shared_ptr<Arr> kvPair() override;
 
-	  int size() override;
+      int size() override;
 
-	  virtual bool equals(std::shared_ptr<Obj> o);
+      virtual bool equals(std::shared_ptr<APL::types::Obj> o);
 
-	  virtual std::wstring toString();
+      virtual std::string toString();
 
-	protected:
-		std::shared_ptr<StrMap> shared_from_this()
-		{
-			return std::static_pointer_cast<StrMap>(APLMap::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<StrMap> shared_from_this() {
+            return std::static_pointer_cast<StrMap>(APLMap::shared_from_this());
+        }
+    };
 }

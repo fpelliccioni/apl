@@ -13,17 +13,17 @@ namespace APL::types::functions::builtins::fns
 {
 
 	using Scope = APL::Scope;
-	using Value = APL::types::Value;
+	using APL::types::Value = APL::types::APL::types::Value;
 	using Builtin = APL::types::functions::Builtin;
 
 	class GradeUpBuiltin : public Builtin
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 	  GradeUpBuiltin(std::shared_ptr<Scope> sc);
 
-	  virtual std::shared_ptr<Value> call(std::shared_ptr<Value> w);
+	  virtual std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w);
 
 	  // TODO dyadic ⍋ & ⍒
 

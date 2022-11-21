@@ -3,15 +3,15 @@
 
 namespace APL::types::functions::builtins::fns
 {
-	using Value = APL::types::Value;
+	using APL::types::Value = APL::types::APL::types::Value;
 	using Builtin = APL::types::functions::Builtin;
 
-	std::wstring CommaBarBuiltin::repr()
+	std::string CommaBarBuiltin::repr()
 	{
 	  return L"⍪";
 	}
 
-	std::shared_ptr<Value> CommaBarBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> CommaBarBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  if (w->rank == 1)
 	  {
@@ -29,7 +29,7 @@ namespace APL::types::functions::builtins::fns
 	  return w->ofShape(std::vector<int>{w->shape[0], tsz});
 	}
 
-	std::shared_ptr<Value> CommaBarBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> CommaBarBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return CatBuiltin::cat(a, w, 0, shared_from_this());
 	}

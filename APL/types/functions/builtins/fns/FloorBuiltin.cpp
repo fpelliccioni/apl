@@ -2,22 +2,22 @@
 
 namespace APL::types::functions::builtins::fns
 {
-	using namespace APL::types;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
 
-	std::wstring FloorBuiltin::repr()
+	std::string FloorBuiltin::repr()
 	{
 	  return L"⌊";
 	}
 
-	std::shared_ptr<Value> FloorBuiltin::identity()
+	std::shared_ptr<APL::types::Value> FloorBuiltin::identity()
 	{
 	  return Num::POSINF;
 	}
 
 const std::shared_ptr<NumMV> FloorBuiltin::NF = std::make_shared<NumMVAnonymousInnerClass>();
 
-	std::shared_ptr<Value> FloorBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> w)
+	std::shared_ptr<APL::types::Value> FloorBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> w)
 	{
 	  return w->floor();
 	}
@@ -30,7 +30,7 @@ const std::shared_ptr<NumMV> FloorBuiltin::NF = std::make_shared<NumMVAnonymousI
 	  }
 	}
 
-	std::shared_ptr<Value> FloorBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> FloorBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 //JAVA TO C++ CONVERTER TODO TASK: Method reference arbitrary object instance method syntax is not converted by Java to C++ Converter:
 	  return numChrM(NF, Char::lower, w);
@@ -67,12 +67,12 @@ const std::shared_ptr<D_NNeN> FloorBuiltin::DNF = std::make_shared<D_NNeNAnonymo
 	  }
 	}
 
-	std::shared_ptr<Value> FloorBuiltin::D_NNeNAnonymousInnerClass::call(std::shared_ptr<BigValue> a, std::shared_ptr<BigValue> w)
+	std::shared_ptr<APL::types::Value> FloorBuiltin::D_NNeNAnonymousInnerClass::call(std::shared_ptr<APL::types::BigValue> a, std::shared_ptr<APL::types::BigValue> w)
 	{
 	  return a->compareTo(w) > 0? w : a;
 	}
 
-	std::shared_ptr<Value> FloorBuiltin::call(std::shared_ptr<Value> a0, std::shared_ptr<Value> w0)
+	std::shared_ptr<APL::types::Value> FloorBuiltin::call(std::shared_ptr<APL::types::Value> a0, std::shared_ptr<APL::types::Value> w0)
 	{
 	  return numD(DNF, a0, w0);
 	}

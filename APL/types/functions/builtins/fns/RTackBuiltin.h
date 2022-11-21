@@ -9,22 +9,22 @@
 namespace APL::types::functions::builtins::fns
 {
 
-	using Value = APL::types::Value;
+	using APL::types::Value = APL::types::APL::types::Value;
 	using Builtin = APL::types::functions::Builtin;
 
 	class RTackBuiltin : public Builtin
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 
 
-	  virtual std::shared_ptr<Value> call(std::shared_ptr<Value> w);
-	  virtual std::shared_ptr<Value> call(std::shared_ptr<Value> a, std::shared_ptr<Value> w);
+	  virtual std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w);
+	  virtual std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w);
 
-	  virtual std::shared_ptr<Value> callInv(std::shared_ptr<Value> w);
-	  virtual std::shared_ptr<Value> callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w);
-	  virtual std::shared_ptr<Value> callInvA(std::shared_ptr<Value> a, std::shared_ptr<Value> w);
+	  virtual std::shared_ptr<APL::types::Value> callInv(std::shared_ptr<APL::types::Value> w);
+	  virtual std::shared_ptr<APL::types::Value> callInvW(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w);
+	  virtual std::shared_ptr<APL::types::Value> callInvA(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w);
 
 	protected:
 		std::shared_ptr<RTackBuiltin> shared_from_this()

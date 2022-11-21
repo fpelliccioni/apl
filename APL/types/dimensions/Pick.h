@@ -15,33 +15,32 @@
 namespace APL::types::dimensions
 {
 
-	using Scope = APL::Scope;
-	using namespace APL::types;
+    using Scope = APL::Scope;
+    // using namespace APL::types;
 
-	class Pick : public Settable
-	{
+    class Pick : public Settable
+    {
   private:
-	  const std::shared_ptr<Variable> var;
-	  const std::shared_ptr<Value> val;
-	  const std::shared_ptr<Value> idx;
-	  const int IO;
-	  const std::shared_ptr<Brackets> obj;
+      const std::shared_ptr<Variable> var;
+      const std::shared_ptr<APL::types::Value> val;
+      const std::shared_ptr<APL::types::Value> idx;
+      const int IO;
+      const std::shared_ptr<Brackets> obj;
 
   public:
-	  Pick(std::shared_ptr<Variable> var, std::shared_ptr<Brackets> where, std::shared_ptr<Scope> sc);
+      Pick(std::shared_ptr<Variable> var, std::shared_ptr<Brackets> where, std::shared_ptr<Scope> sc);
 
-	  void set(std::shared_ptr<Obj> v, std::shared_ptr<Callable> blame) override;
+      void set(std::shared_ptr<APL::types::Obj> v, std::shared_ptr<APL::types::Callable> blame) override;
 
-	  std::shared_ptr<Obj> get() override;
+      std::shared_ptr<APL::types::Obj> get() override;
 
-	  std::shared_ptr<Obj> getOrThis() override;
+      std::shared_ptr<APL::types::Obj> getOrThis() override;
 
-	  virtual std::wstring toString();
+      virtual std::string toString();
 
-	protected:
-		std::shared_ptr<Pick> shared_from_this()
-		{
-			return std::static_pointer_cast<Pick>(Settable::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<Pick> shared_from_this() {
+            return std::static_pointer_cast<Pick>(Settable::shared_from_this());
+        }
+    };
 }

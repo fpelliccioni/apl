@@ -4,17 +4,17 @@
 
 namespace APL::types::functions::builtins::fns
 {
-	using namespace APL::types;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
 
-	std::wstring RootBuiltin::repr()
+	std::string RootBuiltin::repr()
 	{
 	  return L"√";
 	}
 
 const std::shared_ptr<NumMV> RootBuiltin::NF = std::make_shared<NumMVAnonymousInnerClass>();
 
-	std::shared_ptr<Value> RootBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> w)
+	std::shared_ptr<APL::types::Value> RootBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> w)
 	{
 	  return w->root(Num::NUMS[2]);
 	}
@@ -29,7 +29,7 @@ const std::shared_ptr<NumMV> RootBuiltin::NF = std::make_shared<NumMVAnonymousIn
 
 const std::shared_ptr<NumMV> RootBuiltin::NFi = std::make_shared<NumMVAnonymousInnerClass2>();
 
-	std::shared_ptr<Value> RootBuiltin::NumMVAnonymousInnerClass2::call(std::shared_ptr<Num> w)
+	std::shared_ptr<APL::types::Value> RootBuiltin::NumMVAnonymousInnerClass2::call(std::shared_ptr<Num> w)
 	{
 	  return Num::of(w->num * w->num);
 	}
@@ -42,12 +42,12 @@ const std::shared_ptr<NumMV> RootBuiltin::NFi = std::make_shared<NumMVAnonymousI
 	  }
 	}
 
-	std::shared_ptr<Value> RootBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> RootBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  return numM(NF, w);
 	}
 
-	std::shared_ptr<Value> RootBuiltin::callInv(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> RootBuiltin::callInv(std::shared_ptr<APL::types::Value> w)
 	{
 	  return numM(NFi, w);
 	}
@@ -84,17 +84,17 @@ const std::shared_ptr<D_NNeN> RootBuiltin::DNF = std::make_shared<D_NNeNAnonymou
 	  }
 	}
 
-	std::shared_ptr<Value> RootBuiltin::call(std::shared_ptr<Value> a0, std::shared_ptr<Value> w0)
+	std::shared_ptr<APL::types::Value> RootBuiltin::call(std::shared_ptr<APL::types::Value> a0, std::shared_ptr<APL::types::Value> w0)
 	{
 	  return numD(DNF, a0, w0);
 	}
 
-	std::shared_ptr<Value> RootBuiltin::callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> RootBuiltin::callInvW(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return numD(StarBuiltin::DNF, w, a);
 	}
 
-	std::shared_ptr<Value> RootBuiltin::callInvA(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> RootBuiltin::callInvA(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return numD(LogBuiltin::DNF, a, w);
 	}

@@ -16,28 +16,28 @@
 namespace APL::types::functions::builtins::mops
 {
 
-	using namespace APL::errors;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
-	using namespace APL::types::functions;
+	// using namespace APL::errors;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
+	// using namespace APL::types::functions;
 
 
 	class EachBuiltin : public Mop
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 
 
-	  std::shared_ptr<Value> call(std::shared_ptr<Obj> f, std::shared_ptr<Value> w, std::shared_ptr<DerivedMop> derv) override;
-	  std::shared_ptr<Value> call(std::shared_ptr<Obj> f, std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<DerivedMop> derv) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Obj> f, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedMop> derv) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Obj> f, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedMop> derv) override;
 
-	  std::shared_ptr<Value> callInv(std::shared_ptr<Obj> f, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> callInv(std::shared_ptr<APL::types::Obj> f, std::shared_ptr<APL::types::Value> w) override;
 
-	  std::shared_ptr<Value> under(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> o, std::shared_ptr<Value> w, std::shared_ptr<DerivedMop> derv) override;
+	  std::shared_ptr<APL::types::Value> under(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedMop> derv) override;
 
   private:
-	  static void rec(std::shared_ptr<Fun> aa, std::shared_ptr<Obj> o, std::shared_ptr<Value> w, int i, std::vector<std::shared_ptr<Value>> &args, std::vector<std::shared_ptr<Value>> &resPre, std::vector<std::shared_ptr<Value>> &res);
+	  static void rec(std::shared_ptr<Fun> aa, std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> w, int i, std::vector<std::shared_ptr<APL::types::Value>> &args, std::vector<std::shared_ptr<APL::types::Value>> &resPre, std::vector<std::shared_ptr<APL::types::Value>> &res);
 
   private:
 	  class FunAnonymousInnerClass : public Fun
@@ -45,17 +45,17 @@ namespace APL::types::functions::builtins::mops
 	  private:
 		  std::shared_ptr<APL::types::Fun> aa;
 		  std::shared_ptr<APL::types::Obj> o;
-		  std::shared_ptr<APL::types::Value> w;
+		  std::shared_ptr<APL::types::APL::types::Value> w;
 		  int i = 0;
-		  std::vector<std::shared_ptr<APL::types::Value>> args;
-		  std::vector<std::shared_ptr<APL::types::Value>> resPre;
-		  std::vector<std::shared_ptr<APL::types::Value>> res;
+		  std::vector<std::shared_ptr<APL::types::APL::types::Value>> args;
+		  std::vector<std::shared_ptr<APL::types::APL::types::Value>> resPre;
+		  std::vector<std::shared_ptr<APL::types::APL::types::Value>> res;
 
 	  public:
-		  FunAnonymousInnerClass(std::shared_ptr<APL::types::Fun> aa, std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> w, int i, std::vector<std::shared_ptr<APL::types::Value>> &args, std::vector<std::shared_ptr<APL::types::Value>> &resPre, std::vector<std::shared_ptr<APL::types::Value>> &res);
+		  FunAnonymousInnerClass(std::shared_ptr<APL::types::Fun> aa, std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::APL::types::Value> w, int i, std::vector<std::shared_ptr<APL::types::APL::types::Value>> &args, std::vector<std::shared_ptr<APL::types::APL::types::Value>> &resPre, std::vector<std::shared_ptr<APL::types::APL::types::Value>> &res);
 
-		  std::wstring repr() override;
-		  std::shared_ptr<Value> call(std::shared_ptr<Value> w1) override;
+		  std::string repr() override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w1) override;
 
 	  protected:
 		  std::shared_ptr<FunAnonymousInnerClass> shared_from_this()
@@ -66,12 +66,12 @@ namespace APL::types::functions::builtins::mops
 
 
   public:
-	  std::shared_ptr<Value> underW(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> o, std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<DerivedMop> derv) override;
+	  std::shared_ptr<APL::types::Value> underW(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedMop> derv) override;
 
-	  static std::shared_ptr<Value> underW(std::shared_ptr<Fun> aa, std::shared_ptr<Obj> o, std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<Callable> blame);
+	  static std::shared_ptr<APL::types::Value> underW(std::shared_ptr<Fun> aa, std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<APL::types::Callable> blame);
 
   private:
-	  static void rec(std::shared_ptr<Fun> aa, std::shared_ptr<Obj> o, std::shared_ptr<Value> a, std::shared_ptr<Value> w, int i, std::vector<std::shared_ptr<Value>> &args, std::vector<std::shared_ptr<Value>> &resPre, std::vector<std::shared_ptr<Value>> &res);
+	  static void rec(std::shared_ptr<Fun> aa, std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, int i, std::vector<std::shared_ptr<APL::types::Value>> &args, std::vector<std::shared_ptr<APL::types::Value>> &resPre, std::vector<std::shared_ptr<APL::types::Value>> &res);
 
   private:
 	  class FunAnonymousInnerClass2 : public Fun
@@ -79,18 +79,18 @@ namespace APL::types::functions::builtins::mops
 	  private:
 		  std::shared_ptr<APL::types::Fun> aa;
 		  std::shared_ptr<APL::types::Obj> o;
-		  std::shared_ptr<APL::types::Value> a;
-		  std::shared_ptr<APL::types::Value> w;
+		  std::shared_ptr<APL::types::APL::types::Value> a;
+		  std::shared_ptr<APL::types::APL::types::Value> w;
 		  int i = 0;
-		  std::vector<std::shared_ptr<APL::types::Value>> args;
-		  std::vector<std::shared_ptr<APL::types::Value>> resPre;
-		  std::vector<std::shared_ptr<APL::types::Value>> res;
+		  std::vector<std::shared_ptr<APL::types::APL::types::Value>> args;
+		  std::vector<std::shared_ptr<APL::types::APL::types::Value>> resPre;
+		  std::vector<std::shared_ptr<APL::types::APL::types::Value>> res;
 
 	  public:
-		  FunAnonymousInnerClass2(std::shared_ptr<APL::types::Fun> aa, std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, int i, std::vector<std::shared_ptr<APL::types::Value>> &args, std::vector<std::shared_ptr<APL::types::Value>> &resPre, std::vector<std::shared_ptr<APL::types::Value>> &res);
+		  FunAnonymousInnerClass2(std::shared_ptr<APL::types::Fun> aa, std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::APL::types::Value> a, std::shared_ptr<APL::types::APL::types::Value> w, int i, std::vector<std::shared_ptr<APL::types::APL::types::Value>> &args, std::vector<std::shared_ptr<APL::types::APL::types::Value>> &resPre, std::vector<std::shared_ptr<APL::types::APL::types::Value>> &res);
 
-		  std::wstring repr() override;
-		  std::shared_ptr<Value> call(std::shared_ptr<Value> w1) override;
+		  std::string repr() override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w1) override;
 
 	  protected:
 		  std::shared_ptr<FunAnonymousInnerClass2> shared_from_this()

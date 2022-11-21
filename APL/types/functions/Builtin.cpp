@@ -2,14 +2,14 @@
 
 namespace APL::types::functions
 {
-	using Scope = APL::Scope;
-	using Fun = APL::types::Fun;
+    using Scope = APL::Scope;
+    using Fun = APL::types::Fun;
 
-	Builtin::Builtin(std::shared_ptr<Scope> sc) : APL::types::Fun(sc)
-	{
-	}
+    Builtin::Builtin(std::shared_ptr<Scope> sc) : APL::types::Fun(sc)
+    {
+    }
 
-	Builtin::Builtin() : APL::types::Fun(nullptr)
-	{
-	}
+    Builtin::Builtin() : APL::types::Fun(nullptr)
+    {
+    }
 }

@@ -2,5 +2,5 @@
 
 namespace APL::types::dimensions
 {
-	using namespace APL::types;
+    // using namespace APL::types;
 }

@@ -5,18 +5,18 @@
 namespace APL::types::functions::builtins::fns
 {
 	using DomainError = APL::errors::DomainError;
-	using namespace APL::types;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
-	using BigInteger = java::math::BigInteger;
+	// using BigInteger = java::math::BigInteger;
 
-	std::wstring StarBuiltin::repr()
+	std::string StarBuiltin::repr()
 	{
 	  return L"*";
 	}
 
 const std::shared_ptr<NumMV> StarBuiltin::NF = std::make_shared<NumMVAnonymousInnerClass>();
 
-	std::shared_ptr<Value> StarBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> w)
+	std::shared_ptr<APL::types::Value> StarBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> w)
 	{
 	  return Num::E->pow(w);
 	}
@@ -29,12 +29,12 @@ const std::shared_ptr<NumMV> StarBuiltin::NF = std::make_shared<NumMVAnonymousIn
 	  }
 	}
 
-	std::shared_ptr<Value> StarBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> StarBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  return numM(NF, w);
 	}
 
-	std::shared_ptr<Value> StarBuiltin::callInv(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> StarBuiltin::callInv(std::shared_ptr<APL::types::Value> w)
 	{
 	  return numM(LogBuiltin::NF, w);
 	}
@@ -80,38 +80,38 @@ const std::shared_ptr<D_NNeN> StarBuiltin::DNF = std::make_shared<D_NNeNAnonymou
 	  }
 	}
 
-	std::shared_ptr<Value> StarBuiltin::D_NNeNAnonymousInnerClass::call(std::shared_ptr<BigValue> a, std::shared_ptr<BigValue> w)
+	std::shared_ptr<APL::types::Value> StarBuiltin::D_NNeNAnonymousInnerClass::call(std::shared_ptr<APL::types::BigValue> a, std::shared_ptr<APL::types::BigValue> w)
 	{
 	  if (a->i->signum() == 0)
 	  {
-		  return BigValue::ZERO;
+		  return APL::types::BigValue::ZERO;
 	  }
 	  if (a->i->equals(BigInteger::ONE))
 	  {
-		  return BigValue::ONE;
+		  return APL::types::BigValue::ONE;
 	  }
-	  if (a->i->equals(BigValue::MINUS_ONE->i))
+	  if (a->i->equals(APL::types::BigValue::MINUS_ONE->i))
 	  {
-		  return w->i->intValue() % 2 == 0? BigValue::ONE : BigValue::MINUS_ONE;
+		  return w->i->intValue() % 2 == 0? APL::types::BigValue::ONE : APL::types::BigValue::MINUS_ONE;
 	  }
 	  if (w->i->bitLength() > 30)
 	  {
 		  throw DomainError(StringHelper::wstring_to_string(L"*: ⍵ too big to calculate (⍺ ≡ " + a + L"; ⍵ ≡ " + w + L")", w)); // otherwise intValue might ignore those!
 	  }
-	  return std::make_shared<BigValue>(a->i->pow(w->i->intValue()));
+	  return std::make_shared<APL::types::BigValue>(a->i->pow(w->i->intValue()));
 	}
 
-	std::shared_ptr<Value> StarBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> StarBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return numD(DNF, a, w);
 	}
 
-	std::shared_ptr<Value> StarBuiltin::callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> StarBuiltin::callInvW(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return numD(LogBuiltin::DNF, a, w);
 	}
 
-	std::shared_ptr<Value> StarBuiltin::callInvA(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> StarBuiltin::callInvA(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return numD(RootBuiltin::DNF, w, a);
 	}

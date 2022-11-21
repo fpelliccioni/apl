@@ -2,15 +2,15 @@
 
 namespace APL::types::functions::builtins
 {
-	using Type = APL::Type;
-	using namespace APL::types;
+    using Type = APL::Type;
+    // using namespace APL::types;
 
-	AbstractSet::AbstractSet() : Callable(nullptr)
-	{
-	}
+    AbstractSet::AbstractSet() : Callable(nullptr)
+    {
+    }
 
-	APL::Type AbstractSet::type()
-	{
-	  return Type::set;
-	}
+    APL::Type AbstractSet::type()
+    {
+      return Type::set;
+    }
 }

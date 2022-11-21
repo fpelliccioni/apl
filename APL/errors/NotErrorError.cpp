@@ -2,10 +2,10 @@
 
 namespace APL::errors
 {
-	using Obj = APL::types::Obj;
+    using Obj = APL::types::Obj;
 
-	NotErrorError::NotErrorError(const std::wstring &msg, std::shared_ptr<Obj> cause) : APLError(msg)
-	{
-	  this->cause = cause;
-	}
+    NotErrorError::NotErrorError(std::string const& msg, std::shared_ptr<APL::types::Obj> cause) : APLError(msg)
+    {
+      this->cause = cause;
+    }
 }

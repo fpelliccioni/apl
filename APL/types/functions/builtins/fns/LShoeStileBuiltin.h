@@ -14,8 +14,8 @@
 namespace APL::types::functions::builtins::fns
 {
 
-	using Value = APL::types::Value;
-	using namespace APL::types::arrs;
+	using APL::types::Value = APL::types::APL::types::Value;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
 
 
@@ -23,11 +23,11 @@ namespace APL::types::functions::builtins::fns
 	{
 
   public:
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w) override;
 
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 	protected:
 		std::shared_ptr<LShoeStileBuiltin> shared_from_this()

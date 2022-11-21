@@ -15,9 +15,9 @@
 namespace APL::types::functions::builtins::fns
 {
 
-	using namespace APL;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
+	// using namespace APL;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
 	using ReduceBuiltin = APL::types::functions::builtins::mops::ReduceBuiltin;
 
@@ -26,11 +26,11 @@ namespace APL::types::functions::builtins::fns
   private:
 	  static const std::shared_ptr<Fun> fn;
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 	  IotaUBBuiltin(std::shared_ptr<Scope> sc);
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> w) override;
-	  std::shared_ptr<Value> callInv(std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w) override;
+	  std::shared_ptr<APL::types::Value> callInv(std::shared_ptr<APL::types::Value> w) override;
 
 	protected:
 		std::shared_ptr<IotaUBBuiltin> shared_from_this()

@@ -13,28 +13,28 @@
 namespace APL::types::functions::builtins::dops
 {
 
-	using namespace APL;
-	using namespace APL::errors;
-	using namespace APL::types;
-	using namespace APL::types::functions;
+	// using namespace APL;
+	// using namespace APL::errors;
+	// using namespace APL::types;
+	// using namespace APL::types::functions;
 
 	class RepeatBuiltin : public Dop
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 	  RepeatBuiltin(std::shared_ptr<Scope> sc);
-	  std::shared_ptr<Value> call(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> w, std::shared_ptr<DerivedDop> derv) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedDop> derv) override;
 
-	  std::shared_ptr<Value> callInv(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> callInv(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> w) override;
 
-	  std::shared_ptr<Value> call(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<DerivedDop> derv) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedDop> derv) override;
 
-	  std::shared_ptr<Value> callInvW(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
-	  std::shared_ptr<Value> callInvA(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> callInvW(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
+	  std::shared_ptr<APL::types::Value> callInvA(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
-	  std::shared_ptr<Value> under(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Obj> o, std::shared_ptr<Value> w, std::shared_ptr<DerivedDop> derv) override;
-	  virtual std::shared_ptr<Value> repeat(std::shared_ptr<Fun> aa, int n, std::shared_ptr<Obj> o, std::shared_ptr<Value> w);
+	  std::shared_ptr<APL::types::Value> under(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedDop> derv) override;
+	  virtual std::shared_ptr<APL::types::Value> repeat(std::shared_ptr<Fun> aa, int n, std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> w);
 
   private:
 	  class FunAnonymousInnerClass : public Fun
@@ -48,8 +48,8 @@ namespace APL::types::functions::builtins::dops
 	  public:
 		  FunAnonymousInnerClass(std::shared_ptr<RepeatBuiltin> outerInstance, std::shared_ptr<APL::types::Fun> aa, std::shared_ptr<APL::types::Obj> o);
 
-		  std::wstring repr() override;
-		  std::shared_ptr<Value> call(std::shared_ptr<Value> w) override;
+		  std::string repr() override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w) override;
 
 	  protected:
 		  std::shared_ptr<FunAnonymousInnerClass> shared_from_this()

@@ -10,18 +10,18 @@
 namespace APL::types::functions::builtins::fns
 {
 	using Main = APL::Main;
-	using namespace APL::errors;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
+	// using namespace APL::errors;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
-	using ArrayList = java::util::ArrayList;
+	// using ArrayList = java::util::ArrayList;
 
-	std::wstring LShoeBuiltin::repr()
+	std::string LShoeBuiltin::repr()
 	{
 	  return L"⊂";
 	}
 
-	std::shared_ptr<Value> LShoeBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> LShoeBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  if (!Main::enclosePrimitives && std::dynamic_pointer_cast<Primitive>(w) != nullptr)
 	  {
@@ -30,12 +30,12 @@ namespace APL::types::functions::builtins::fns
 	  return std::make_shared<Rank0Arr>(w);
 	}
 
-	std::shared_ptr<Value> LShoeBuiltin::on(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> LShoeBuiltin::on(std::shared_ptr<APL::types::Value> w)
 	{
 	  return !Main::enclosePrimitives && std::dynamic_pointer_cast<Primitive>(w) != nullptr? w : std::make_shared<Rank0Arr>(w);
 	}
 
-	std::shared_ptr<Value> LShoeBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> LShoeBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  if (w->rank != 1)
 	  {
@@ -50,7 +50,7 @@ namespace APL::types::functions::builtins::fns
 		  throw LengthError(StringHelper::wstring_to_string(L"⊂: (1+≢⍺) ≡ ≢⍵ is required (" + Main::formatAPL(a->shape) + L" ≡ ⍴⍺; " + Main::formatAPL(w->shape) + L" ≡ ⍴⍵)", shared_from_this()));
 	  }
 	  std::vector<int> aa = a->asIntVec();
-	  std::vector<std::shared_ptr<Value>> parts;
+	  std::vector<std::shared_ptr<APL::types::Value>> parts;
 
 	  if (w->quickDoubleArr())
 	  {
@@ -75,8 +75,8 @@ namespace APL::types::functions::builtins::fns
 	  }
 	  else
 	  {
-		std::vector<std::shared_ptr<Value>> vals = w->values();
-		std::vector<std::shared_ptr<Value>> cpart;
+		std::vector<std::shared_ptr<APL::types::Value>> vals = w->values();
+		std::vector<std::shared_ptr<APL::types::Value>> cpart;
 		for (int i = 0; i < aa.size(); i++)
 		{
 		  int am = aa[i];

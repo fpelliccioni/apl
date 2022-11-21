@@ -2,13 +2,13 @@
 
 namespace APL::errors
 {
-	using namespace APL::types;
+    // using namespace APL::types;
 
-	RankError::RankError(const std::wstring &s, std::shared_ptr<Tokenable> fun) : APLError(s, fun)
-	{
-	}
+    RankError::RankError(std::string const& s, std::shared_ptr<APL::types::Tokenable> fun) : APLError(s, fun)
+    {
+    }
 
-	RankError::RankError(const std::wstring &s, std::shared_ptr<Callable> fun, std::shared_ptr<Tokenable> cause) : APLError(s, fun, cause)
-	{
-	}
+    RankError::RankError(std::string const& s, std::shared_ptr<APL::types::Callable> fun, std::shared_ptr<APL::types::Tokenable> cause) : APLError(s, fun, cause)
+    {
+    }
 }

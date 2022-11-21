@@ -12,68 +12,71 @@
 namespace APL::types::arrs
 {
 
-	using namespace APL::types;
+    // using namespace APL::types;
 
-	using Iterator = java::util::Iterator;
+    //NOTE(fernando)
+    // using Iterator = java::util::Iterator;
 
-	class SingleItemArr : public Arr
-	{
+    class SingleItemArr : public Arr
+    {
   private:
-	  const std::shared_ptr<Value> item;
+      const std::shared_ptr<APL::types::Value> item;
 
   public:
-	  SingleItemArr(std::shared_ptr<Value> item, std::vector<int> &shape);
+      SingleItemArr(std::shared_ptr<APL::types::Value> item, std::vector<int> &shape);
 
-	  static std::shared_ptr<Value> maybe(std::shared_ptr<Value> item, std::vector<int> &sh);
+      static std::shared_ptr<APL::types::Value> maybe(std::shared_ptr<APL::types::Value> item, std::vector<int> &sh);
 
-	  std::vector<int> asIntArrClone() override;
+      std::vector<int> asIntArrClone() override;
 
-	  int asInt() override;
+      int asInt() override;
 
-	  std::shared_ptr<Value> get(int i) override;
+      std::shared_ptr<APL::types::Value> get(int i) override;
 
-	  std::shared_ptr<Value> first() override;
+      std::shared_ptr<APL::types::Value> first() override;
 
-	  std::wstring asString() override;
+      std::string asString() override;
 
-	  std::shared_ptr<Value> prototype() override;
-	  std::shared_ptr<Value> safePrototype() override;
-	  std::shared_ptr<Value> ofShape(std::vector<int> &sh) override;
+      std::shared_ptr<APL::types::Value> prototype() override;
+      std::shared_ptr<APL::types::Value> safePrototype() override;
+      std::shared_ptr<APL::types::Value> ofShape(std::vector<int> &sh) override;
 
-	  bool quickDoubleArr() override;
-	  std::vector<std::shared_ptr<Value>> valuesCopy() override;
+      bool quickDoubleArr() override;
+      std::vector<std::shared_ptr<APL::types::Value>> valuesCopy() override;
 
-	  double sum() override;
+      double sum() override;
 
-	  std::vector<double> asDoubleArr() override;
+      std::vector<double> asDoubleArr() override;
 
-	  std::vector<double> asDoubleArrClone() override;
+      std::vector<double> asDoubleArrClone() override;
 
-	  std::shared_ptr<Value> squeeze() override;
+      std::shared_ptr<APL::types::Value> squeeze() override;
 
-	  std::wstring oneliner(std::vector<int> &where) override;
+      std::string oneliner(std::vector<int> &where) override;
 
-	  std::shared_ptr<Iterator<std::shared_ptr<Value>>> iterator() override;
+    //NOTE(fernando)
+    //   std::shared_ptr<Iterator<std::shared_ptr<APL::types::Value>>> iterator() override;
 
   private:
-	  class IteratorAnonymousInnerClass : public std::enable_shared_from_this<IteratorAnonymousInnerClass>, public Iterator<std::shared_ptr<Value>>
-	  {
-	  private:
-		  std::shared_ptr<SingleItemArr> outerInstance;
+      class IteratorAnonymousInnerClass : public std::enable_shared_from_this<IteratorAnonymousInnerClass>
+                                          //NOTE(fernando)
+                                          // , public Iterator<std::shared_ptr<APL::types::Value>>
+      {
+      private:
+          std::shared_ptr<SingleItemArr> outerInstance;
 
-	  public:
-		  IteratorAnonymousInnerClass(std::shared_ptr<SingleItemArr> outerInstance);
+      public:
+          IteratorAnonymousInnerClass(std::shared_ptr<SingleItemArr> outerInstance);
 
-		  int i = 0;
-		  bool hasNext();
+          int i = 0;
+          bool hasNext();
 
-		  std::shared_ptr<Value> next();
-	  };
+          std::shared_ptr<APL::types::Value> next();
+      };
 
-	protected:
-		std::shared_ptr<SingleItemArr> shared_from_this()
-		{
-			return std::static_pointer_cast<SingleItemArr>(Arr::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<SingleItemArr> shared_from_this() {
+            return std::static_pointer_cast<SingleItemArr>(Arr::shared_from_this());
+        }
+    };
 }

@@ -15,42 +15,40 @@
 namespace APL::types::arrs
 {
 
-	using namespace APL::types;
+    // using namespace APL::types;
 
 
-	class HArr : public Arr
-	{
+    class HArr : public Arr
+    {
   private:
-	  const std::vector<std::shared_ptr<Value>> arr;
+      const std::vector<std::shared_ptr<APL::types::Value>> arr;
   public:
-	  HArr(std::vector<std::shared_ptr<Value>> &v, std::vector<int> &sh);
+      HArr(std::vector<std::shared_ptr<APL::types::Value>> &v);
+      HArr(std::vector<std::shared_ptr<APL::types::Value>> &v, std::vector<int> &sh);
 
-	  HArr(std::vector<std::shared_ptr<Value>> &v);
-	  HArr(std::vector<std::shared_ptr<Value>> &v);
+    //   HArr(std::vector<std::shared_ptr<APL::types::Value>> &v);
+    //   HArr(std::vector<std::shared_ptr<APL::types::Value>> &v, std::vector<int> &sh);
 
-	  HArr(std::vector<std::shared_ptr<Value>> &v, std::vector<int> &sh);
+      std::vector<int> asIntArrClone() override;
 
-	  std::vector<int> asIntArrClone() override;
+      int asInt() override;
 
-	  int asInt() override;
+      std::shared_ptr<APL::types::Value> get(int i) override;
 
-	  std::shared_ptr<Value> get(int i) override;
+      virtual bool equals(std::shared_ptr<APL::types::Obj> o);
 
-	  virtual bool equals(std::shared_ptr<Obj> o);
+      std::string asString() override;
 
-	  std::wstring asString() override;
-
-	  std::shared_ptr<Value> prototype() override;
-	  std::shared_ptr<Value> safePrototype() override;
-	  std::vector<std::shared_ptr<Value>> values() override;
-	  std::vector<std::shared_ptr<Value>> valuesCopy() override;
-	  std::shared_ptr<Value> ofShape(std::vector<int> &sh) override;
+      std::shared_ptr<APL::types::Value> prototype() override;
+      std::shared_ptr<APL::types::Value> safePrototype() override;
+      std::vector<std::shared_ptr<APL::types::Value>> values() override;
+      std::vector<std::shared_ptr<APL::types::Value>> valuesCopy() override;
+      std::shared_ptr<APL::types::Value> ofShape(std::vector<int> &sh) override;
 
 
-	protected:
-		std::shared_ptr<HArr> shared_from_this()
-		{
-			return std::static_pointer_cast<HArr>(Arr::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<HArr> shared_from_this() {
+            return std::static_pointer_cast<HArr>(Arr::shared_from_this());
+        }
+    };
 }

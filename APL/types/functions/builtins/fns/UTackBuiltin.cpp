@@ -7,60 +7,60 @@
 
 namespace APL::types::functions::builtins::fns
 {
-	using namespace APL::errors;
-	using namespace APL::types;
+	// using namespace APL::errors;
+	// using namespace APL::types;
 	using DoubleArr = APL::types::arrs::DoubleArr;
 	using Builtin = APL::types::functions::Builtin;
-	using BigInteger = java::math::BigInteger;
+	// using BigInteger = java::math::BigInteger;
 
-	std::wstring UTackBuiltin::repr()
+	std::string UTackBuiltin::repr()
 	{
 	  return L"⊥";
 	}
 
-	std::shared_ptr<Value> UTackBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> UTackBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  return call(Num::NUMS[2], w);
 	}
 
-	std::shared_ptr<Value> UTackBuiltin::callInv(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> UTackBuiltin::callInv(std::shared_ptr<APL::types::Value> w)
 	{
 	  return DTackBuiltin::on(Num::NUMS[2], w, shared_from_this());
 	}
 
-	std::shared_ptr<Value> UTackBuiltin::callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> UTackBuiltin::callInvW(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return DTackBuiltin::on(a, w, shared_from_this());
 	}
 
-	std::shared_ptr<Value> UTackBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> UTackBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return on(a, w, shared_from_this());
 	}
 
-	std::shared_ptr<Value> UTackBuiltin::on(std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<Callable> blame)
+	std::shared_ptr<APL::types::Value> UTackBuiltin::on(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<APL::types::Callable> blame)
 	{
 	  if (w->rank == 0)
 	  {
 		  throw DomainError(L"A⊥num is pointless", blame);
 	  }
-	  if (std::dynamic_pointer_cast<BigValue>(a) != nullptr || std::dynamic_pointer_cast<BigValue>(a->first()) != nullptr || std::dynamic_pointer_cast<BigValue>(w->first()) != nullptr)
+	  if (std::dynamic_pointer_cast<APL::types::BigValue>(a) != nullptr || std::dynamic_pointer_cast<APL::types::BigValue>(a->first()) != nullptr || std::dynamic_pointer_cast<APL::types::BigValue>(w->first()) != nullptr)
 	  {
 		if (a->rank == 0)
 		{
-		  std::shared_ptr<BigInteger> al = BigValue::bigint(a);
+		  std::shared_ptr<BigInteger> al = APL::types::BigValue::bigint(a);
 		  std::shared_ptr<BigInteger> res = BigInteger::ZERO;
 		  for (int i = 0; i < w->ia; i++)
 		  {
-			res = res->multiply(al)->add(BigValue::bigint(w[i]));
+			res = res->multiply(al)->add(APL::types::BigValue::bigint(w[i]));
 		  }
-		  return std::make_shared<BigValue>(res);
+		  return std::make_shared<APL::types::BigValue>(res);
 		}
 		else
 		{
 		  if (w->rank != 1)
 		  {
-			  throw NYIError(blame + L": 1<≢⍴⍵", blame);
+			  throw APL::errors::NYIError(blame + L": 1<≢⍴⍵", blame);
 		  }
 		  if (a->rank != 1)
 		  {
@@ -73,10 +73,10 @@ namespace APL::types::functions::builtins::fns
 		  std::shared_ptr<BigInteger> res = BigInteger::ZERO;
 		  for (int i = 0; i < a->ia; i++)
 		  {
-			res = res->multiply(BigValue::bigint(a[i]));
-			res = res->add(BigValue::bigint(w[i]));
+			res = res->multiply(APL::types::BigValue::bigint(a[i]));
+			res = res->add(APL::types::BigValue::bigint(w[i]));
 		  }
-		  return std::make_shared<BigValue>(res);
+		  return std::make_shared<APL::types::BigValue>(res);
 		}
 	  }
 	  if (std::dynamic_pointer_cast<Num>(a) != nullptr)

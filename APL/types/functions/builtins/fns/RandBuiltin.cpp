@@ -7,12 +7,12 @@ namespace APL::types::functions::builtins::fns
 {
 	using Scope = APL::Scope;
 	using DomainError = APL::errors::DomainError;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
-	using BigInteger = java::math::BigInteger;
+	// using BigInteger = java::math::BigInteger;
 
-	std::wstring RandBuiltin::repr()
+	std::string RandBuiltin::repr()
 	{
 	  return L"?";
 	}
@@ -21,7 +21,7 @@ namespace APL::types::functions::builtins::fns
 	{
 	}
 
-	std::shared_ptr<Value> RandBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> v)
+	std::shared_ptr<APL::types::Value> RandBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> v)
 	{
 	  if (v->num == 0)
 	  {
@@ -41,7 +41,7 @@ namespace APL::types::functions::builtins::fns
 	  }
 	}
 
-	std::shared_ptr<Value> RandBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<BigValue> w)
+	std::shared_ptr<APL::types::Value> RandBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<APL::types::BigValue> w)
 	{
 	  if (w->i->signum() == 0)
 	  {
@@ -52,28 +52,28 @@ namespace APL::types::functions::builtins::fns
 	  {
 		n = std::make_shared<BigInteger>(w->i->bitLength(), outerInstance->sc.rnd);
 	  } while (n->compareTo(w->i) >= 0);
-	  return std::make_shared<BigValue>(outerInstance->sc->IO == 0? n : n->add(BigInteger::ONE));
+	  return std::make_shared<APL::types::BigValue>(outerInstance->sc->IO == 0? n : n->add(BigInteger::ONE));
 	}
 
-	std::shared_ptr<Value> RandBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> RandBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  if (sc->IO == 0 && std::dynamic_pointer_cast<SingleItemArr>(w) != nullptr)
 	  {
-		std::shared_ptr<Value> f = w->first();
+		std::shared_ptr<APL::types::Value> f = w->first();
 		if (std::dynamic_pointer_cast<Num>(f) != nullptr && (std::static_pointer_cast<Num>(f))->num == 2)
 		{
-		  std::vector<long long> ls(BitArr::sizeof_Keyword(w->ia));
+		  std::vector<long long> ls(APL::types::arrs::BitArr::sizeof_Keyword(w->ia));
 		  for (int i = 0; i < ls.size(); i++)
 		  {
 			ls[i] = sc->randLong();
 		  }
-		  return std::make_shared<BitArr>(ls, w->shape);
+		  return std::make_shared<APL::types::arrs::BitArr>(ls, w->shape);
 		}
 	  }
 	  return numM(nf, w);
 	}
 
-	std::shared_ptr<Value> RandBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> RandBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  int IO = sc->IO;
 	  std::vector<int> vs(w->ia);

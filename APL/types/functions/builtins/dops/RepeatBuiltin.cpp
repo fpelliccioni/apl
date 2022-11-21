@@ -13,12 +13,12 @@
 
 namespace APL::types::functions::builtins::dops
 {
-	using namespace APL;
-	using namespace APL::errors;
-	using namespace APL::types;
-	using namespace APL::types::functions;
+	// using namespace APL;
+	// using namespace APL::errors;
+	// using namespace APL::types;
+	// using namespace APL::types::functions;
 
-	std::wstring RepeatBuiltin::repr()
+	std::string RepeatBuiltin::repr()
 	{
 	  return L"⍣";
 	}
@@ -27,17 +27,17 @@ namespace APL::types::functions::builtins::dops
 	{
 	}
 
-	std::shared_ptr<Value> RepeatBuiltin::call(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> w, std::shared_ptr<DerivedDop> derv)
+	std::shared_ptr<APL::types::Value> RepeatBuiltin::call(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedDop> derv)
 	{
 	  std::shared_ptr<Fun> aaf = isFn(aa, L'⍶');
 	  if (std::dynamic_pointer_cast<Fun>(ww) != nullptr)
 	  {
 		std::shared_ptr<Fun> g = std::static_pointer_cast<Fun>(ww);
-		std::shared_ptr<Value> prev = w;
-		std::shared_ptr<Value> curr = aaf->call(w);
+		std::shared_ptr<APL::types::Value> prev = w;
+		std::shared_ptr<APL::types::Value> curr = aaf->call(w);
 		while (!Main::bool_Keyword(g->call(prev, curr)))
 		{
-		  std::shared_ptr<Value> next = aaf->call(curr);
+		  std::shared_ptr<APL::types::Value> next = aaf->call(curr);
 		  prev = curr;
 		  curr = next;
 		}
@@ -68,7 +68,7 @@ namespace APL::types::functions::builtins::dops
 	  }
 	}
 
-	std::shared_ptr<Value> RepeatBuiltin::callInv(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> RepeatBuiltin::callInv(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> w)
 	{
 	  std::shared_ptr<Fun> aaf = isFn(aa, L'⍶');
 	  if (!(std::dynamic_pointer_cast<Num>(ww) != nullptr))
@@ -93,17 +93,17 @@ namespace APL::types::functions::builtins::dops
 	  return w;
 	}
 
-	std::shared_ptr<Value> RepeatBuiltin::call(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<DerivedDop> derv)
+	std::shared_ptr<APL::types::Value> RepeatBuiltin::call(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedDop> derv)
 	{
 	  std::shared_ptr<Fun> aaf = isFn(aa, L'⍶');
 	  if (std::dynamic_pointer_cast<Fun>(ww) != nullptr)
 	  {
 		std::shared_ptr<Fun> g = std::static_pointer_cast<Fun>(ww);
-		std::shared_ptr<Value> prev = w;
-		std::shared_ptr<Value> curr = aaf->call(a, w);
+		std::shared_ptr<APL::types::Value> prev = w;
+		std::shared_ptr<APL::types::Value> curr = aaf->call(a, w);
 		while (!Main::bool_Keyword(g->call(prev, curr)))
 		{
-		  std::shared_ptr<Value> next = aaf->call(a, curr);
+		  std::shared_ptr<APL::types::Value> next = aaf->call(a, curr);
 		  prev = curr;
 		  curr = next;
 		}
@@ -134,7 +134,7 @@ namespace APL::types::functions::builtins::dops
 	  }
 	}
 
-	std::shared_ptr<Value> RepeatBuiltin::callInvW(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> RepeatBuiltin::callInvW(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  std::shared_ptr<Fun> aaf = isFn(aa, L'⍶');
 	  if (!(std::dynamic_pointer_cast<Num>(ww) != nullptr))
@@ -159,7 +159,7 @@ namespace APL::types::functions::builtins::dops
 	  return w;
 	}
 
-	std::shared_ptr<Value> RepeatBuiltin::callInvA(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> RepeatBuiltin::callInvA(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  std::shared_ptr<Fun> aaf = isFn(aa, L'⍶');
 	  if (!(std::dynamic_pointer_cast<Num>(ww) != nullptr))
@@ -179,22 +179,22 @@ namespace APL::types::functions::builtins::dops
 	  throw DomainError(L"f⍣N: ⍺-inverting is only possible when N∊¯1 1", shared_from_this(), ww);
 	}
 
-	std::shared_ptr<Value> RepeatBuiltin::under(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Obj> o, std::shared_ptr<Value> w, std::shared_ptr<DerivedDop> derv)
+	std::shared_ptr<APL::types::Value> RepeatBuiltin::under(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedDop> derv)
 	{
 	  std::shared_ptr<Fun> aaf = isFn(aa, L'⍶');
-	  if (!(std::dynamic_pointer_cast<Value>(ww) != nullptr))
+	  if (!(std::dynamic_pointer_cast<APL::types::Value>(ww) != nullptr))
 	  {
 		  throw DomainError(StringHelper::wstring_to_string(L"⍣: expected ⍹ to be a number, got " + ww->humanType(true), shared_from_this(), ww));
 	  }
-	  int n = (std::static_pointer_cast<Value>(ww))->asInt();
+	  int n = (std::static_pointer_cast<APL::types::Value>(ww))->asInt();
 	  return repeat(aaf, n, o, w);
 	}
 
-	std::shared_ptr<Value> RepeatBuiltin::repeat(std::shared_ptr<Fun> aa, int n, std::shared_ptr<Obj> o, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> RepeatBuiltin::repeat(std::shared_ptr<Fun> aa, int n, std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> w)
 	{ // todo don't do recursion?
 	  if (n == 0)
 	  {
-		return std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(w) : std::static_pointer_cast<Value>(o);
+		return std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(w) : std::static_pointer_cast<APL::types::Value>(o);
 	  }
 
 	  return repeat(aa, n - 1, std::make_shared<FunAnonymousInnerClass>(shared_from_this(), aa, o)
@@ -207,12 +207,12 @@ namespace APL::types::functions::builtins::dops
 		this->o = o;
 	}
 
-	std::wstring RepeatBuiltin::FunAnonymousInnerClass::repr()
+	std::string RepeatBuiltin::FunAnonymousInnerClass::repr()
 	{
 		return aa->repr();
 	}
 
-	std::shared_ptr<Value> RepeatBuiltin::FunAnonymousInnerClass::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> RepeatBuiltin::FunAnonymousInnerClass::call(std::shared_ptr<APL::types::Value> w)
 	{
 		return aa->under(o, w);
 	}

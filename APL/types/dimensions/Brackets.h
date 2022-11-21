@@ -16,32 +16,31 @@
 namespace APL::types::dimensions
 {
 
-	using namespace APL;
-	using namespace APL::tokenizer::types;
-	using namespace APL::types;
+    // using namespace APL;
+    // using namespace APL::tokenizer::types;
+    // using namespace APL::types;
 
-	class Brackets : public Callable
-	{
+    class Brackets : public Callable
+    {
 
   public:
-	  const std::shared_ptr<Value> val;
+      const std::shared_ptr<APL::types::Value> val;
 
-	  Brackets(std::shared_ptr<Value> val);
+      Brackets(std::shared_ptr<APL::types::Value> val);
 
-	  virtual std::optional<int> toInt();
-	  virtual std::vector<int> toInts();
+      virtual std::optional<int> toInt();
+      virtual std::vector<int> toInts();
 
-	  Type type() override;
+      Type type() override;
 
-	  virtual std::wstring toString();
+      virtual std::string toString();
 
-	  static std::shared_ptr<Obj> of(std::shared_ptr<BracketTok> t, std::shared_ptr<Scope> sc);
+      static std::shared_ptr<APL::types::Obj> of(std::shared_ptr<APL::tokenizer::types::BracketTok> t, std::shared_ptr<Scope> sc);
 
 
-	protected:
-		std::shared_ptr<Brackets> shared_from_this()
-		{
-			return std::static_pointer_cast<Brackets>(Callable::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<Brackets> shared_from_this() {
+            return std::static_pointer_cast<Brackets>(Callable::shared_from_this());
+        }
+    };
 }

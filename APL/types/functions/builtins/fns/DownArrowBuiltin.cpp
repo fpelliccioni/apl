@@ -12,19 +12,19 @@
 namespace APL::types::functions::builtins::fns
 {
 	using Main = APL::Main;
-	using namespace APL::errors;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
-	using namespace APL::types::dimensions;
+	// using namespace APL::errors;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
+	// using namespace APL::types::dimensions;
 	using Builtin = APL::types::functions::Builtin;
 	using Arrays = java::util::Arrays;
 
-	std::wstring DownArrowBuiltin::repr()
+	std::string DownArrowBuiltin::repr()
 	{
 	  return L"↓";
 	}
 
-	std::shared_ptr<Value> DownArrowBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> DownArrowBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  if (std::dynamic_pointer_cast<Primitive>(w) != nullptr)
 	  {
@@ -39,7 +39,7 @@ namespace APL::types::functions::builtins::fns
 		std::vector<double> dw = w->asDoubleArr();
 		int csz = w->shape[w->rank - 1]; // chunk size
 		int cam = w->ia / csz; // chunk amount
-		std::vector<std::shared_ptr<Value>> res(cam);
+		std::vector<std::shared_ptr<APL::types::Value>> res(cam);
 		for (int i = 0; i < cam; i++)
 		{
 		  std::vector<double> c(csz);
@@ -53,10 +53,10 @@ namespace APL::types::functions::builtins::fns
 	  }
 	  int csz = w->shape[w->rank - 1]; // chunk size
 	  int cam = w->ia / csz; // chunk amount
-	  std::vector<std::shared_ptr<Value>> res(cam);
+	  std::vector<std::shared_ptr<APL::types::Value>> res(cam);
 	  for (int i = 0; i < cam; i++)
 	  {
-		std::vector<std::shared_ptr<Value>> c(csz);
+		std::vector<std::shared_ptr<APL::types::Value>> c(csz);
 		for (int j = 0; j < csz; j++)
 		{
 		  c[j] = w[i * csz + j];
@@ -68,7 +68,7 @@ namespace APL::types::functions::builtins::fns
 	  return std::make_shared<HArr>(res, nsh);
 	}
 
-	std::shared_ptr<Value> DownArrowBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> DownArrowBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  std::vector<int> gsh = a->asIntVec();
 	  if (gsh.empty())
@@ -95,7 +95,7 @@ namespace APL::types::functions::builtins::fns
 	  return UpArrowBuiltin::on(sh, off, w, shared_from_this());
 	}
 
-	std::shared_ptr<Value> DownArrowBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<DervDimFn> dims)
+	std::shared_ptr<APL::types::Value> DownArrowBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DervDimFn> dims)
 	{
 	  std::vector<int> axV = a->asIntVec();
 	  std::vector<int> axK = dims->dims(w->rank);
@@ -118,9 +118,9 @@ namespace APL::types::functions::builtins::fns
 	  return UpArrowBuiltin::on(sh, off, w, shared_from_this());
 	}
 
-	std::shared_ptr<Value> DownArrowBuiltin::underW(std::shared_ptr<Obj> o, std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> DownArrowBuiltin::underW(std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
-	  std::shared_ptr<Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(a, w)) : std::static_pointer_cast<Value>(o);
+	  std::shared_ptr<APL::types::Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(a, w)) : std::static_pointer_cast<APL::types::Value>(o);
 	  std::vector<int> ls = a->asIntVec();
 	  std::vector<int> sh = w->shape;
 	  for (int i = 0; i < ls.size(); i++)
@@ -130,10 +130,10 @@ namespace APL::types::functions::builtins::fns
 	  return UpArrowBuiltin::undo(ls, v, w, shared_from_this());
 	}
 
-	std::shared_ptr<Value> DownArrowBuiltin::under(std::shared_ptr<Obj> o, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> DownArrowBuiltin::under(std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> w)
 	{
-	  std::shared_ptr<Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(w)) : std::static_pointer_cast<Value>(o);
-	  std::vector<std::shared_ptr<Value>> vs = v->values();
+	  std::shared_ptr<APL::types::Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(w)) : std::static_pointer_cast<APL::types::Value>(o);
+	  std::vector<std::shared_ptr<APL::types::Value>> vs = v->values();
 	  if (vs.size() > 0)
 	  {
 		std::vector<int> sh = vs[0]->shape;

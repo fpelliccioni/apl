@@ -17,25 +17,25 @@
 namespace APL::types::functions::builtins::fns
 {
 
-	using namespace APL::errors;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
+	// using namespace APL::errors;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
 
 
 	class ReplicateBuiltin : public Builtin
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 
 
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
-	  static std::shared_ptr<Value> replicate(std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<Callable> blame);
+	  static std::shared_ptr<APL::types::Value> replicate(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<APL::types::Callable> blame);
 
 
-	  std::shared_ptr<Value> underW(std::shared_ptr<Obj> o, std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> underW(std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
   private:
 	  class FunAnonymousInnerClass : public Fun
@@ -43,13 +43,13 @@ namespace APL::types::functions::builtins::fns
 	  private:
 		  std::shared_ptr<ReplicateBuiltin> outerInstance;
 
-		  std::shared_ptr<APL::types::Value> a;
+		  std::shared_ptr<APL::types::APL::types::Value> a;
 
 	  public:
-		  FunAnonymousInnerClass(std::shared_ptr<ReplicateBuiltin> outerInstance, std::shared_ptr<APL::types::Value> a);
+		  FunAnonymousInnerClass(std::shared_ptr<ReplicateBuiltin> outerInstance, std::shared_ptr<APL::types::APL::types::Value> a);
 
-		  std::wstring repr() override;
-		  std::shared_ptr<Value> call(std::shared_ptr<Value> w) override;
+		  std::string repr() override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w) override;
 
 	  protected:
 		  std::shared_ptr<FunAnonymousInnerClass> shared_from_this()

@@ -2,5 +2,5 @@
 
 namespace APL::types::dimensions
 {
-	using Value = APL::types::Value;
+    using APL::types::Value = APL::types::APL::types::Value;
 }

@@ -12,18 +12,18 @@ namespace APL::types::functions::builtins::fns
 {
 	using Main = APL::Main;
 	using DomainError = APL::errors::DomainError;
-	using namespace APL::types;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
-	using BigInteger = java::math::BigInteger;
+	// using BigInteger = java::math::BigInteger;
 
-	std::wstring StileBuiltin::repr()
+	std::string StileBuiltin::repr()
 	{
 	  return L"|";
 	}
 
 const std::shared_ptr<NumMV> StileBuiltin::NF = std::make_shared<NumMVAnonymousInnerClass>();
 
-	std::shared_ptr<Value> StileBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> w)
+	std::shared_ptr<APL::types::Value> StileBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> w)
 	{
 	  return w->abs();
 	}
@@ -36,12 +36,12 @@ const std::shared_ptr<NumMV> StileBuiltin::NF = std::make_shared<NumMVAnonymousI
 	  }
 	}
 
-	std::shared_ptr<Value> StileBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<BigValue> w)
+	std::shared_ptr<APL::types::Value> StileBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<APL::types::BigValue> w)
 	{
-	  return std::make_shared<BigValue>(w->i->abs());
+	  return std::make_shared<APL::types::BigValue>(w->i->abs());
 	}
 
-	std::shared_ptr<Value> StileBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> StileBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  return numChrMapM(NF, [&] (std::any c)
 	  {
@@ -171,17 +171,17 @@ const std::shared_ptr<D_NNeN> StileBuiltin::DNF = std::make_shared<D_NNeNAnonymo
 	  }
 	}
 
-	std::shared_ptr<Value> StileBuiltin::D_NNeNAnonymousInnerClass::call(std::shared_ptr<BigValue> a, std::shared_ptr<BigValue> w)
+	std::shared_ptr<APL::types::Value> StileBuiltin::D_NNeNAnonymousInnerClass::call(std::shared_ptr<APL::types::BigValue> a, std::shared_ptr<APL::types::BigValue> w)
 	{
 	  std::shared_ptr<BigInteger> r = w->i->remainder(a->i);
 	  if (r->signum() < 0)
 	  {
 		  r = r->add(a->i);
 	  }
-	  return std::make_shared<BigValue>(r);
+	  return std::make_shared<APL::types::BigValue>(r);
 	}
 
-	std::shared_ptr<Value> StileBuiltin::call(std::shared_ptr<Value> a0, std::shared_ptr<Value> w0)
+	std::shared_ptr<APL::types::Value> StileBuiltin::call(std::shared_ptr<APL::types::Value> a0, std::shared_ptr<APL::types::Value> w0)
 	{
 	  return numD(DNF, a0, w0);
 	}
@@ -237,7 +237,7 @@ const std::shared_ptr<D_NNeN> StileBuiltin::CPY_SGN = std::make_shared<D_NNeNAno
 	  }
 	}
 
-	std::shared_ptr<Value> StileBuiltin::D_NNeNAnonymousInnerClass2::call(std::shared_ptr<BigValue> o, std::shared_ptr<BigValue> n)
+	std::shared_ptr<APL::types::Value> StileBuiltin::D_NNeNAnonymousInnerClass2::call(std::shared_ptr<APL::types::BigValue> o, std::shared_ptr<APL::types::BigValue> n)
 	{
 	  std::shared_ptr<BigInteger> oi = o->i;
 	  std::shared_ptr<BigInteger> ni = n->i;
@@ -245,13 +245,13 @@ const std::shared_ptr<D_NNeN> StileBuiltin::CPY_SGN = std::make_shared<D_NNeNAno
 	  {
 		  throw DomainError(StringHelper::wstring_to_string(L"⍢|: cannot add sign to " + ni + L" as original was 0"));
 	  }
-	  return oi->signum() < 0? std::make_shared<BigValue>(ni->negate()) : n;
+	  return oi->signum() < 0? std::make_shared<APL::types::BigValue>(ni->negate()) : n;
 	}
 
-	std::shared_ptr<Value> StileBuiltin::under(std::shared_ptr<Obj> o, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> StileBuiltin::under(std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> w)
 	{
 	  Main::faulty = shared_from_this();
-	  std::shared_ptr<Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(w)) : std::static_pointer_cast<Value>(o);
+	  std::shared_ptr<APL::types::Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(w)) : std::static_pointer_cast<APL::types::Value>(o);
 	  return numD(CPY_SGN, w, v);
 	}
 }

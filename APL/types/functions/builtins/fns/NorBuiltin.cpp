@@ -6,12 +6,12 @@
 
 namespace APL::types::functions::builtins::fns
 {
-	using namespace APL;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
+	// using namespace APL;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
 
-	std::wstring NorBuiltin::repr()
+	std::string NorBuiltin::repr()
 	{
 	  return L"⍱";
 	}
@@ -53,27 +53,27 @@ const std::shared_ptr<D_NNeN> NorBuiltin::DNF = std::make_shared<D_NNeNAnonymous
 
 const std::shared_ptr<D_BB> NorBuiltin::DBF = std::make_shared<D_BBAnonymousInnerClass>();
 
-	std::shared_ptr<Value> NorBuiltin::D_BBAnonymousInnerClass::call(bool a, std::shared_ptr<BitArr> w)
+	std::shared_ptr<APL::types::Value> NorBuiltin::D_BBAnonymousInnerClass::call(bool a, std::shared_ptr<APL::types::arrs::BitArr> w)
 	{
 	  if (a)
 	  {
-		  return BitArr::fill(w, false);
+		  return APL::types::arrs::BitArr::fill(w, false);
 	  }
 	  return TildeBuiltin::call(w);
 	}
 
-	std::shared_ptr<Value> NorBuiltin::D_BBAnonymousInnerClass::call(std::shared_ptr<BitArr> a, bool w)
+	std::shared_ptr<APL::types::Value> NorBuiltin::D_BBAnonymousInnerClass::call(std::shared_ptr<APL::types::arrs::BitArr> a, bool w)
 	{
 	  if (w)
 	  {
-		  return BitArr::fill(a, false);
+		  return APL::types::arrs::BitArr::fill(a, false);
 	  }
 	  return TildeBuiltin::call(a);
 	}
 
-	std::shared_ptr<Value> NorBuiltin::D_BBAnonymousInnerClass::call(std::shared_ptr<BitArr> a, std::shared_ptr<BitArr> w)
+	std::shared_ptr<APL::types::Value> NorBuiltin::D_BBAnonymousInnerClass::call(std::shared_ptr<APL::types::arrs::BitArr> a, std::shared_ptr<APL::types::arrs::BitArr> w)
 	{
-	  std::shared_ptr<BitArr::BC> bc = std::make_shared<BitArr::BC>(a->shape);
+	  std::shared_ptr<APL::types::arrs::BitArr::BC> bc = std::make_shared<APL::types::arrs::BitArr::BC>(a->shape);
 	  for (int i = 0; i < a->arr.size(); i++)
 	  {
 		  bc->arr[i] = ~(a->arr[i] | w->arr[i]);
@@ -81,16 +81,16 @@ const std::shared_ptr<D_BB> NorBuiltin::DBF = std::make_shared<D_BBAnonymousInne
 	  return bc->finish();
 	}
 
-	std::shared_ptr<Value> NorBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> NorBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return bitD(DNF, DBF, a, w);
 	}
 
-	std::shared_ptr<Value> NorBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> NorBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
-	  if (std::dynamic_pointer_cast<BitArr>(w) != nullptr)
+	  if (std::dynamic_pointer_cast<APL::types::arrs::BitArr>(w) != nullptr)
 	  {
-		std::shared_ptr<BitArr> wb = std::static_pointer_cast<BitArr>(w);
+		std::shared_ptr<APL::types::arrs::BitArr> wb = std::static_pointer_cast<APL::types::arrs::BitArr>(w);
 		wb->setEnd(false);
 		for (auto l : wb->arr)
 		{

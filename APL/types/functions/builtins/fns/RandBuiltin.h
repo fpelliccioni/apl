@@ -15,15 +15,15 @@ namespace APL::types::functions::builtins::fns
 {
 
 	using Scope = APL::Scope;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
 
 
 	class RandBuiltin : public Builtin
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 	  RandBuiltin(std::shared_ptr<Scope> sc);
 
@@ -34,15 +34,15 @@ namespace APL::types::functions::builtins::fns
 	  class NumMVAnonymousInnerClass : public std::enable_shared_from_this<NumMVAnonymousInnerClass>, public NumMV
 	  {
 	  public:
-		  std::shared_ptr<Value> call(std::shared_ptr<Num> v) override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<Num> v) override;
 		  void call(std::vector<double> &res, std::vector<double> &a) override;
-		  std::shared_ptr<Value> call(std::shared_ptr<BigValue> w) override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::BigValue> w) override;
 	  };
 
   public:
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w) override;
 
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
 	protected:
 		std::shared_ptr<RandBuiltin> shared_from_this()

@@ -6,13 +6,13 @@
 
 namespace APL::types::functions::builtins::dops
 {
-	using namespace APL;
-	using namespace APL::types;
+	// using namespace APL;
+	// using namespace APL::types;
 	using DoubleArr = APL::types::arrs::DoubleArr;
-	using namespace APL::types::functions;
+	// using namespace APL::types::functions;
 	using RShoeUBBuiltin = APL::types::functions::builtins::fns::RShoeUBBuiltin;
 
-	std::wstring AtBuiltin::repr()
+	std::string AtBuiltin::repr()
 	{
 	  return L"@";
 	}
@@ -21,17 +21,17 @@ namespace APL::types::functions::builtins::dops
 	{
 	}
 
-	std::shared_ptr<Value> AtBuiltin::call(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> w, std::shared_ptr<DerivedDop> derv)
+	std::shared_ptr<APL::types::Value> AtBuiltin::call(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedDop> derv)
 	{
 	  return at(aa, ww, w, sc->IO, shared_from_this());
 	}
 
-	std::shared_ptr<Value> AtBuiltin::at(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> w, int IO, std::shared_ptr<Callable> blame)
+	std::shared_ptr<APL::types::Value> AtBuiltin::at(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> w, int IO, std::shared_ptr<APL::types::Callable> blame)
 	{
 	  int ia = w->ia;
 	  if (std::dynamic_pointer_cast<Fun>(ww) != nullptr)
 	  {
-		std::shared_ptr<Value> vba = (std::static_pointer_cast<Fun>(ww))->call(w);
+		std::shared_ptr<APL::types::Value> vba = (std::static_pointer_cast<Fun>(ww))->call(w);
 		std::vector<bool> ba(ia);
 		int matchingCount = 0;
 		for (int i = 0; i < ia; i++)
@@ -42,10 +42,10 @@ namespace APL::types::functions::builtins::dops
 			  matchingCount++;
 		  }
 		}
-		std::shared_ptr<Value> aaa;
+		std::shared_ptr<APL::types::Value> aaa;
 		if (std::dynamic_pointer_cast<Fun>(aa) != nullptr)
 		{
-		  std::vector<std::shared_ptr<Value>> matching(matchingCount);
+		  std::vector<std::shared_ptr<APL::types::Value>> matching(matchingCount);
 		  int ptr = 0;
 		  for (int i = 0; i < ia; i++)
 		  {
@@ -58,12 +58,12 @@ namespace APL::types::functions::builtins::dops
 		}
 		else
 		{
-			aaa = std::static_pointer_cast<Value>(aa);
+			aaa = std::static_pointer_cast<APL::types::Value>(aa);
 		}
-		std::vector<std::shared_ptr<Value>> ra(ia);
+		std::vector<std::shared_ptr<APL::types::Value>> ra(ia);
 		if (aaa->rank == 0)
 		{
-		  std::shared_ptr<Value> inner = aaa[0];
+		  std::shared_ptr<APL::types::Value> inner = aaa[0];
 		  for (int i = 0; i < ia; i++)
 		  {
 			if (ba[i])
@@ -95,25 +95,25 @@ namespace APL::types::functions::builtins::dops
 	  }
 	  else
 	  {
-		std::shared_ptr<Value> wwa = std::static_pointer_cast<Value>(ww);
+		std::shared_ptr<APL::types::Value> wwa = std::static_pointer_cast<APL::types::Value>(ww);
 
 		std::shared_ptr<Indexer::PosSh> poss = Indexer::poss(wwa, w->shape, IO, blame);
-		std::shared_ptr<Value> repl;
+		std::shared_ptr<APL::types::Value> repl;
 		if (std::dynamic_pointer_cast<Fun>(aa) != nullptr)
 		{
 		  std::shared_ptr<Fun> aaf = (std::static_pointer_cast<Fun>(aa));
-		  std::shared_ptr<Value> arg = RShoeUBBuiltin::on(poss, w);
+		  std::shared_ptr<APL::types::Value> arg = RShoeUBBuiltin::on(poss, w);
 		  repl = aaf->call(arg);
 		}
 		else
 		{
-		  repl = std::static_pointer_cast<Value>(aa);
+		  repl = std::static_pointer_cast<APL::types::Value>(aa);
 		}
 		return with(w, poss, repl, blame);
 	  }
 	}
 
-	std::shared_ptr<Value> AtBuiltin::with(std::shared_ptr<Value> o, std::shared_ptr<Indexer::PosSh> poss, std::shared_ptr<Value> n, std::shared_ptr<Callable> blame)
+	std::shared_ptr<APL::types::Value> AtBuiltin::with(std::shared_ptr<APL::types::Value> o, std::shared_ptr<Indexer::PosSh> poss, std::shared_ptr<APL::types::Value> n, std::shared_ptr<APL::types::Callable> blame)
 	{
 	  if (o->quickDoubleArr() && n->quickDoubleArr())
 	  {
@@ -139,11 +139,11 @@ namespace APL::types::functions::builtins::dops
 		}
 		return o->rank == 0? Num::of(res[0]) : std::make_shared<DoubleArr>(res, o->shape);
 	  }
-	  std::vector<std::shared_ptr<Value>> res = o->valuesCopy();
+	  std::vector<std::shared_ptr<APL::types::Value>> res = o->valuesCopy();
 	  std::vector<int> is = poss->vals;
 	  if (n->rank == 0)
 	  {
-		std::shared_ptr<Value> aafst = n->first();
+		std::shared_ptr<APL::types::Value> aafst = n->first();
 		// noinspection ForLoopReplaceableByForEach
 		for (int i = 0; i < is.size(); i++)
 		{

@@ -13,28 +13,27 @@ namespace APL::types
 {
 
 
-	class SimpleMap : public APLMap
-	{
+    class SimpleMap : public APLMap
+    {
   public:
-	  std::shared_ptr<Obj> getRaw(std::shared_ptr<Value> k) override;
+      std::shared_ptr<APL::types::Obj> getRaw(std::shared_ptr<APL::types::Value> k) override;
 
-	  virtual std::shared_ptr<Obj> getv(const std::wstring &s) = 0;
-	  virtual void setv(const std::wstring &s, std::shared_ptr<Obj> v) = 0;
+      virtual std::shared_ptr<APL::types::Obj> getv(std::string const& s) = 0;
+      virtual void setv(std::string const& s, std::shared_ptr<APL::types::Obj> v) = 0;
 
-	  void set(std::shared_ptr<Value> k, std::shared_ptr<Obj> v) override;
+      void set(std::shared_ptr<APL::types::Value> k, std::shared_ptr<APL::types::Obj> v) override;
 
-	  std::shared_ptr<Arr> allValues() override;
+      std::shared_ptr<Arr> allValues() override;
 
-	  std::shared_ptr<Arr> allKeys() override;
+      std::shared_ptr<Arr> allKeys() override;
 
-	  std::shared_ptr<Arr> kvPair() override;
+      std::shared_ptr<Arr> kvPair() override;
 
-	  int size() override;
+      int size() override;
 
-	protected:
-		std::shared_ptr<SimpleMap> shared_from_this()
-		{
-			return std::static_pointer_cast<SimpleMap>(APLMap::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<SimpleMap> shared_from_this() {
+            return std::static_pointer_cast<SimpleMap>(APLMap::shared_from_this());
+        }
+    };
 }

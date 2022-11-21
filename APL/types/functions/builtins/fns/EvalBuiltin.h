@@ -12,21 +12,21 @@
 namespace APL::types::functions::builtins::fns
 {
 
-	using namespace APL;
-	using namespace APL::types;
-	using namespace APL::types::functions;
+	// using namespace APL;
+	// using namespace APL::types;
+	// using namespace APL::types::functions;
 
 	class EvalBuiltin : public Builtin
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 	  EvalBuiltin(std::shared_ptr<Scope> sc);
 
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> w) override;
-	  std::shared_ptr<Obj> callObj(std::shared_ptr<Value> w) override;
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
-	  std::shared_ptr<Obj> callObj(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w) override;
+	  std::shared_ptr<APL::types::Obj> callObj(std::shared_ptr<APL::types::Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
+	  std::shared_ptr<APL::types::Obj> callObj(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
 	protected:
 		std::shared_ptr<EvalBuiltin> shared_from_this()

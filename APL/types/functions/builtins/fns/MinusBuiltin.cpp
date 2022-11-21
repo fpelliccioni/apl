@@ -3,17 +3,17 @@
 
 namespace APL::types::functions::builtins::fns
 {
-	using namespace APL::types;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
 
-	std::wstring MinusBuiltin::repr()
+	std::string MinusBuiltin::repr()
 	{
 	  return L"-";
 	}
 
 const std::shared_ptr<NumMV> MinusBuiltin::NF = std::make_shared<NumMVAnonymousInnerClass>();
 
-	std::shared_ptr<Value> MinusBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> n)
+	std::shared_ptr<APL::types::Value> MinusBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> n)
 	{
 	  return n->negate();
 	}
@@ -26,12 +26,12 @@ const std::shared_ptr<NumMV> MinusBuiltin::NF = std::make_shared<NumMVAnonymousI
 	  }
 	}
 
-	std::shared_ptr<Value> MinusBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<BigValue> w)
+	std::shared_ptr<APL::types::Value> MinusBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<APL::types::BigValue> w)
 	{
-	  return std::make_shared<BigValue>(w->i->negate());
+	  return std::make_shared<APL::types::BigValue>(w->i->negate());
 	}
 
-	std::shared_ptr<Value> MinusBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> MinusBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 //JAVA TO C++ CONVERTER TODO TASK: Method reference arbitrary object instance method syntax is not converted by Java to C++ Converter:
 	  return numChrM(NF, Char::swap, w);
@@ -68,27 +68,27 @@ const std::shared_ptr<D_NNeN> MinusBuiltin::DNF = std::make_shared<D_NNeNAnonymo
 	  }
 	}
 
-	std::shared_ptr<Value> MinusBuiltin::D_NNeNAnonymousInnerClass::call(std::shared_ptr<BigValue> a, std::shared_ptr<BigValue> w)
+	std::shared_ptr<APL::types::Value> MinusBuiltin::D_NNeNAnonymousInnerClass::call(std::shared_ptr<APL::types::BigValue> a, std::shared_ptr<APL::types::BigValue> w)
 	{
-	  return std::make_shared<BigValue>(a->i->subtract(w->i));
+	  return std::make_shared<APL::types::BigValue>(a->i->subtract(w->i));
 	}
 
-	std::shared_ptr<Value> MinusBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> MinusBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return numD(DNF, a, w);
 	}
 
-	std::shared_ptr<Value> MinusBuiltin::callInv(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> MinusBuiltin::callInv(std::shared_ptr<APL::types::Value> w)
 	{
 		return call(w);
 	}
 
-	std::shared_ptr<Value> MinusBuiltin::callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> MinusBuiltin::callInvW(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 		return call(a, w);
 	}
 
-	std::shared_ptr<Value> MinusBuiltin::callInvA(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> MinusBuiltin::callInvA(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return numD(PlusBuiltin::DNF, a, w);
 	}

@@ -4,22 +4,20 @@
 #include <string>
 #include <memory>
 
-namespace APL::tokenizer::types
-{
+namespace APL::tokenizer::types {
 
-	using Token = APL::tokenizer::Token;
+    using Token = APL::tokenizer::Token;
 
-	class ScopeTok : public Token
-	{
+    class ScopeTok : public Token
+    {
   public:
-	  ScopeTok(const std::wstring &raw, int spos, int epos);
+      ScopeTok(std::string const& raw, int spos, int epos);
 
-	  std::wstring toRepr() override;
+      std::string toRepr() override;
 
-	protected:
-		std::shared_ptr<ScopeTok> shared_from_this()
-		{
-			return std::static_pointer_cast<ScopeTok>(APL::tokenizer::Token::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<ScopeTok> shared_from_this() {
+            return std::static_pointer_cast<ScopeTok>(APL::tokenizer::Token::shared_from_this());
+        }
+    };
 }

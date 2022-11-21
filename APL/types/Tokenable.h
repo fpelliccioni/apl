@@ -1,16 +1,24 @@
 #pragma once
 
-#include <APL/tokenizer/Token.h>
+//NOTE(fernando)
+// #include <APL/tokenizer/Token.h>
+
 #include <memory>
 
-namespace APL::types
-{
+//NOTE(fernando)
+namespace APL::tokenizer {
+class Token;
+}
 
-	using Token = APL::tokenizer::Token;
+namespace APL::types {
 
-	class Tokenable
-	{
-  public:
-	  virtual std::shared_ptr<Token> getToken() = 0;
-	};
+//NOTE(fernando)
+// using Token = APL::tokenizer::Token;
+
+
+class Tokenable {
+public:
+    virtual std::shared_ptr<::APL::tokenizer::Token> getToken() = 0;
+};
+
 }

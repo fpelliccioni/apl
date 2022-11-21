@@ -6,16 +6,16 @@
 
 namespace APL::types::functions::builtins::fns
 {
-	using namespace APL::errors;
-	using namespace APL::types;
+	// using namespace APL::errors;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
 
-	std::wstring ExpandBuiltin::repr()
+	std::string ExpandBuiltin::repr()
 	{
 	  return L"⍀";
 	}
 
-	std::shared_ptr<Value> ExpandBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> ExpandBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  if (a->rank != 1)
 	  {
@@ -23,9 +23,9 @@ namespace APL::types::functions::builtins::fns
 	  }
 	  if (w->rank >= 2)
 	  {
-		  throw NYIError(L"⍀: rank 2 or more ⍵", shared_from_this(), w);
+		  throw APL::errors::NYIError(L"⍀: rank 2 or more ⍵", shared_from_this(), w);
 	  }
-	  std::shared_ptr<Value> pr = nullptr;
+	  std::shared_ptr<APL::types::Value> pr = nullptr;
 	  std::vector<int> is = a->asIntArr(); // vectorness checked before
 	  int ram = 0;
 	  int iam = 0;
@@ -38,7 +38,7 @@ namespace APL::types::functions::builtins::fns
 	  {
 		  throw DomainError(StringHelper::wstring_to_string(L"⍀: required input amount (" + std::to_wstring(iam) + L") not equal to given (" + std::to_wstring(w->ia) + L")", shared_from_this()));
 	  }
-	  std::vector<std::shared_ptr<Value>> res(ram);
+	  std::vector<std::shared_ptr<APL::types::Value>> res(ram);
 	  int rp = 0;
 	  int ip = 0;
 
@@ -58,7 +58,7 @@ namespace APL::types::functions::builtins::fns
 		}
 		else
 		{
-		  std::shared_ptr<Value> c = w[ip];
+		  std::shared_ptr<APL::types::Value> c = w[ip];
 		  for (int i = 0; i < v; i++)
 		  {
 			res[rp++] = c;

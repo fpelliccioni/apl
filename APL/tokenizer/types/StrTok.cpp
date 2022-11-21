@@ -1,17 +1,17 @@
 #include <APL/StrTok.h>
 
-namespace APL::tokenizer::types
-{
-	using Main = APL::Main;
-	using Token = APL::tokenizer::Token;
-	using ChrArr = APL::types::arrs::ChrArr;
+namespace APL::tokenizer::types {
 
-	StrTok::StrTok(const std::wstring &line, int spos, int epos, const std::wstring &str) : APL::tokenizer::Token(line, spos, epos), val(Main::toAPL(str)), parsed(str)
-	{
-	}
+// using Main = APL::Main;
+// using Token = APL::tokenizer::Token;
+// using ChrArr = APL::types::arrs::ChrArr;
 
-	std::wstring StrTok::toRepr()
-	{
-	  return source();
-	}
+StrTok::StrTok(std::string const& line, int spos, int epos, std::string const& str)
+    : APL::tokenizer::Token(line, spos, epos), val(Main::toAPL(str)), parsed(str)
+{}
+
+  std::string StrTok::toRepr() {
+  return source();
+}
+
 }

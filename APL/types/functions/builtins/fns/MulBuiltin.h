@@ -16,18 +16,18 @@
 namespace APL::types::functions::builtins::fns
 {
 
-	using namespace APL::types;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
 
 
 	class MulBuiltin : public Builtin
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 
 
-	  std::shared_ptr<Value> identity() override;
+	  std::shared_ptr<APL::types::Value> identity() override;
 
   private:
 	  static const std::shared_ptr<NumMV> NF;
@@ -36,12 +36,12 @@ namespace APL::types::functions::builtins::fns
 	  class NumMVAnonymousInnerClass : public std::enable_shared_from_this<NumMVAnonymousInnerClass>, public NumMV
 	  {
 	  public:
-		  std::shared_ptr<Value> call(std::shared_ptr<Num> w) override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<Num> w) override;
 		  void call(std::vector<double> &res, std::vector<double> &a) override;
-		  std::shared_ptr<Value> call(std::shared_ptr<BigValue> w) override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::BigValue> w) override;
 	  };
   public:
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w) override;
 
 	  static const std::shared_ptr<D_NNeN> DNF;
 
@@ -53,7 +53,7 @@ namespace APL::types::functions::builtins::fns
 		  void on(std::vector<double> &res, double a, std::vector<double> &w) override;
 		  void on(std::vector<double> &res, std::vector<double> &a, double w) override;
 		  void on(std::vector<double> &res, std::vector<double> &a, std::vector<double> &w) override;
-		  std::shared_ptr<Value> call(std::shared_ptr<BigValue> a, std::shared_ptr<BigValue> w) override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::BigValue> a, std::shared_ptr<APL::types::BigValue> w) override;
 
 	  protected:
 		  std::shared_ptr<D_NNeNAnonymousInnerClass> shared_from_this()
@@ -62,11 +62,11 @@ namespace APL::types::functions::builtins::fns
 		  }
 	  };
   public:
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
-	  std::shared_ptr<Value> callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> callInvW(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
-	  std::shared_ptr<Value> callInvA(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> callInvA(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
 
   private:
@@ -80,7 +80,7 @@ namespace APL::types::functions::builtins::fns
 		  void on(std::vector<double> &res, double o, std::vector<double> &n) override;
 		  void on(std::vector<double> &res, std::vector<double> &o, double n) override;
 		  void on(std::vector<double> &res, std::vector<double> &o, std::vector<double> &n) override;
-		  std::shared_ptr<Value> call(std::shared_ptr<BigValue> o, std::shared_ptr<BigValue> n) override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::BigValue> o, std::shared_ptr<APL::types::BigValue> n) override;
 
 	  protected:
 		  std::shared_ptr<D_NNeNAnonymousInnerClass2> shared_from_this()
@@ -89,7 +89,7 @@ namespace APL::types::functions::builtins::fns
 		  }
 	  };
   public:
-	  std::shared_ptr<Value> under(std::shared_ptr<Obj> o, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> under(std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> w) override;
 
 	protected:
 		std::shared_ptr<MulBuiltin> shared_from_this()

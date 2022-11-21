@@ -20,50 +20,50 @@
 
 namespace APL::types::functions::builtins::fns
 {
-	using namespace APL::errors;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
+	// using namespace APL::errors;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
-	using BigInteger = java::math::BigInteger;
+	// using BigInteger = java::math::BigInteger;
 
-	std::wstring DTackBuiltin::repr()
+	std::string DTackBuiltin::repr()
 	{
 	  return L"⊤";
 	}
 
-	std::shared_ptr<Value> DTackBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> DTackBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  return call(Num::NUMS[2], w);
 	}
 
-	std::shared_ptr<Value> DTackBuiltin::callInv(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> DTackBuiltin::callInv(std::shared_ptr<APL::types::Value> w)
 	{
 	  return UTackBuiltin::on(Num::NUMS[2], w, shared_from_this());
 	}
 
-	std::shared_ptr<Value> DTackBuiltin::callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> DTackBuiltin::callInvW(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return UTackBuiltin::on(a, w, shared_from_this());
 	}
 
-	std::shared_ptr<Value> DTackBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> DTackBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return on(a, w, shared_from_this());
 	}
 
-	std::shared_ptr<Value> DTackBuiltin::on(std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<Callable> blame)
+	std::shared_ptr<APL::types::Value> DTackBuiltin::on(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<APL::types::Callable> blame)
 	{
 	  if (!(std::dynamic_pointer_cast<Primitive>(a) != nullptr))
 	  {
-		if (std::dynamic_pointer_cast<BigValue>(w) != nullptr)
+		if (std::dynamic_pointer_cast<APL::types::BigValue>(w) != nullptr)
 		{
-		  std::vector<std::shared_ptr<Value>> res;
-		  std::shared_ptr<BigInteger> c = (std::static_pointer_cast<BigValue>(w))->i;
+		  std::vector<std::shared_ptr<APL::types::Value>> res;
+		  std::shared_ptr<BigInteger> c = (std::static_pointer_cast<APL::types::BigValue>(w))->i;
 		  for (int i = 0; i < a->ia; i++)
 		  {
-			std::shared_ptr<Value> v = a[a->ia - i - 1];
-			std::vector<std::shared_ptr<BigInteger>> dr = c->divideAndRemainder(BigValue::bigint(v));
-			res.push_back(std::dynamic_pointer_cast<Num>(v) != nullptr? std::make_shared<Num>(dr[1]) : std::make_shared<BigValue>(dr[1]));
+			std::shared_ptr<APL::types::Value> v = a[a->ia - i - 1];
+			std::vector<std::shared_ptr<BigInteger>> dr = c->divideAndRemainder(APL::types::BigValue::bigint(v));
+			res.push_back(std::dynamic_pointer_cast<Num>(v) != nullptr? std::make_shared<Num>(dr[1]) : std::make_shared<APL::types::BigValue>(dr[1]));
 			c = dr[0];
 		  }
 		  std::reverse(res.begin(), res.end());
@@ -72,7 +72,7 @@ namespace APL::types::functions::builtins::fns
 		std::vector<int> sh(w->rank + a->rank);
 		if (a->rank != 1)
 		{
-			throw NYIError(blame + L": ⍺ with rank≥2 not yet implemented", blame);
+			throw APL::errors::NYIError(blame + L": ⍺ with rank≥2 not yet implemented", blame);
 		}
 
 		std::copy_n(a->shape.begin(), a->rank, sh.begin()); // ≡ for (int i = 0; i < a.rank; i++) sh[i] = a.shape[i];
@@ -110,14 +110,14 @@ namespace APL::types::functions::builtins::fns
 	  }
 	  if (!(std::dynamic_pointer_cast<Num>(w) != nullptr))
 	  {
-		if (std::dynamic_pointer_cast<BigValue>(w) != nullptr)
+		if (std::dynamic_pointer_cast<APL::types::BigValue>(w) != nullptr)
 		{
-		  std::shared_ptr<BigInteger> APL::types::functions::Builtin = BigValue::bigint(a);
-		  bool bigBase = std::dynamic_pointer_cast<BigValue>(a) != nullptr;
-		  std::shared_ptr<BigInteger> wlr = (std::static_pointer_cast<BigValue>(w))->i;
+		  std::shared_ptr<BigInteger> APL::types::functions::Builtin = APL::types::BigValue::bigint(a);
+		  bool bigBase = std::dynamic_pointer_cast<APL::types::BigValue>(a) != nullptr;
+		  std::shared_ptr<BigInteger> wlr = (std::static_pointer_cast<APL::types::BigValue>(w))->i;
 		  int sign = wlr->signum();
 		  std::shared_ptr<BigInteger> wl = wlr->abs();
-		  int ibase = BigValue::safeInt(APL::types::functions::Builtin);
+		  int ibase = APL::types::BigValue::safeInt(APL::types::functions::Builtin);
 		  if (ibase <= 1)
 		  {
 			if (ibase == 1 && sign != 0)
@@ -138,26 +138,26 @@ namespace APL::types::functions::builtins::fns
 			int len = wl->bitLength();
 			if (bigBase)
 			{
-			  std::vector<std::shared_ptr<Value>> res(len);
+			  std::vector<std::shared_ptr<APL::types::Value>> res(len);
 			  if (sign == 1)
 			  {
 				  for (int i = 0; i < len; i++)
 				  {
-					  res[len - i - 1] = wl->testBit(i)? BigValue::ONE : BigValue::ZERO;
+					  res[len - i - 1] = wl->testBit(i)? APL::types::BigValue::ONE : APL::types::BigValue::ZERO;
 				  }
 			  }
 			  else
 			  {
 				  for (int i = 0; i < len; i++)
 				  {
-					  res[len - i - 1] = wl->testBit(i)? BigValue::MINUS_ONE : BigValue::ZERO;
+					  res[len - i - 1] = wl->testBit(i)? APL::types::BigValue::MINUS_ONE : APL::types::BigValue::ZERO;
 				  }
 			  }
 			  return std::make_shared<HArr>(res);
 			}
 			else if (sign == 1)
 			{
-			  std::shared_ptr<BitArr::BA> bc = std::make_shared<BitArr::BA>(len);
+			  std::shared_ptr<APL::types::arrs::BitArr::BA> bc = std::make_shared<APL::types::arrs::BitArr::BA>(len);
 			  for (int i = 0; i < len; i++)
 			  {
 				  bc->add(wl->testBit(len - i - 1));
@@ -177,8 +177,8 @@ namespace APL::types::functions::builtins::fns
 		  if (ibase <= Character::MAX_RADIX)
 		  { // utilize the actually optimized base conversion of BigInteger.toString
 //JAVA TO C++ CONVERTER TODO TASK: There is no C++ equivalent to 'toString':
-			std::wstring str = wl->toString(ibase);
-			std::vector<std::shared_ptr<Value>> res(str.length());
+			std::string str = wl->toString(ibase);
+			std::vector<std::shared_ptr<APL::types::Value>> res(str.length());
 			for (int i = 0; i < res.size(); i++)
 			{
 			  wchar_t c = str[i];
@@ -187,25 +187,25 @@ namespace APL::types::functions::builtins::fns
 			  {
 				  n = -n;
 			  }
-			  res[i] = bigBase? std::make_shared<BigValue>(static_cast<BigInteger>(n)) : Num::of(n);
+			  res[i] = bigBase? std::make_shared<APL::types::BigValue>(static_cast<BigInteger>(n)) : Num::of(n);
 			}
 			return std::make_shared<HArr>(res);
 		  }
-		  std::vector<std::shared_ptr<Value>> ns; // if we can't, just be lazy. ¯\_(ツ)_/¯
+		  std::vector<std::shared_ptr<APL::types::Value>> ns; // if we can't, just be lazy. ¯\_(ツ)_/¯
 		  while (wl->signum() != 0)
 		  {
 			std::vector<std::shared_ptr<BigInteger>> c = wl->divideAndRemainder(APL::types::functions::Builtin);
 			wl = c[0];
-			ns.push_back(bigBase? std::make_shared<BigValue>(sign == 1? c[1] : c[1]->negate()) : std::make_shared<Num>(c[1] * sign));
+			ns.push_back(bigBase? std::make_shared<APL::types::BigValue>(sign == 1? c[1] : c[1]->negate()) : std::make_shared<Num>(c[1] * sign));
 		  }
-		  std::vector<std::shared_ptr<Value>> res(ns.size());
+		  std::vector<std::shared_ptr<APL::types::Value>> res(ns.size());
 		  for (int i = 0; i < res.size(); i++)
 		  {
 			res[res.size() - i - 1] = ns[i];
 		  }
 		  return std::make_shared<HArr>(res);
 		}
-		throw NYIError(blame + L": scalar ⍺ and non-scalar ⍵ not implemented", blame);
+		throw APL::errors::NYIError(blame + L": scalar ⍺ and non-scalar ⍵ not implemented", blame);
 	  }
 	  double APL::types::functions::Builtin = a->asDouble();
 	  double num = w->asDouble();

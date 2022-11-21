@@ -8,13 +8,13 @@
 
 namespace APL::types::functions::builtins::fns
 {
-	using namespace APL;
-	using namespace APL::errors;
-	using namespace APL::types;
+	// using namespace APL;
+	// using namespace APL::errors;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
 	using Arrays = java::util::Arrays;
 
-	std::wstring SquadBuiltin::repr()
+	std::string SquadBuiltin::repr()
 	{
 	  return L"⌷";
 	}
@@ -23,7 +23,7 @@ namespace APL::types::functions::builtins::fns
 	{
 	}
 
-	std::shared_ptr<Value> SquadBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> SquadBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  if (std::dynamic_pointer_cast<Arr>(w) != nullptr)
 	  {
@@ -36,7 +36,7 @@ namespace APL::types::functions::builtins::fns
 	  throw DomainError(L"⍵ not array nor map", shared_from_this(), w);
 	}
 
-	std::shared_ptr<Value> SquadBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> SquadBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  std::vector<int> p = a->asIntVec();
 	  int al = p.size();

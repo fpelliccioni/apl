@@ -13,25 +13,25 @@
 namespace APL::types::functions::builtins::fns
 {
 
-	using namespace APL;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
+	// using namespace APL;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
 
 	class RShoeUBBuiltin : public Builtin
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 	  RShoeUBBuiltin(std::shared_ptr<Scope> sc);
 
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
-	  static std::shared_ptr<Value> on(std::shared_ptr<Value> a, std::shared_ptr<Value> w, int IO, std::shared_ptr<Callable> blame);
+	  static std::shared_ptr<APL::types::Value> on(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, int IO, std::shared_ptr<APL::types::Callable> blame);
 
-	  static std::shared_ptr<Value> on(std::shared_ptr<Indexer::PosSh> poss, std::shared_ptr<Value> w);
+	  static std::shared_ptr<APL::types::Value> on(std::shared_ptr<Indexer::PosSh> poss, std::shared_ptr<APL::types::Value> w);
 
-	  std::shared_ptr<Value> underW(std::shared_ptr<Obj> o, std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> underW(std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
 	protected:
 		std::shared_ptr<RShoeUBBuiltin> shared_from_this()

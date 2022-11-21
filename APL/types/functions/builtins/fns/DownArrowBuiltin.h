@@ -16,28 +16,28 @@
 namespace APL::types::functions::builtins::fns
 {
 
-	using namespace APL::errors;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
-	using namespace APL::types::dimensions;
+	// using namespace APL::errors;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
+	// using namespace APL::types::dimensions;
 	using Builtin = APL::types::functions::Builtin;
 
 
 	class DownArrowBuiltin : public Builtin, public DimDFn
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w) override;
 
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
-	  virtual std::shared_ptr<Value> call(std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<DervDimFn> dims);
+	  virtual std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DervDimFn> dims);
 
-	  std::shared_ptr<Value> underW(std::shared_ptr<Obj> o, std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> underW(std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
-	  std::shared_ptr<Value> under(std::shared_ptr<Obj> o, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> under(std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> w) override;
 
 	protected:
 		std::shared_ptr<DownArrowBuiltin> shared_from_this()

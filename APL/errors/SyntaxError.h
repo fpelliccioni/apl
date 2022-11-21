@@ -7,24 +7,25 @@
 #include <memory>
 #include <helpers/tangible_string_helper.h>
 
-namespace APL::errors
+// using namespace APL::types;
+
+namespace APL::errors {
+
+
+class SyntaxError : public APLError
 {
+public:
+    SyntaxError(std::string const& s);
+    SyntaxError(std::string const& s, std::shared_ptr<APL::types::Tokenable> fun);
+    SyntaxError(std::string const& s, std::shared_ptr<APL::types::Callable> fun, std::shared_ptr<APL::types::Tokenable> cause);
 
-	using namespace APL::types;
+    static void must(bool b, std::string const& msg);
 
-	class SyntaxError : public APLError
-	{
-  public:
-	  SyntaxError(const std::wstring &s);
-	  SyntaxError(const std::wstring &s, std::shared_ptr<Tokenable> fun);
-	  SyntaxError(const std::wstring &s, std::shared_ptr<Callable> fun, std::shared_ptr<Tokenable> cause);
+protected:
+    std::shared_ptr<SyntaxError> shared_from_this()
+    {
+        return std::static_pointer_cast<SyntaxError>(APL::errors::APLError::shared_from_this());
+    }
+};
 
-	  static void must(bool b, const std::wstring &msg);
-
-	protected:
-		std::shared_ptr<SyntaxError> shared_from_this()
-		{
-			return std::static_pointer_cast<SyntaxError>(APLError::shared_from_this());
-		}
-	};
 }

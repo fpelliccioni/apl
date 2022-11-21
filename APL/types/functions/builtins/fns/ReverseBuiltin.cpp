@@ -10,28 +10,28 @@
 
 namespace APL::types::functions::builtins::fns
 {
-	using namespace APL::errors;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
-	using namespace APL::types::dimensions;
+	// using namespace APL::errors;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
+	// using namespace APL::types::dimensions;
 	using Builtin = APL::types::functions::Builtin;
 
-	std::wstring ReverseBuiltin::repr()
+	std::string ReverseBuiltin::repr()
 	{
 	  return L"⌽";
 	}
 
-	std::shared_ptr<Value> ReverseBuiltin::call(std::shared_ptr<Value> w, int dim)
+	std::shared_ptr<APL::types::Value> ReverseBuiltin::call(std::shared_ptr<APL::types::Value> w, int dim)
 	{
 	  return (std::static_pointer_cast<Arr>(w))->reverseOn(-dim - 1);
 	}
 
-	std::shared_ptr<Value> ReverseBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> ReverseBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  return on(w);
 	}
 
-	std::shared_ptr<Value> ReverseBuiltin::on(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> ReverseBuiltin::on(std::shared_ptr<APL::types::Value> w)
 	{
 	  if (std::dynamic_pointer_cast<Primitive>(w) != nullptr)
 	  {
@@ -40,12 +40,12 @@ namespace APL::types::functions::builtins::fns
 	  return (std::static_pointer_cast<Arr>(w))->reverseOn(w->rank - 1);
 	}
 
-	std::shared_ptr<Value> ReverseBuiltin::callInv(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> ReverseBuiltin::callInv(std::shared_ptr<APL::types::Value> w)
 	{
 	  return call(w);
 	}
 
-	std::shared_ptr<Value> ReverseBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> ReverseBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  if (std::dynamic_pointer_cast<Primitive>(a) != nullptr)
 	  {
@@ -83,8 +83,8 @@ namespace APL::types::functions::builtins::fns
 	  }
 	  else
 	  {
-		std::vector<std::shared_ptr<Value>> vs = w->values();
-		std::vector<std::shared_ptr<Value>> res(w->ia);
+		std::vector<std::shared_ptr<APL::types::Value>> vs = w->values();
+		std::vector<std::shared_ptr<APL::types::Value>> res(w->ia);
 		for (int i = 0; i < rots.size(); i++, cb += block)
 		{
 		  int pA = rots[i];
@@ -97,7 +97,7 @@ namespace APL::types::functions::builtins::fns
 	  }
 	}
 
-	std::shared_ptr<Value> ReverseBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<DervDimFn> dims)
+	std::shared_ptr<APL::types::Value> ReverseBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DervDimFn> dims)
 	{
 	  int dim = dims->singleDim(w->rank);
 	  if (std::dynamic_pointer_cast<Primitive>(a) != nullptr)
@@ -107,12 +107,12 @@ namespace APL::types::functions::builtins::fns
 	  throw DomainError(L"A⌽[n]B not implemented for non-scalar A", shared_from_this());
 	}
 
-	std::shared_ptr<Value> ReverseBuiltin::callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> ReverseBuiltin::callInvW(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return call(numM(MinusBuiltin::NF, a), w);
 	}
 
-	std::shared_ptr<Value> ReverseBuiltin::on(int a, int dim, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> ReverseBuiltin::on(int a, int dim, std::shared_ptr<APL::types::Value> w)
 	{
 	  if (w->ia == 0)
 	  {
@@ -133,10 +133,10 @@ namespace APL::types::functions::builtins::fns
 	  int pA = sub * a; // first part
 	  int pB = block - pA; // second part
 	  // System.out.println(block+" "+rowsz+" "+bam+" "+sub+" "+pA+" "+pB);
-	  if (std::dynamic_pointer_cast<BitArr>(w) != nullptr && w->rank == 1)
+	  if (std::dynamic_pointer_cast<APL::types::arrs::BitArr>(w) != nullptr && w->rank == 1)
 	  {
-		std::shared_ptr<BitArr> wb = std::static_pointer_cast<BitArr>(w);
-		std::shared_ptr<BitArr::BA> c = std::make_shared<BitArr::BA>(wb->shape);
+		std::shared_ptr<APL::types::arrs::BitArr> wb = std::static_pointer_cast<APL::types::arrs::BitArr>(w);
+		std::shared_ptr<APL::types::arrs::BitArr::BA> c = std::make_shared<APL::types::arrs::BitArr::BA>(wb->shape);
 		c->add(wb, a, wb->ia);
 		c->add(wb, 0, a);
 		return c->finish();
@@ -154,8 +154,8 @@ namespace APL::types::functions::builtins::fns
 	  }
 	  else
 	  {
-		std::vector<std::shared_ptr<Value>> vs = w->values();
-		std::vector<std::shared_ptr<Value>> res(w->ia);
+		std::vector<std::shared_ptr<APL::types::Value>> vs = w->values();
+		std::vector<std::shared_ptr<APL::types::Value>> res(w->ia);
 		for (int cb = 0; cb < w->ia; cb += block)
 		{
 		  std::copy_n(vs.begin() + cb, pA, res.begin() + cb + pB);

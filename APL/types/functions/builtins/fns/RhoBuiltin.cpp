@@ -20,23 +20,23 @@
 namespace APL::types::functions::builtins::fns
 {
 	using Main = APL::Main;
-	using namespace APL::errors;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
+	// using namespace APL::errors;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
 	using Arrays = java::util::Arrays;
 
-	std::wstring RhoBuiltin::repr()
+	std::string RhoBuiltin::repr()
 	{
 	  return L"⍴";
 	}
 
-	std::shared_ptr<Value> RhoBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> RhoBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  return Main::toAPL(w->shape);
 	}
 
-	std::shared_ptr<Value> RhoBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> RhoBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  if (a->rank > 1)
 	  {
@@ -56,7 +56,7 @@ namespace APL::types::functions::builtins::fns
 		ia = 1;
 		for (int i = 0; i < sh.size(); i++)
 		{
-		  std::shared_ptr<Value> v = a[i];
+		  std::shared_ptr<APL::types::Value> v = a[i];
 		  if (std::dynamic_pointer_cast<Num>(v) != nullptr)
 		  {
 			int c = v->asInt();
@@ -111,14 +111,14 @@ namespace APL::types::functions::builtins::fns
 		return SingleItemArr::maybe(w->first(), sh);
 
 	  }
-	  else if (std::dynamic_pointer_cast<BitArr>(w) != nullptr)
+	  else if (std::dynamic_pointer_cast<APL::types::arrs::BitArr>(w) != nullptr)
 	  {
 		if (sh.empty() && !Main::enclosePrimitives)
 		{
 			return w[0];
 		}
-		std::shared_ptr<BitArr> wb = std::static_pointer_cast<BitArr>(w);
-		std::shared_ptr<BitArr::BA> res = std::make_shared<BitArr::BA>(sh);
+		std::shared_ptr<APL::types::arrs::BitArr> wb = std::static_pointer_cast<APL::types::arrs::BitArr>(w);
+		std::shared_ptr<APL::types::arrs::BitArr::BA> res = std::make_shared<APL::types::arrs::BitArr::BA>(sh);
 		int full = ia / wb->ia;
 		int frac = ia % wb->ia;
 		for (int i = 0; i < full; i++)
@@ -148,13 +148,13 @@ namespace APL::types::functions::builtins::fns
 		}
 		return std::make_shared<DoubleArr>(res, sh);
 	  }
-	  else if (std::dynamic_pointer_cast<ChrArr>(w) != nullptr)
+	  else if (std::dynamic_pointer_cast<APL::types::arrs::ChrArr>(w) != nullptr)
 	  {
 		if (sh.empty() && !Main::enclosePrimitives)
 		{
 			return w[0];
 		}
-		std::wstring inp = (std::static_pointer_cast<ChrArr>(w))->s;
+		std::string inp = (std::static_pointer_cast<APL::types::arrs::ChrArr>(w))->s;
 		std::vector<wchar_t> res(ia);
 		int p = 0;
 		for (int i = 0; i < ia; i++)
@@ -165,7 +165,7 @@ namespace APL::types::functions::builtins::fns
 			  p = 0;
 		  }
 		}
-		return std::make_shared<ChrArr>(res, sh);
+		return std::make_shared<APL::types::arrs::ChrArr>(res, sh);
 	  }
 	  else
 	  {
@@ -173,7 +173,7 @@ namespace APL::types::functions::builtins::fns
 		{
 			return w[0];
 		}
-		std::vector<std::shared_ptr<Value>> arr(ia);
+		std::vector<std::shared_ptr<APL::types::Value>> arr(ia);
 		int index = 0;
 		for (int i = 0; i < ia; i++)
 		{
@@ -187,12 +187,12 @@ namespace APL::types::functions::builtins::fns
 	  }
 	}
 
-	std::shared_ptr<Value> RhoBuiltin::underW(std::shared_ptr<Obj> o, std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> RhoBuiltin::underW(std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
-	  std::shared_ptr<Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(a, w)) : std::static_pointer_cast<Value>(o);
+	  std::shared_ptr<APL::types::Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(a, w)) : std::static_pointer_cast<APL::types::Value>(o);
 	  for (int i = 0; i < a->ia; i++)
 	  {
-		std::shared_ptr<Value> c = a[i];
+		std::shared_ptr<APL::types::Value> c = a[i];
 		if (!(std::dynamic_pointer_cast<Num>(c) != nullptr))
 		{ // a⍬b ⍴ w - must use all items
 		  if (w->rank == 0 && std::dynamic_pointer_cast<Primitive>(v->first()) != nullptr)
@@ -216,7 +216,7 @@ namespace APL::types::functions::builtins::fns
 	  {
 		  throw DomainError(L"⍢⍴ expected equal amount of output & output items", shared_from_this());
 	  }
-	  std::vector<std::shared_ptr<Value>> vs(w->ia);
+	  std::vector<std::shared_ptr<APL::types::Value>> vs(w->ia);
 	  std::copy_n(v->values().begin(), am, vs.begin());
 	  std::copy_n(w->values().begin() + am, vs.size() - am, vs.begin() + am);
 	  return Arr::createL(vs, w->shape);

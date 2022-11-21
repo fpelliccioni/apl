@@ -12,26 +12,25 @@
 namespace APL::types::functions::builtins
 {
 
-	using namespace APL::types;
+    // using namespace APL::types;
 
-	class SetBuiltin : public AbstractSet
-	{
+    class SetBuiltin : public AbstractSet
+    {
   public:
-	  static const std::shared_ptr<SetBuiltin> inst;
+      static const std::shared_ptr<APL::types::functions::builtins::SetBuiltin> inst;
 
-	  std::wstring toString() override;
-
-
+      std::string toString() override;
 
 
-	  std::shared_ptr<Obj> callObj(std::shared_ptr<Obj> a, std::shared_ptr<Obj> w, bool update) override;
 
-	  virtual std::shared_ptr<Obj> callObj(std::shared_ptr<Fun> f, std::shared_ptr<Obj> a, std::shared_ptr<Value> w);
 
-	protected:
-		std::shared_ptr<SetBuiltin> shared_from_this()
-		{
-			return std::static_pointer_cast<SetBuiltin>(AbstractSet::shared_from_this());
-		}
-	};
+      std::shared_ptr<APL::types::Obj> callObj(std::shared_ptr<APL::types::Obj> a, std::shared_ptr<APL::types::Obj> w, bool update) override;
+
+      virtual std::shared_ptr<APL::types::Obj> callObj(std::shared_ptr<Fun> f, std::shared_ptr<APL::types::Obj> a, std::shared_ptr<APL::types::Value> w);
+
+    protected:
+        std::shared_ptr<APL::types::functions::builtins::SetBuiltin> shared_from_this() {
+            return std::static_pointer_cast<APL::types::functions::builtins::SetBuiltin>(AbstractSet::shared_from_this());
+        }
+    };
 }

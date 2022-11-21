@@ -4,16 +4,16 @@
 namespace APL::types::functions::builtins::fns
 {
 	using Indexer = APL::Indexer;
-	using namespace APL::types;
+	// using namespace APL::types;
 	using DoubleArr = APL::types::arrs::DoubleArr;
 	using Builtin = APL::types::functions::Builtin;
 
-	std::wstring TransposeBuiltin::repr()
+	std::string TransposeBuiltin::repr()
 	{
 	  return L"⍉";
 	}
 
-	std::shared_ptr<Value> TransposeBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> TransposeBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  if (w->scalar())
 	  {
@@ -58,7 +58,7 @@ namespace APL::types::functions::builtins::fns
 		}
 		return std::make_shared<DoubleArr>(res, sh);
 	  }
-	  std::vector<std::shared_ptr<Value>> arr(w->ia);
+	  std::vector<std::shared_ptr<APL::types::Value>> arr(w->ia);
 	  std::vector<int> ns(w->rank);
 	  for (int i = 0; i < w->rank; i++)
 	  {
@@ -76,7 +76,7 @@ namespace APL::types::functions::builtins::fns
 	  return Arr::create(arr, ns);
 	}
 
-	std::shared_ptr<Value> TransposeBuiltin::callInv(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> TransposeBuiltin::callInv(std::shared_ptr<APL::types::Value> w)
 	{
 	  return call(w);
 	}

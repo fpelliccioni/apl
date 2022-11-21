@@ -11,27 +11,26 @@
 namespace APL::types::functions::builtins
 {
 
-	using namespace APL;
-	using namespace APL::types;
+    // using namespace APL;
+    // using namespace APL::types;
 
-	class QuoteQuad : public Settable
-	{
+    class QuoteQuad : public Settable
+    {
   private:
-	  const std::shared_ptr<Scope> sc;
+      const std::shared_ptr<Scope> sc;
   public:
-	  QuoteQuad(std::shared_ptr<Scope> sc);
+      QuoteQuad(std::shared_ptr<Scope> sc);
 
-	  void set(std::shared_ptr<Obj> v, std::shared_ptr<Callable> blame) override;
+      void set(std::shared_ptr<APL::types::Obj> v, std::shared_ptr<APL::types::Callable> blame) override;
 
-	  std::shared_ptr<Obj> get() override;
-	  Type type() override;
+      std::shared_ptr<APL::types::Obj> get() override;
+      Type type() override;
 
-	  std::wstring toString() override;
+      std::string toString() override;
 
-	protected:
-		std::shared_ptr<QuoteQuad> shared_from_this()
-		{
-			return std::static_pointer_cast<QuoteQuad>(Settable::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<QuoteQuad> shared_from_this() {
+            return std::static_pointer_cast<QuoteQuad>(Settable::shared_from_this());
+        }
+    };
 }

@@ -5,12 +5,12 @@
 
 namespace APL::types::functions::builtins::dops
 {
-	using namespace APL;
-	using namespace APL::types;
-	using namespace APL::types::functions;
-	using ArrayList = java::util::ArrayList;
+	// using namespace APL;
+	// using namespace APL::types;
+	// using namespace APL::types::functions;
+	// using ArrayList = java::util::ArrayList;
 
-	std::wstring CRepeatBuiltin::repr()
+	std::string CRepeatBuiltin::repr()
 	{
 	  return L"⍡";
 	}
@@ -19,16 +19,16 @@ namespace APL::types::functions::builtins::dops
 	{
 	}
 
-	std::shared_ptr<Value> CRepeatBuiltin::call(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> w, std::shared_ptr<DerivedDop> derv)
+	std::shared_ptr<APL::types::Value> CRepeatBuiltin::call(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedDop> derv)
 	{
 	  std::shared_ptr<Fun> aaf = isFn(aa, L'⍶');
 	  if (std::dynamic_pointer_cast<Fun>(ww) != nullptr)
 	  {
-		std::vector<std::shared_ptr<Value>> res;
-		std::shared_ptr<Value> prev = w;
+		std::vector<std::shared_ptr<APL::types::Value>> res;
+		std::shared_ptr<APL::types::Value> prev = w;
 		res.push_back(prev);
 
-		std::shared_ptr<Value> next = aaf->call(prev);
+		std::shared_ptr<APL::types::Value> next = aaf->call(prev);
 		res.push_back(next);
 		std::shared_ptr<Fun> wwf = std::static_pointer_cast<Fun>(ww);
 		while (!Main::bool_Keyword(wwf->call(prev, next)))
@@ -41,9 +41,9 @@ namespace APL::types::functions::builtins::dops
 	  }
 	  else
 	  {
-		int n = (std::static_pointer_cast<Value>(ww))->asInt();
-		std::vector<std::shared_ptr<Value>> res(n);
-		std::shared_ptr<Value> curr = w;
+		int n = (std::static_pointer_cast<APL::types::Value>(ww))->asInt();
+		std::vector<std::shared_ptr<APL::types::Value>> res(n);
+		std::shared_ptr<APL::types::Value> curr = w;
 		for (int i = 0; i < n; i++)
 		{
 		  curr = aaf->call(curr);

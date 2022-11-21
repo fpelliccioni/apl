@@ -3,15 +3,15 @@
 namespace APL::types::functions::builtins::dops
 {
 	using SyntaxError = APL::errors::SyntaxError;
-	using namespace APL::types;
-	using namespace APL::types::functions;
+	// using namespace APL::types;
+	// using namespace APL::types::functions;
 
-	std::wstring JotBuiltin::repr()
+	std::string JotBuiltin::repr()
 	{
 	  return L"∘";
 	}
 
-	std::shared_ptr<Value> JotBuiltin::call(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> w, std::shared_ptr<DerivedDop> derv)
+	std::shared_ptr<APL::types::Value> JotBuiltin::call(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedDop> derv)
 	{
 	  if (std::dynamic_pointer_cast<Fun>(ww) != nullptr)
 	  {
@@ -21,20 +21,20 @@ namespace APL::types::functions::builtins::dops
 		}
 		else
 		{
-		  return (std::static_pointer_cast<Fun>(ww))->call(std::static_pointer_cast<Value>(aa), w);
+		  return (std::static_pointer_cast<Fun>(ww))->call(std::static_pointer_cast<APL::types::Value>(aa), w);
 		}
 	  }
 	  else
 	  {
 		if (std::dynamic_pointer_cast<Fun>(aa) != nullptr)
 		{
-			return (std::static_pointer_cast<Fun>(aa))->call(w, std::static_pointer_cast<Value>(ww));
+			return (std::static_pointer_cast<Fun>(aa))->call(w, std::static_pointer_cast<APL::types::Value>(ww));
 		}
 		throw SyntaxError(L"arr∘arr makes no sense", shared_from_this());
 	  }
 	}
 
-	std::shared_ptr<Value> JotBuiltin::callInv(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> JotBuiltin::callInv(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> w)
 	{
 	  if (std::dynamic_pointer_cast<Fun>(ww) != nullptr)
 	  {
@@ -44,20 +44,20 @@ namespace APL::types::functions::builtins::dops
 		}
 		else
 		{
-		  return (std::static_pointer_cast<Fun>(ww))->callInvW(std::static_pointer_cast<Value>(aa), w);
+		  return (std::static_pointer_cast<Fun>(ww))->callInvW(std::static_pointer_cast<APL::types::Value>(aa), w);
 		}
 	  }
 	  else
 	  {
 		if (std::dynamic_pointer_cast<Fun>(aa) != nullptr)
 		{
-			return (std::static_pointer_cast<Fun>(aa))->callInvA(w, std::static_pointer_cast<Value>(ww));
+			return (std::static_pointer_cast<Fun>(aa))->callInvA(w, std::static_pointer_cast<APL::types::Value>(ww));
 		}
 		throw SyntaxError(L"arr∘arr makes no sense", shared_from_this());
 	  }
 	}
 
-	std::shared_ptr<Value> JotBuiltin::call(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<DerivedDop> derv)
+	std::shared_ptr<APL::types::Value> JotBuiltin::call(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedDop> derv)
 	{
 	  if (!(std::dynamic_pointer_cast<Fun>(aa) != nullptr))
 	  {
@@ -70,21 +70,21 @@ namespace APL::types::functions::builtins::dops
 	  return (std::static_pointer_cast<Fun>(aa))->call(a, (std::static_pointer_cast<Fun>(ww))->call(w));
 	}
 
-	std::shared_ptr<Value> JotBuiltin::callInvW(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> JotBuiltin::callInvW(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  std::shared_ptr<Fun> aaf = isFn(aa, L'⍶');
 	  std::shared_ptr<Fun> wwf = isFn(ww, L'⍹');
 	  return wwf->callInv(aaf->callInvW(a, w));
 	}
 
-	std::shared_ptr<Value> JotBuiltin::callInvA(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> JotBuiltin::callInvA(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  std::shared_ptr<Fun> aaf = isFn(aa, L'⍶');
 	  std::shared_ptr<Fun> wwf = isFn(ww, L'⍹');
 	  return aaf->callInvA(a, wwf->call(w));
 	}
 
-	std::shared_ptr<Value> JotBuiltin::under(std::shared_ptr<Obj> aa, std::shared_ptr<Obj> ww, std::shared_ptr<Obj> o, std::shared_ptr<Value> w, std::shared_ptr<DerivedDop> derv)
+	std::shared_ptr<APL::types::Value> JotBuiltin::under(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Obj> ww, std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedDop> derv)
 	{
 	  if (std::dynamic_pointer_cast<Fun>(ww) != nullptr)
 	  {
@@ -97,14 +97,14 @@ namespace APL::types::functions::builtins::dops
 		}
 		else
 		{
-		  return wwf->underW(o, std::static_pointer_cast<Value>(aa), w);
+		  return wwf->underW(o, std::static_pointer_cast<APL::types::Value>(aa), w);
 		}
 	  }
 	  else
 	  {
 		if (std::dynamic_pointer_cast<Fun>(aa) != nullptr)
 		{
-		  return (std::static_pointer_cast<Fun>(aa))->underA(o, w, std::static_pointer_cast<Value>(ww));
+		  return (std::static_pointer_cast<Fun>(aa))->underA(o, w, std::static_pointer_cast<APL::types::Value>(ww));
 		}
 		else
 		{
@@ -119,12 +119,12 @@ namespace APL::types::functions::builtins::dops
 		this->gf = gf;
 	}
 
-	std::wstring JotBuiltin::FunAnonymousInnerClass::repr()
+	std::string JotBuiltin::FunAnonymousInnerClass::repr()
 	{
 		return gf->repr();
 	}
 
-	std::shared_ptr<Value> JotBuiltin::FunAnonymousInnerClass::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> JotBuiltin::FunAnonymousInnerClass::call(std::shared_ptr<APL::types::Value> w)
 	{
 		return gf->under(o, w);
 	}

@@ -6,35 +6,35 @@
 namespace APL::types::functions::builtins::fns
 {
 	using DomainError = APL::errors::DomainError;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
-	using BigInteger = java::math::BigInteger;
+	// using BigInteger = java::math::BigInteger;
 
-	std::wstring EllipsisBuiltin::repr()
+	std::string EllipsisBuiltin::repr()
 	{
 	  return L"…";
 	}
 
-	std::shared_ptr<Value> EllipsisBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> EllipsisBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
-	  if (std::dynamic_pointer_cast<BigValue>(a) != nullptr || std::dynamic_pointer_cast<BigValue>(w) != nullptr)
+	  if (std::dynamic_pointer_cast<APL::types::BigValue>(a) != nullptr || std::dynamic_pointer_cast<APL::types::BigValue>(w) != nullptr)
 	  {
-		std::shared_ptr<BigInteger> al = BigValue::bigint(a);
-		std::shared_ptr<BigInteger> wl = BigValue::bigint(w);
+		std::shared_ptr<BigInteger> al = APL::types::BigValue::bigint(a);
+		std::shared_ptr<BigInteger> wl = APL::types::BigValue::bigint(w);
 		std::shared_ptr<BigInteger> size = al->subtract(wl).abs()->add(BigInteger::ONE);
-		int isize = BigValue::safeInt(size);
+		int isize = APL::types::BigValue::safeInt(size);
 		if (isize == std::numeric_limits<int>::max())
 		{
 			throw DomainError(StringHelper::wstring_to_string(L"…: expected range too large (" + a + L"…" + w + L")", shared_from_this(), w));
 		}
 
-		std::vector<std::shared_ptr<Value>> arr(isize);
+		std::vector<std::shared_ptr<APL::types::Value>> arr(isize);
 		std::shared_ptr<BigInteger> c = al;
-		std::shared_ptr<BigInteger> dir = al->compareTo(wl) < 0? BigInteger::ONE : BigValue::MINUS_ONE->i;
+		std::shared_ptr<BigInteger> dir = al->compareTo(wl) < 0? BigInteger::ONE : APL::types::BigValue::MINUS_ONE->i;
 		for (int i = 0; i < isize; i++)
 		{
-		  arr[i] = std::make_shared<BigValue>(c);
+		  arr[i] = std::make_shared<APL::types::BigValue>(c);
 		  c = c->add(dir);
 		}
 		return std::make_shared<HArr>(arr);

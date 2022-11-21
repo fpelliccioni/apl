@@ -4,23 +4,21 @@
 #include <string>
 #include <memory>
 
-namespace APL::tokenizer::types
-{
+namespace APL::tokenizer::types {
 
-	using Token = APL::tokenizer::Token;
+    using Token = APL::tokenizer::Token;
 
-	class ErrTok : public Token
-	{
+    class ErrTok : public Token
+    {
   public:
-	  ErrTok(const std::wstring &raw, int spos, int epos);
-	  ErrTok(const std::wstring &raw, int onepos);
+      ErrTok(std::string const& raw, int spos, int epos);
+      ErrTok(std::string const& raw, int onepos);
 
-	  std::wstring toRepr() override;
+      std::string toRepr() override;
 
-	protected:
-		std::shared_ptr<ErrTok> shared_from_this()
-		{
-			return std::static_pointer_cast<ErrTok>(APL::tokenizer::Token::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<ErrTok> shared_from_this() {
+            return std::static_pointer_cast<ErrTok>(APL::tokenizer::Token::shared_from_this());
+        }
+    };
 }

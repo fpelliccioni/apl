@@ -13,13 +13,13 @@
 namespace APL::types::functions::builtins::fns
 {
 
-	using namespace APL::types;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
 
 	class LogBuiltin : public Builtin
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 
 	  static const double LN2;
@@ -30,13 +30,13 @@ namespace APL::types::functions::builtins::fns
 	  class NumMVAnonymousInnerClass : public std::enable_shared_from_this<NumMVAnonymousInnerClass>, public NumMV
 	  {
 	  public:
-		  std::shared_ptr<Value> call(std::shared_ptr<Num> w) override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<Num> w) override;
 		  void call(std::vector<double> &res, std::vector<double> &a) override;
-		  std::shared_ptr<Num> call(std::shared_ptr<BigValue> w);
+		  std::shared_ptr<Num> call(std::shared_ptr<APL::types::BigValue> w);
 	  };
   public:
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> w) override;
-	  std::shared_ptr<Value> callInv(std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w) override;
+	  std::shared_ptr<APL::types::Value> callInv(std::shared_ptr<APL::types::Value> w) override;
 
 	  static const std::shared_ptr<D_NNeN> DNF;
 
@@ -48,7 +48,7 @@ namespace APL::types::functions::builtins::fns
 		  void on(std::vector<double> &res, double a, std::vector<double> &w) override;
 		  void on(std::vector<double> &res, std::vector<double> &a, double w) override;
 		  void on(std::vector<double> &res, std::vector<double> &a, std::vector<double> &w) override;
-		  std::shared_ptr<Value> call(double a, std::shared_ptr<BigValue> w);
+		  std::shared_ptr<APL::types::Value> call(double a, std::shared_ptr<APL::types::BigValue> w);
 
 	  protected:
 		  std::shared_ptr<D_NNeNAnonymousInnerClass> shared_from_this()
@@ -57,10 +57,10 @@ namespace APL::types::functions::builtins::fns
 		  }
 	  };
   public:
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> a0, std::shared_ptr<Value> w0) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a0, std::shared_ptr<APL::types::Value> w0) override;
 
-	  std::shared_ptr<Value> callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
-	  std::shared_ptr<Value> callInvA(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> callInvW(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
+	  std::shared_ptr<APL::types::Value> callInvA(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
 	protected:
 		std::shared_ptr<LogBuiltin> shared_from_this()

@@ -5,9 +5,9 @@
 
 namespace APL::types::functions::builtins::fns
 {
-	using namespace APL;
+	// using namespace APL;
 	using DomainError = APL::errors::DomainError;
-	using namespace APL::types;
+	// using namespace APL::types;
 	using DoubleArr = APL::types::arrs::DoubleArr;
 	using Builtin = APL::types::functions::Builtin;
 	using Arrays = java::util::Arrays;
@@ -16,7 +16,7 @@ namespace APL::types::functions::builtins::fns
 	{
 	}
 
-	std::shared_ptr<Value> MergeBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> MergeBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  if (w->rank != 1)
 	  {
@@ -38,7 +38,7 @@ namespace APL::types::functions::builtins::fns
 			allds = false;
 		}
 	  }
-	  // if (IO==0 && a instanceof BitArr) { TODO
+	  // if (IO==0 && a instanceof APL::types::arrs::BitArr) { TODO
 	  //
 	  // }
 	  if (allds)
@@ -60,7 +60,7 @@ namespace APL::types::functions::builtins::fns
 		}
 		return std::make_shared<DoubleArr>(ds, a->shape);
 	  }
-	  std::vector<std::shared_ptr<Value>> vs(a->ia);
+	  std::vector<std::shared_ptr<APL::types::Value>> vs(a->ia);
 	  std::vector<double> idx = a->asDoubleArr();
 	  for (int i = 0; i < idx.size(); i++)
 	  {
@@ -69,7 +69,7 @@ namespace APL::types::functions::builtins::fns
 	  return Arr::createL(vs, a->shape);
 	}
 
-	std::wstring MergeBuiltin::repr()
+	std::string MergeBuiltin::repr()
 	{
 	  return L"%";
 	}

@@ -8,15 +8,15 @@
 
 namespace APL::types::functions::builtins::fns
 {
-	using namespace APL;
+	// using namespace APL;
 	using DomainError = APL::errors::DomainError;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
 	using ReduceBuiltin = APL::types::functions::builtins::mops::ReduceBuiltin;
 const std::shared_ptr<Fun> IotaUBBuiltin::fn = (std::make_shared<APL::types::functions::builtins::mops::ReduceBuiltin>())->derive(std::make_shared<CeilingBuiltin>());
 
-	std::wstring IotaUBBuiltin::repr()
+	std::string IotaUBBuiltin::repr()
 	{
 	  return L"⍸";
 	}
@@ -25,7 +25,7 @@ const std::shared_ptr<Fun> IotaUBBuiltin::fn = (std::make_shared<APL::types::fun
 	{
 	}
 
-	std::shared_ptr<Value> IotaUBBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> IotaUBBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  int IO = sc->IO;
 	  int sum = static_cast<int>(w->sum());
@@ -44,9 +44,9 @@ const std::shared_ptr<Fun> IotaUBBuiltin::fn = (std::make_shared<APL::types::fun
 		auto *sub = std::vector<double>(sum);
 		int p = 0;
 
-		if (std::dynamic_pointer_cast<BitArr>(w) != nullptr)
+		if (std::dynamic_pointer_cast<APL::types::arrs::BitArr>(w) != nullptr)
 		{
-		  std::shared_ptr<BitArr::BR> r = (std::static_pointer_cast<BitArr>(w))->read();
+		  std::shared_ptr<APL::types::arrs::BitArr::BR> r = (std::static_pointer_cast<APL::types::arrs::BitArr>(w))->read();
 		  for (int i = 0; i < w->ia; i++)
 		  {
 			if (r->read())
@@ -104,7 +104,7 @@ const std::shared_ptr<Fun> IotaUBBuiltin::fn = (std::make_shared<APL::types::fun
 				throw DomainError(StringHelper::wstring_to_string(L"⍸: ⍵ contained " + std::to_wstring(n), shared_from_this(), w));
 			}
 		  }
-		  std::vector<std::shared_ptr<Value>> resv(rank);
+		  std::vector<std::shared_ptr<APL::types::Value>> resv(rank);
 		  for (int i = 0; i < rank; i++)
 		  {
 			  resv[i] = std::make_shared<DoubleArr>(res[i]);
@@ -113,7 +113,7 @@ const std::shared_ptr<Fun> IotaUBBuiltin::fn = (std::make_shared<APL::types::fun
 		}
 		else
 		{ // ⎕VI←0
-		  std::vector<std::shared_ptr<Value>> res(sum);
+		  std::vector<std::shared_ptr<APL::types::Value>> res(sum);
 		  int ri = 0;
 		  std::shared_ptr<Indexer> idx = std::make_shared<Indexer>(w->shape, IO);
 		  for (int i = 0; i < w->ia; i++)
@@ -138,7 +138,7 @@ const std::shared_ptr<Fun> IotaUBBuiltin::fn = (std::make_shared<APL::types::fun
 	  }
 	}
 
-	std::shared_ptr<Value> IotaUBBuiltin::callInv(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> IotaUBBuiltin::callInv(std::shared_ptr<APL::types::Value> w)
 	{
 	  int IO = sc->IO;
 	  std::vector<int> sh = fn->call(w)->asIntVec();

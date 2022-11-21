@@ -13,59 +13,58 @@
 namespace APL::types::arrs
 {
 
-	using namespace APL::types;
+    // using namespace APL::types;
 
 
-	class DoubleArr : public Arr
-	{
+    class DoubleArr : public Arr
+    {
   public:
-	  static const std::vector<double> EMPTY;
-	  const std::vector<double> arr;
-	  DoubleArr(std::vector<double> &arr, std::vector<int> &sh);
-	  DoubleArr(std::vector<double> &arr);
+      static const std::vector<double> EMPTY;
+      const std::vector<double> arr;
+      DoubleArr(std::vector<double> &arr, std::vector<int> &sh);
+      DoubleArr(std::vector<double> &arr);
 
-	  DoubleArr(std::vector<int> &arr);
-	  DoubleArr(std::vector<signed char> &arr);
+      DoubleArr(std::vector<int> &arr);
+      DoubleArr(std::vector<signed char> &arr);
 
-	  DoubleArr(std::vector<double> &arrl);
+    //   DoubleArr(std::vector<double> &arrl);
 
-	  static std::shared_ptr<Value> safe(std::vector<double> &vs, std::vector<int> &sh);
+      static std::shared_ptr<APL::types::Value> safe(std::vector<double> &vs, std::vector<int> &sh);
 
-	  std::vector<int> asIntArrClone() override;
+      std::vector<int> asIntArrClone() override;
 
-	  int asInt() override;
+      int asInt() override;
 
-	  std::shared_ptr<Value> get(int i) override;
+      std::shared_ptr<APL::types::Value> get(int i) override;
 
-	  std::shared_ptr<Value> first() override;
+      std::shared_ptr<APL::types::Value> first() override;
 
-	  std::wstring asString() override;
+      std::string asString() override;
 
-	  std::shared_ptr<Value> prototype() override;
-	  std::shared_ptr<Value> safePrototype() override;
+      std::shared_ptr<APL::types::Value> prototype() override;
+      std::shared_ptr<APL::types::Value> safePrototype() override;
 
-	  std::shared_ptr<Value> ofShape(std::vector<int> &sh) override;
+      std::shared_ptr<APL::types::Value> ofShape(std::vector<int> &sh) override;
 
-	  double sum() override;
+      double sum() override;
 
-	  std::vector<double> asDoubleArr() override;
-	  std::vector<double> asDoubleArrClone() override;
+      std::vector<double> asDoubleArr() override;
+      std::vector<double> asDoubleArrClone() override;
 
-	  bool quickDoubleArr() override;
+      bool quickDoubleArr() override;
 
-	  std::shared_ptr<Value> squeeze() override;
+      std::shared_ptr<APL::types::Value> squeeze() override;
 
-	  std::vector<std::shared_ptr<Value>> valuesCopy() override;
+      std::vector<std::shared_ptr<APL::types::Value>> valuesCopy() override;
 
-	  std::shared_ptr<Arr> reverseOn(int dim) override;
+      std::shared_ptr<Arr> reverseOn(int dim) override;
 
-	  virtual bool equals(std::shared_ptr<Obj> o);
-	  virtual int hashCode();
+      virtual bool equals(std::shared_ptr<APL::types::Obj> o);
+      virtual int hashCode();
 
-	protected:
-		std::shared_ptr<DoubleArr> shared_from_this()
-		{
-			return std::static_pointer_cast<DoubleArr>(Arr::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<DoubleArr> shared_from_this() {
+            return std::static_pointer_cast<DoubleArr>(Arr::shared_from_this());
+        }
+    };
 }

@@ -13,17 +13,17 @@
 namespace APL::types::functions::builtins::fns
 {
 
-	using Value = APL::types::Value;
+	using APL::types::Value = APL::types::APL::types::Value;
 	using Builtin = APL::types::functions::Builtin;
 
 	class FindBuiltin : public Builtin
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 
 
-	  virtual std::shared_ptr<Value> call(std::shared_ptr<Value> a, std::shared_ptr<Value> w);
+	  virtual std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w);
 
 	protected:
 		std::shared_ptr<FindBuiltin> shared_from_this()

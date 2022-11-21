@@ -13,14 +13,14 @@
 namespace APL::types::functions::builtins::fns
 {
 
-	using namespace APL::types;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
 
 
 	class GEBuiltin : public Builtin
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 
 
@@ -32,10 +32,10 @@ namespace APL::types::functions::builtins::fns
 	  {
 	  public:
 		  bool on(double a, double w) override;
-		  void on(std::shared_ptr<BitArr::BA> res, double a, std::vector<double> &w);
-		  void on(std::shared_ptr<BitArr::BA> res, std::vector<double> &a, double w);
-		  void on(std::shared_ptr<BitArr::BA> res, std::vector<double> &a, std::vector<double> &w);
-		  std::shared_ptr<Value> call(std::shared_ptr<BigValue> a, std::shared_ptr<BigValue> w) override;
+		  void on(std::shared_ptr<APL::types::arrs::BitArr::BA> res, double a, std::vector<double> &w);
+		  void on(std::shared_ptr<APL::types::arrs::BitArr::BA> res, std::vector<double> &a, double w);
+		  void on(std::shared_ptr<APL::types::arrs::BitArr::BA> res, std::vector<double> &a, std::vector<double> &w);
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::BigValue> a, std::shared_ptr<APL::types::BigValue> w) override;
 
 	  protected:
 		  std::shared_ptr<D_NNeBAnonymousInnerClass> shared_from_this()
@@ -45,7 +45,7 @@ namespace APL::types::functions::builtins::fns
 	  };
 
   public:
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
 	protected:
 		std::shared_ptr<GEBuiltin> shared_from_this()

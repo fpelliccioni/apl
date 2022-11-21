@@ -5,20 +5,20 @@
 namespace APL::types::functions::builtins::fns
 {
 	using DomainError = APL::errors::DomainError;
-	using namespace APL::types;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
 
-	std::wstring PlusBuiltin::repr()
+	std::string PlusBuiltin::repr()
 	{
 	  return L"+";
 	}
 
-	std::shared_ptr<Value> PlusBuiltin::identity()
+	std::shared_ptr<APL::types::Value> PlusBuiltin::identity()
 	{
 	  return Num::ZERO;
 	}
 
-	std::shared_ptr<Value> PlusBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> PlusBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  return allM([&] (std::any v)
 	  {
@@ -61,27 +61,27 @@ const std::shared_ptr<D_NNeN> PlusBuiltin::DNF = std::make_shared<D_NNeNAnonymou
 	  }
 	}
 
-	std::shared_ptr<Value> PlusBuiltin::D_NNeNAnonymousInnerClass::call(std::shared_ptr<BigValue> a, std::shared_ptr<BigValue> w)
+	std::shared_ptr<APL::types::Value> PlusBuiltin::D_NNeNAnonymousInnerClass::call(std::shared_ptr<APL::types::BigValue> a, std::shared_ptr<APL::types::BigValue> w)
 	{
-	  return std::make_shared<BigValue>(a->i->add(w->i));
+	  return std::make_shared<APL::types::BigValue>(a->i->add(w->i));
 	}
 
-	std::shared_ptr<Value> PlusBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> PlusBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return numD(DNF, a, w);
 	}
 
-	std::shared_ptr<Value> PlusBuiltin::callInv(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> PlusBuiltin::callInv(std::shared_ptr<APL::types::Value> w)
 	{
 		return call(w);
 	}
 
-	std::shared_ptr<Value> PlusBuiltin::callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> PlusBuiltin::callInvW(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return numD(MinusBuiltin::DNF, w, a);
 	}
 
-	std::shared_ptr<Value> PlusBuiltin::callInvA(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> PlusBuiltin::callInvA(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return callInvW(w, a);
 	}

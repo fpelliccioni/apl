@@ -3,11 +3,11 @@
 namespace APL::types::functions::builtins::fns
 {
 	using Scope = APL::Scope;
-	using Value = APL::types::Value;
+	using APL::types::Value = APL::types::APL::types::Value;
 	using DoubleArr = APL::types::arrs::DoubleArr;
 	using Builtin = APL::types::functions::Builtin;
 
-	std::wstring GradeDownBuiltin::repr()
+	std::string GradeDownBuiltin::repr()
 	{
 	  return L"⍒";
 	}
@@ -16,7 +16,7 @@ namespace APL::types::functions::builtins::fns
 	{
 	}
 
-	std::shared_ptr<Value> GradeDownBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> GradeDownBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  std::vector<double> res(w->ia);
 	  int IO = sc->IO;

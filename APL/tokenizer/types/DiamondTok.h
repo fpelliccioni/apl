@@ -4,22 +4,20 @@
 #include <string>
 #include <memory>
 
-namespace APL::tokenizer::types
-{
+namespace APL::tokenizer::types {
 
-	using Token = APL::tokenizer::Token;
+    using Token = APL::tokenizer::Token;
 
-	class DiamondTok : public Token
-	{
+    class DiamondTok : public Token
+    {
   public:
-	  DiamondTok(const std::wstring &raw, int pos);
+      DiamondTok(std::string const& raw, int pos);
 
-	  std::wstring toRepr() override;
+      std::string toRepr() override;
 
-	protected:
-		std::shared_ptr<DiamondTok> shared_from_this()
-		{
-			return std::static_pointer_cast<DiamondTok>(APL::tokenizer::Token::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<DiamondTok> shared_from_this() {
+            return std::static_pointer_cast<DiamondTok>(APL::tokenizer::Token::shared_from_this());
+        }
+    };
 }

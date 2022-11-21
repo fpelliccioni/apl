@@ -1,15 +1,14 @@
 #include <APL/SetTok.h>
 
-namespace APL::tokenizer::types
-{
-	using Token = APL::tokenizer::Token;
+namespace APL::tokenizer::types {
+    using Token = APL::tokenizer::Token;
 
-	SetTok::SetTok(const std::wstring &line, int spos, int epos) : APL::tokenizer::Token(line, spos, epos)
-	{
-	}
+    SetTok::SetTok(std::string const& line, int spos, int epos) : APL::tokenizer::Token(line, spos, epos)
+    {
+    }
 
-	std::wstring SetTok::toRepr()
-	{
-	  return L"←";
-	}
+    std::string SetTok::toRepr()
+    {
+      return L"←";
+    }
 }

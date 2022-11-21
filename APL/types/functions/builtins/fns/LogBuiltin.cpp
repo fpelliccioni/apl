@@ -5,10 +5,10 @@
 namespace APL::types::functions::builtins::fns
 {
 	using DomainError = APL::errors::DomainError;
-	using namespace APL::types;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
 
-	std::wstring LogBuiltin::repr()
+	std::string LogBuiltin::repr()
 	{
 	  return L"⍟";
 	}
@@ -16,7 +16,7 @@ namespace APL::types::functions::builtins::fns
 const double LogBuiltin::LN2 = std::log(2);
 const std::shared_ptr<NumMV> LogBuiltin::NF = std::make_shared<NumMVAnonymousInnerClass>();
 
-	std::shared_ptr<Value> LogBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> w)
+	std::shared_ptr<APL::types::Value> LogBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> w)
 	{
 	  return w->log(Num::E);
 	}
@@ -29,7 +29,7 @@ const std::shared_ptr<NumMV> LogBuiltin::NF = std::make_shared<NumMVAnonymousInn
 	  }
 	}
 
-	std::shared_ptr<Num> LogBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<BigValue> w)
+	std::shared_ptr<Num> LogBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<APL::types::BigValue> w)
 	{
 	  if (w->i->signum() <= 0)
 	  {
@@ -49,12 +49,12 @@ const std::shared_ptr<NumMV> LogBuiltin::NF = std::make_shared<NumMVAnonymousInn
 	  return std::make_shared<Num>(std::log(d) + LN2 * shift);
 	}
 
-	std::shared_ptr<Value> LogBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> LogBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  return numM(NF, w);
 	}
 
-	std::shared_ptr<Value> LogBuiltin::callInv(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> LogBuiltin::callInv(std::shared_ptr<APL::types::Value> w)
 	{
 	  return numM(StarBuiltin::NF, w);
 	}
@@ -92,7 +92,7 @@ const std::shared_ptr<D_NNeN> LogBuiltin::DNF = std::make_shared<D_NNeNAnonymous
 	  }
 	}
 
-	std::shared_ptr<Value> LogBuiltin::D_NNeNAnonymousInnerClass::call(double a, std::shared_ptr<BigValue> w)
+	std::shared_ptr<APL::types::Value> LogBuiltin::D_NNeNAnonymousInnerClass::call(double a, std::shared_ptr<APL::types::BigValue> w)
 	{
 	  double res = (std::static_pointer_cast<Num>(NF->call(w)))->num / std::log(a);
 	  if (a == 2)
@@ -113,17 +113,17 @@ const std::shared_ptr<D_NNeN> LogBuiltin::DNF = std::make_shared<D_NNeNAnonymous
 	  return std::make_shared<Num>(res);
 	}
 
-	std::shared_ptr<Value> LogBuiltin::call(std::shared_ptr<Value> a0, std::shared_ptr<Value> w0)
+	std::shared_ptr<APL::types::Value> LogBuiltin::call(std::shared_ptr<APL::types::Value> a0, std::shared_ptr<APL::types::Value> w0)
 	{
 	  return numD(DNF, a0, w0);
 	}
 
-	std::shared_ptr<Value> LogBuiltin::callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> LogBuiltin::callInvW(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return numD(StarBuiltin::DNF, a, w);
 	}
 
-	std::shared_ptr<Value> LogBuiltin::callInvA(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> LogBuiltin::callInvA(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return numD(RootBuiltin::DNF, a, w);
 	}

@@ -7,24 +7,22 @@
 #include <memory>
 #include <helpers/tangible_stringbuilder.h>
 
-namespace APL::tokenizer::types
-{
+namespace APL::tokenizer::types {
 
-	using List = java::util::List;
+    // using List = java::util::List;
 
-	class ParenTok : public TokArr<std::shared_ptr<LineTok>>
-	{
+    class ParenTok : public TokArr<std::shared_ptr<APL::tokenizer::types::LineTok>>
+    {
   public:
-	  const bool hasDmd;
+      const bool hasDmd;
 
-	  ParenTok(const std::wstring &line, int spos, int epos, std::vector<std::shared_ptr<LineTok>> &tokens, bool hasDmd);
+      ParenTok(std::string const& line, int spos, int epos, std::vector<std::shared_ptr<APL::tokenizer::types::LineTok>> &tokens, bool hasDmd);
 
-	  std::wstring toRepr() override;
+      std::string toRepr() override;
 
-	protected:
-		std::shared_ptr<ParenTok> shared_from_this()
-		{
-			return std::static_pointer_cast<ParenTok>(TokArr::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<ParenTok> shared_from_this() {
+            return std::static_pointer_cast<ParenTok>(TokArr::shared_from_this());
+        }
+    };
 }

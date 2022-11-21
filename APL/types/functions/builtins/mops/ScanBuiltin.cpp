@@ -8,30 +8,30 @@
 namespace APL::types::functions::builtins::mops
 {
 	using Main = APL::Main;
-	using namespace APL::errors;
-	using namespace APL::types;
+	// using namespace APL::errors;
+	// using namespace APL::types;
 	using DoubleArr = APL::types::arrs::DoubleArr;
-	using namespace APL::types::functions;
+	// using namespace APL::types::functions;
 
-	std::wstring ScanBuiltin::repr()
+	std::string ScanBuiltin::repr()
 	{
 	  return L"\\";
 	}
 
-	std::shared_ptr<Value> ScanBuiltin::call(std::shared_ptr<Obj> aa, std::shared_ptr<Value> w, std::shared_ptr<DerivedMop> derv)
+	std::shared_ptr<APL::types::Value> ScanBuiltin::call(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedMop> derv)
 	{
 	  std::shared_ptr<Fun> aaf = isFn(aa);
 	  // TODO ranks
 	  if (w->rank != 1)
 	  {
-		  throw NYIError(StringHelper::wstring_to_string(L"\\: unimplemented for rank≠1 (" + Main::formatAPL(w->shape) + L" ≡ ⍴⍵)"));
+		  throw APL::errors::NYIError(StringHelper::wstring_to_string(L"\\: unimplemented for rank≠1 (" + Main::formatAPL(w->shape) + L" ≡ ⍴⍵)"));
 	  }
 	  if (w->ia == 0)
 	  {
 		  return w;
 	  }
-	  std::shared_ptr<Value> c = w[0];
-	  std::vector<std::shared_ptr<Value>> res(w->ia);
+	  std::shared_ptr<APL::types::Value> c = w[0];
+	  std::vector<std::shared_ptr<APL::types::Value>> res(w->ia);
 	  res[0] = c;
 	  for (int i = 1; i < w->ia; i++)
 	  {
@@ -41,7 +41,7 @@ namespace APL::types::functions::builtins::mops
 	  return Arr::create(res);
 	}
 
-	std::shared_ptr<Value> ScanBuiltin::call(std::shared_ptr<Obj> aa, std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<DerivedMop> derv)
+	std::shared_ptr<APL::types::Value> ScanBuiltin::call(std::shared_ptr<APL::types::Obj> aa, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedMop> derv)
 	{
 	  std::shared_ptr<Fun> aaf = isFn(aa);
 	  int n = a->asInt();
@@ -57,7 +57,7 @@ namespace APL::types::functions::builtins::mops
 
 	  if (w->quickDoubleArr())
 	  {
-		std::vector<std::shared_ptr<Value>> res(len - n + 1);
+		std::vector<std::shared_ptr<APL::types::Value>> res(len - n + 1);
 		std::vector<double> wa = w->asDoubleArr();
 		for (int i = 0; i < res.size(); i++)
 		{
@@ -68,11 +68,11 @@ namespace APL::types::functions::builtins::mops
 		return Arr::create(res);
 	  }
 
-	  std::vector<std::shared_ptr<Value>> res(len - n + 1);
-	  std::vector<std::shared_ptr<Value>> wa = w->values();
+	  std::vector<std::shared_ptr<APL::types::Value>> res(len - n + 1);
+	  std::vector<std::shared_ptr<APL::types::Value>> wa = w->values();
 	  for (int i = 0; i < res.size(); i++)
 	  {
-		std::vector<std::shared_ptr<Value>> curr(n);
+		std::vector<std::shared_ptr<APL::types::Value>> curr(n);
 		// for (int j = 0; j < n; j++) curr[j] = wa[i + j];
 		std::copy_n(wa.begin() + i, n, curr.begin());
 		res[i] = aaf->call(Arr::create(curr));

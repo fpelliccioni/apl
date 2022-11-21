@@ -12,14 +12,14 @@
 
 namespace APL::types::functions::builtins::fns
 {
-	using namespace APL;
-	using namespace APL::errors;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
+	// using namespace APL;
+	// using namespace APL::errors;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
 	using HashMap = java::util::HashMap;
 
-	std::wstring IotaBuiltin::repr()
+	std::string IotaBuiltin::repr()
 	{
 	  return L"⍳";
 	}
@@ -28,7 +28,7 @@ namespace APL::types::functions::builtins::fns
 	{
 	}
 
-	std::shared_ptr<Value> IotaBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> IotaBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  int IO = sc->IO;
 	  if (std::dynamic_pointer_cast<Primitive>(w) != nullptr)
@@ -52,12 +52,12 @@ namespace APL::types::functions::builtins::fns
 		  }
 		  return std::make_shared<DoubleArr>(res);
 		}
-		else if (std::dynamic_pointer_cast<BigValue>(w) != nullptr)
+		else if (std::dynamic_pointer_cast<APL::types::BigValue>(w) != nullptr)
 		{
-		  std::vector<std::shared_ptr<Value>> res(w->asInt());
+		  std::vector<std::shared_ptr<APL::types::Value>> res(w->asInt());
 		  for (int i = 0; i < res.size(); i++)
 		  {
-			res[i] = std::make_shared<BigValue>(i + IO);
+			res[i] = std::make_shared<APL::types::BigValue>(i + IO);
 		  }
 		  return std::make_shared<HArr>(res);
 		}
@@ -71,7 +71,7 @@ namespace APL::types::functions::builtins::fns
 		int dim = w->ia;
 		std::vector<int> shape = w->asIntVec();
 		int prod = Arr::prod(shape);
-		std::vector<std::shared_ptr<Value>> res(dim);
+		std::vector<std::shared_ptr<APL::types::Value>> res(dim);
 		int blockSize = 1;
 		for (int i = dim - 1; i >= 0; i--)
 		{
@@ -102,7 +102,7 @@ namespace APL::types::functions::builtins::fns
 	  { // ⎕VI←0
 		std::vector<int> shape = w->asIntVec();
 		int ia = Arr::prod(shape);
-		std::vector<std::shared_ptr<Value>> arr(ia);
+		std::vector<std::shared_ptr<APL::types::Value>> arr(ia);
 		int i = 0;
 		for (auto c : std::make_shared<Indexer>(shape, IO))
 		{
@@ -113,12 +113,12 @@ namespace APL::types::functions::builtins::fns
 	  }
 	}
 
-	std::shared_ptr<Value> IotaBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> IotaBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return on(a, w, sc->IO, shared_from_this());
 	}
 
-	std::shared_ptr<Value> IotaBuiltin::on(std::shared_ptr<Value> a, std::shared_ptr<Value> w, int IO, std::shared_ptr<Callable> blame)
+	std::shared_ptr<APL::types::Value> IotaBuiltin::on(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, int IO, std::shared_ptr<APL::types::Callable> blame)
 	{
 	  if (w->rank > 1)
 	  {
@@ -130,7 +130,7 @@ namespace APL::types::functions::builtins::fns
 	  }
 	  if (w->ia > 20 && a->ia > 20)
 	  {
-		std::unordered_map<std::shared_ptr<Value>, int> map;
+		std::unordered_map<std::shared_ptr<APL::types::Value>, int> map;
 		int ctr = 0;
 		for (auto v : a)
 		{

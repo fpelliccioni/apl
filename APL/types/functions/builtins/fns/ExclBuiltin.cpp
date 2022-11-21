@@ -3,11 +3,11 @@
 namespace APL::types::functions::builtins::fns
 {
 	using DomainError = APL::errors::DomainError;
-	using namespace APL::types;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
-	using BigInteger = java::math::BigInteger;
+	// using BigInteger = java::math::BigInteger;
 
-	std::wstring ExclBuiltin::repr()
+	std::string ExclBuiltin::repr()
 	{
 	  return L"!";
 	}
@@ -28,7 +28,7 @@ const std::vector<double> ExclBuiltin::cache = std::vector<double>(172);
 ExclBuiltin::StaticConstructor ExclBuiltin::staticConstructor;
 const std::shared_ptr<NumMV> ExclBuiltin::NF = std::make_shared<NumMVAnonymousInnerClass>();
 
-	std::shared_ptr<Value> ExclBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> w)
+	std::shared_ptr<APL::types::Value> ExclBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<Num> w)
 	{
 	  return std::make_shared<Num>(cache[std::min(w->asInt(), 171)]);
 	}
@@ -41,7 +41,7 @@ const std::shared_ptr<NumMV> ExclBuiltin::NF = std::make_shared<NumMVAnonymousIn
 	  }
 	}
 
-	std::shared_ptr<Value> ExclBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<BigValue> w)
+	std::shared_ptr<APL::types::Value> ExclBuiltin::NumMVAnonymousInnerClass::call(std::shared_ptr<APL::types::BigValue> w)
 	{
 	  if (w->i->bitLength() > 30)
 	  {
@@ -53,23 +53,23 @@ const std::shared_ptr<NumMV> ExclBuiltin::NF = std::make_shared<NumMVAnonymousIn
 	  {
 		res = res->multiply(static_cast<BigInteger>(i));
 	  }
-	  return std::make_shared<BigValue>(res);
+	  return std::make_shared<APL::types::BigValue>(res);
 	}
 
-	std::shared_ptr<Value> ExclBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> ExclBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  return numM(NF, w);
 	}
 
-	std::shared_ptr<Value> ExclBuiltin::call(std::shared_ptr<Value> a0, std::shared_ptr<Value> w0)
+	std::shared_ptr<APL::types::Value> ExclBuiltin::call(std::shared_ptr<APL::types::Value> a0, std::shared_ptr<APL::types::Value> w0)
 	{
 	  return allD([&] (a, w)
 	  {
-	  if (std::dynamic_pointer_cast<BigValue>(a) != nullptr || std::dynamic_pointer_cast<BigValue>(w) != nullptr)
+	  if (std::dynamic_pointer_cast<APL::types::BigValue>(a) != nullptr || std::dynamic_pointer_cast<APL::types::BigValue>(w) != nullptr)
 	  {
 		  std::shared_ptr<BigInteger> res = BigInteger::ONE;
-		  std::shared_ptr<BigInteger> al = BigValue::bigint(w);
-		  std::shared_ptr<BigInteger> bl = BigValue::bigint(a);
+		  std::shared_ptr<BigInteger> al = APL::types::BigValue::bigint(w);
+		  std::shared_ptr<BigInteger> bl = APL::types::BigValue::bigint(a);
 		  if (al->compareTo(bl) < 0)
 		  {
 			  return Num::ZERO;
@@ -91,7 +91,7 @@ const std::shared_ptr<NumMV> ExclBuiltin::NF = std::make_shared<NumMVAnonymousIn
 		  {
 			  res = res->divide(static_cast<BigInteger>(i + 1));
 		  }
-		  return std::make_shared<BigValue>(res);
+		  return std::make_shared<APL::types::BigValue>(res);
 	  }
 	  return (std::static_pointer_cast<Num>(w))->binomial(std::static_pointer_cast<Num>(a));
 	  }, a0, w0);

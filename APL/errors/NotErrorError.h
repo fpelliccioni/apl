@@ -8,18 +8,17 @@
 namespace APL::errors
 {
 
-	using Obj = APL::types::Obj;
+    using Obj = APL::types::Obj;
 
-	class NotErrorError : public APLError
-	{
+    class NotErrorError : public APLError
+    {
 
   public:
-	  NotErrorError(const std::wstring &msg, std::shared_ptr<Obj> cause);
+      NotErrorError(std::string const& msg, std::shared_ptr<APL::types::Obj> cause);
 
-	protected:
-		std::shared_ptr<NotErrorError> shared_from_this()
-		{
-			return std::static_pointer_cast<NotErrorError>(APLError::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<NotErrorError> shared_from_this() {
+            return std::static_pointer_cast<NotErrorError>(APL::errors::APLError::shared_from_this());
+        }
+    };
 }

@@ -1,25 +1,31 @@
 #pragma once
 
-#include <APL/Scope.h>
+//NOTE(fernando)
+// #include <APL/Scope.h>
 #include <APL/types/Fun.h>
 #include <memory>
 
-namespace APL::types::functions
-{
+//NOTE(fernando)
+namespace APL {
+    class Scope;
+}
 
-	using Scope = APL::Scope;
-	using Fun = APL::types::Fun;
+namespace APL::types::functions {
 
-	class Builtin : public Fun
-	{
-  protected:
-	  Builtin(std::shared_ptr<Scope> sc);
-	  Builtin();
+    //NOTE(fernando)
+    // using Scope = APL::Scope;
+    // using Fun = APL::types::Fun;
 
-	protected:
-		std::shared_ptr<Builtin> shared_from_this()
-		{
-			return std::static_pointer_cast<Builtin>(APL::types::Fun::shared_from_this());
-		}
-	};
+class Builtin : public APL::types::Fun {
+protected:
+    Builtin(std::shared_ptr<Scope> sc);
+    Builtin();
+
+protected:
+    std::shared_ptr<Builtin> shared_from_this()
+    {
+        return std::static_pointer_cast<Builtin>(APL::types::Fun::shared_from_this());
+    }
+};
+
 }

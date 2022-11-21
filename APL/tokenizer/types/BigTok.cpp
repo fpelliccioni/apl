@@ -1,16 +1,15 @@
 #include <APL/BigTok.h>
 
-namespace APL::tokenizer::types
-{
-	using Token = APL::tokenizer::Token;
-	using BigValue = APL::types::BigValue;
+namespace APL::tokenizer::types {
+    using Token = APL::tokenizer::Token;
+    using APL::types::BigValue = APL::types::APL::types::BigValue;
 
-	BigTok::BigTok(const std::wstring &line, int spos, int epos, std::shared_ptr<BigValue> val) : APL::tokenizer::Token(line, spos, epos), val(val)
-	{
-	}
+    BigTok::BigTok(std::string const& line, int spos, int epos, std::shared_ptr<APL::types::BigValue> val) : APL::tokenizer::Token(line, spos, epos), val(val)
+    {
+    }
 
-	std::wstring BigTok::toRepr()
-	{
-	  return source();
-	}
+    std::string BigTok::toRepr()
+    {
+      return source();
+    }
 }

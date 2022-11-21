@@ -11,14 +11,14 @@
 namespace APL::types::functions::builtins::fns
 {
 
-	using namespace APL;
-	using namespace APL::types;
+	// using namespace APL;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
 
 	class NandBuiltin : public Builtin
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 	  NandBuiltin(std::shared_ptr<Scope> sc);
 
@@ -49,14 +49,14 @@ namespace APL::types::functions::builtins::fns
 	  class D_BBAnonymousInnerClass : public std::enable_shared_from_this<D_BBAnonymousInnerClass>, public D_BB
 	  {
 	  public:
-		  std::shared_ptr<Value> call(bool a, std::shared_ptr<BitArr> w) override;
-		  std::shared_ptr<Value> call(std::shared_ptr<BitArr> a, bool w) override;
-		  std::shared_ptr<Value> call(std::shared_ptr<BitArr> a, std::shared_ptr<BitArr> w) override;
+		  std::shared_ptr<APL::types::Value> call(bool a, std::shared_ptr<APL::types::arrs::BitArr> w) override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::arrs::BitArr> a, bool w) override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::arrs::BitArr> a, std::shared_ptr<APL::types::arrs::BitArr> w) override;
 	  };
 
   public:
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w) override;
 
 	protected:
 		std::shared_ptr<NandBuiltin> shared_from_this()

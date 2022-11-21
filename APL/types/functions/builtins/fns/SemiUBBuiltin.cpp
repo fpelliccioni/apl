@@ -9,21 +9,21 @@
 namespace APL::types::functions::builtins::fns
 {
 	using DomainError = APL::errors::DomainError;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
 
-	std::wstring SemiUBBuiltin::repr()
+	std::string SemiUBBuiltin::repr()
 	{
 	  return L"⍮";
 	}
 
-	std::shared_ptr<Value> SemiUBBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> SemiUBBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  return std::make_shared<Shape1Arr>(w);
 	}
 
-	std::shared_ptr<Value> SemiUBBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> SemiUBBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  if (std::dynamic_pointer_cast<Num>(a) != nullptr && std::dynamic_pointer_cast<Num>(w) != nullptr)
 	  {
@@ -31,12 +31,12 @@ namespace APL::types::functions::builtins::fns
 	  }
 	  if (std::dynamic_pointer_cast<Char>(a) != nullptr && std::dynamic_pointer_cast<Char>(w) != nullptr)
 	  {
-		return std::make_shared<ChrArr>(StringHelper::toString((std::static_pointer_cast<Char>(a))->chr) + L"" + StringHelper::toString((std::static_pointer_cast<Char>(w))->chr));
+		return std::make_shared<APL::types::arrs::ChrArr>(StringHelper::toString((std::static_pointer_cast<Char>(a))->chr) + L"" + StringHelper::toString((std::static_pointer_cast<Char>(w))->chr));
 	  }
-	  return Arr::create(std::vector<std::shared_ptr<Value>>{a, w});
+	  return Arr::create(std::vector<std::shared_ptr<APL::types::Value>>{a, w});
 	}
 
-	std::shared_ptr<Value> SemiUBBuiltin::callInv(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> SemiUBBuiltin::callInv(std::shared_ptr<APL::types::Value> w)
 	{
 	  if (w->rank != 1 || w->shape[0] != 1)
 	  {
@@ -45,7 +45,7 @@ namespace APL::types::functions::builtins::fns
 	  return w->first();
 	}
 
-	std::shared_ptr<Value> SemiUBBuiltin::callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> SemiUBBuiltin::callInvW(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  if (w->rank != 1 || w->shape[0] != 2)
 	  {
@@ -58,7 +58,7 @@ namespace APL::types::functions::builtins::fns
 	  return w[1];
 	}
 
-	std::shared_ptr<Value> SemiUBBuiltin::callInvA(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> SemiUBBuiltin::callInvA(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  if (a->rank != 1 || a->shape[0] != 2)
 	  {

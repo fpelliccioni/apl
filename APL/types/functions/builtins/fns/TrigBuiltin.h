@@ -12,14 +12,14 @@
 namespace APL::types::functions::builtins::fns
 {
 
-	using namespace APL::errors;
-	using namespace APL::types;
+	// using namespace APL::errors;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
 
 	class TrigBuiltin : public Builtin
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 
 
@@ -30,7 +30,7 @@ namespace APL::types::functions::builtins::fns
 	  class NumMVAnonymousInnerClass : public std::enable_shared_from_this<NumMVAnonymousInnerClass>, public NumMV
 	  {
 	  public:
-		  std::shared_ptr<Value> call(std::shared_ptr<Num> w) override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<Num> w) override;
 		  void call(std::vector<double> &res, std::vector<double> &a) override;
 	  };
   private:
@@ -40,13 +40,13 @@ namespace APL::types::functions::builtins::fns
 	  class NumMVAnonymousInnerClass2 : public std::enable_shared_from_this<NumMVAnonymousInnerClass2>, public NumMV
 	  {
 	  public:
-		  std::shared_ptr<Value> call(std::shared_ptr<Num> w) override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<Num> w) override;
 		  void call(std::vector<double> &res, std::vector<double> &a) override;
 	  };
 
   public:
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> w) override;
-	  std::shared_ptr<Value> callInv(std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w) override;
+	  std::shared_ptr<APL::types::Value> callInv(std::shared_ptr<APL::types::Value> w) override;
 
 	  static const std::shared_ptr<D_NNeN> DNF;
 
@@ -63,7 +63,7 @@ namespace APL::types::functions::builtins::fns
 		  }
 	  };
   public:
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
 
 	  static const std::shared_ptr<D_NNeN> DNFi;
@@ -81,7 +81,7 @@ namespace APL::types::functions::builtins::fns
 		  }
 	  };
   public:
-	  std::shared_ptr<Value> callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> callInvW(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
 	protected:
 		std::shared_ptr<TrigBuiltin> shared_from_this()

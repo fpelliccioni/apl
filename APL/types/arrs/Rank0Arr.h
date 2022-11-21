@@ -11,36 +11,35 @@
 namespace APL::types::arrs
 {
 
-	using namespace APL::types;
+    // using namespace APL::types;
 
-	class Rank0Arr : public Arr
-	{
+    class Rank0Arr : public Arr
+    {
   public:
-	  static const std::vector<int> SHAPE;
-	  const std::shared_ptr<Value> item;
+      static const std::vector<int> SHAPE;
+      const std::shared_ptr<APL::types::Value> item;
 
-	  Rank0Arr(std::shared_ptr<Value> item);
+      Rank0Arr(std::shared_ptr<APL::types::Value> item);
 
-	  std::vector<int> asIntArrClone() override;
+      std::vector<int> asIntArrClone() override;
 
-	  int asInt() override;
+      int asInt() override;
 
-	  std::shared_ptr<Value> get(int i) override;
+      std::shared_ptr<APL::types::Value> get(int i) override;
 
-	  std::wstring asString() override;
+      std::string asString() override;
 
-	  std::shared_ptr<Value> prototype() override;
+      std::shared_ptr<APL::types::Value> prototype() override;
 
-	  std::shared_ptr<Value> safePrototype() override;
+      std::shared_ptr<APL::types::Value> safePrototype() override;
 
-	  std::shared_ptr<Value> ofShape(std::vector<int> &sh) override;
+      std::shared_ptr<APL::types::Value> ofShape(std::vector<int> &sh) override;
 
-	  std::vector<std::shared_ptr<Value>> valuesCopy() override;
+      std::vector<std::shared_ptr<APL::types::Value>> valuesCopy() override;
 
-	protected:
-		std::shared_ptr<Rank0Arr> shared_from_this()
-		{
-			return std::static_pointer_cast<Rank0Arr>(Arr::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<Rank0Arr> shared_from_this() {
+            return std::static_pointer_cast<Rank0Arr>(Arr::shared_from_this());
+        }
+    };
 }

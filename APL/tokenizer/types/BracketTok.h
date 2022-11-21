@@ -8,27 +8,26 @@
 #include <memory>
 #include <helpers/tangible_stringbuilder.h>
 
-namespace APL::tokenizer::types
-{
+namespace APL::tokenizer::types {
 
 
-	using List = java::util::List;
+    // using List = java::util::List;
 
-	class BracketTok : public TokArr<std::shared_ptr<LineTok>>
-	{
-  public:
-	  const bool array;
+class BracketTok : public TokArr<std::shared_ptr<APL::tokenizer::types::LineTok>> {
+public:
+    const bool array;
 
-	  BracketTok(const std::wstring &line, int spos, int epos, std::vector<std::shared_ptr<LineTok>> &tokens, bool hasDmd);
+    BracketTok(std::string const& line, int spos, int epos, std::vector<std::shared_ptr<APL::tokenizer::types::LineTok>> &tokens, bool hasDmd);
 
-	  std::wstring toRepr() override;
+    std::string toRepr() override;
 
-	  virtual std::wstring toString();
+    virtual std::string toString();
 
-	protected:
-		std::shared_ptr<BracketTok> shared_from_this()
-		{
-			return std::static_pointer_cast<BracketTok>(TokArr::shared_from_this());
-		}
-	};
+protected:
+    std::shared_ptr<BracketTok> shared_from_this()
+    {
+        return std::static_pointer_cast<BracketTok>(TokArr::shared_from_this());
+    }
+};
+
 }

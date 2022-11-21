@@ -2,26 +2,32 @@
 
 #include <APL/errors/APLError.h>
 #include <APL/types/Tokenable.h>
-#include <APL/types/Callable.h>
+// #include <APL/types/Callable.h>
+
 #include <string>
 #include <memory>
 
-namespace APL::errors
-{
+// using namespace APL::types;
 
-	using namespace APL::types;
 
-	class DomainError : public APLError
-	{
-  public:
-	  DomainError(const std::wstring &s);
-	  DomainError(const std::wstring &s, std::shared_ptr<Tokenable> fun);
-	  DomainError(const std::wstring &s, std::shared_ptr<Callable> fun, std::shared_ptr<Tokenable> cause);
+namespace APL::types {
+class Callable;
+}
 
-	protected:
-		std::shared_ptr<DomainError> shared_from_this()
-		{
-			return std::static_pointer_cast<DomainError>(APLError::shared_from_this());
-		}
-	};
+
+namespace APL::errors {
+
+class DomainError : public APL::errors::APLError {
+public:
+    DomainError(std::string const& s);
+    DomainError(std::string const& s, std::shared_ptr<APL::types::Tokenable> fun);
+    DomainError(std::string const& s, std::shared_ptr<APL::types::Callable> fun, std::shared_ptr<APL::types::Tokenable> cause);
+
+protected:
+    std::shared_ptr<DomainError> shared_from_this()
+    {
+        return std::static_pointer_cast<DomainError>(APL::errors::APLError::shared_from_this());
+    }
+};
+
 }

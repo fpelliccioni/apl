@@ -4,26 +4,24 @@
 #include <string>
 #include <memory>
 
-namespace APL::tokenizer::types
-{
+namespace APL::tokenizer::types {
 
-	using Token = APL::tokenizer::Token;
+using Token = APL::tokenizer::Token;
 
-	class NameTok : public Token
-	{
-  public:
-	  const std::wstring name;
+class NameTok : public Token {
+public:
+    const std::string name;
 
-	  NameTok(const std::wstring &line, int spos, int epos, const std::wstring &name);
+    NameTok(std::string const& line, int spos, int epos, std::string const& name);
 
-	  std::wstring toTree(const std::wstring &p) override;
+    std::string toTree(std::string const& p) override;
 
-	  std::wstring toRepr() override;
+    std::string toRepr() override;
 
-	protected:
-		std::shared_ptr<NameTok> shared_from_this()
-		{
-			return std::static_pointer_cast<NameTok>(APL::tokenizer::Token::shared_from_this());
-		}
-	};
+protected:
+    std::shared_ptr<NameTok> shared_from_this() {
+        return std::static_pointer_cast<NameTok>(APL::tokenizer::Token::shared_from_this());
+    }
+};
+
 }

@@ -11,19 +11,19 @@
 namespace APL::types::functions::builtins::fns
 {
 
-	using namespace APL::types;
+	// using namespace APL::types;
 	using Builtin = APL::types::functions::Builtin;
 
 	class OrBuiltin : public Builtin
 	{
   public:
-	  std::wstring repr() override;
+	  std::string repr() override;
 
 
 
-	  std::shared_ptr<Value> identity() override;
+	  std::shared_ptr<APL::types::Value> identity() override;
 
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w) override;
 
   private:
 	  static const std::shared_ptr<D_NNeN> DNF;
@@ -36,7 +36,7 @@ namespace APL::types::functions::builtins::fns
 		  void on(std::vector<double> &res, double a, std::vector<double> &w) override;
 		  void on(std::vector<double> &res, std::vector<double> &a, double w) override;
 		  void on(std::vector<double> &res, std::vector<double> &a, std::vector<double> &w) override;
-		  std::shared_ptr<Value> call(std::shared_ptr<BigValue> a, std::shared_ptr<BigValue> w) override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::BigValue> a, std::shared_ptr<APL::types::BigValue> w) override;
 
 	  protected:
 		  std::shared_ptr<D_NNeNAnonymousInnerClass> shared_from_this()
@@ -52,12 +52,12 @@ namespace APL::types::functions::builtins::fns
 	  class D_BBAnonymousInnerClass : public std::enable_shared_from_this<D_BBAnonymousInnerClass>, public D_BB
 	  {
 	  public:
-		  std::shared_ptr<Value> call(bool a, std::shared_ptr<BitArr> w) override;
-		  std::shared_ptr<Value> call(std::shared_ptr<BitArr> a, bool w) override;
-		  std::shared_ptr<Value> call(std::shared_ptr<BitArr> a, std::shared_ptr<BitArr> w) override;
+		  std::shared_ptr<APL::types::Value> call(bool a, std::shared_ptr<APL::types::arrs::BitArr> w) override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::arrs::BitArr> a, bool w) override;
+		  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::arrs::BitArr> a, std::shared_ptr<APL::types::arrs::BitArr> w) override;
 	  };
   public:
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> a0, std::shared_ptr<Value> w0) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a0, std::shared_ptr<APL::types::Value> w0) override;
 
 	protected:
 		std::shared_ptr<OrBuiltin> shared_from_this()

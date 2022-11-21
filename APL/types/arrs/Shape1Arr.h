@@ -11,39 +11,38 @@
 namespace APL::types::arrs
 {
 
-	using namespace APL::types;
+    // using namespace APL::types;
 
-	class Shape1Arr : public Arr
-	{
+    class Shape1Arr : public Arr
+    {
   private:
-	  static const std::vector<int> SHAPE;
-	  const std::shared_ptr<Value> item;
+      static const std::vector<int> SHAPE;
+      const std::shared_ptr<APL::types::Value> item;
 
   public:
-	  Shape1Arr(std::shared_ptr<Value> item);
+      Shape1Arr(std::shared_ptr<APL::types::Value> item);
 
-	  std::vector<int> asIntArrClone() override;
+      std::vector<int> asIntArrClone() override;
 
-	  int asInt() override;
+      int asInt() override;
 
-	  std::shared_ptr<Value> get(int i) override;
+      std::shared_ptr<APL::types::Value> get(int i) override;
 
-	  std::wstring asString() override;
+      std::string asString() override;
 
-	  std::shared_ptr<Value> prototype() override;
-	  std::shared_ptr<Value> safePrototype() override;
-	  std::shared_ptr<Value> ofShape(std::vector<int> &sh) override;
+      std::shared_ptr<APL::types::Value> prototype() override;
+      std::shared_ptr<APL::types::Value> safePrototype() override;
+      std::shared_ptr<APL::types::Value> ofShape(std::vector<int> &sh) override;
 
-	  std::vector<std::shared_ptr<Value>> valuesCopy() override;
+      std::vector<std::shared_ptr<APL::types::Value>> valuesCopy() override;
 
-	  bool quickDoubleArr() override;
+      bool quickDoubleArr() override;
 
-	  std::vector<double> asDoubleArr() override;
+      std::vector<double> asDoubleArr() override;
 
-	protected:
-		std::shared_ptr<Shape1Arr> shared_from_this()
-		{
-			return std::static_pointer_cast<Shape1Arr>(Arr::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<Shape1Arr> shared_from_this() {
+            return std::static_pointer_cast<Shape1Arr>(Arr::shared_from_this());
+        }
+    };
 }

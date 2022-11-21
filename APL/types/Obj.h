@@ -1,45 +1,54 @@
 #pragma once
 
-#include <APL/errors/NYIError.h>
-#include <APL/tokenizer/Token.h>
+// #include <APL/errors/NYIError.h>
+// #include <APL/tokenizer/Token.h>
 #include <APL/types/Tokenable.h>
 #include <APL/Type.h>
+
 #include <string>
 #include <any>
 #include <memory>
+
 #include <helpers/tangible_string_helper.h>
 
-namespace APL::types
+//NOTE(fernando)
+namespace APL::tokenizer {
+class Token;
+}
+
+// using namespace APL;
+using Token = APL::tokenizer::Token;
+// // using namespace APL::types::dimensions;
+// // using namespace APL::types::functions;
+
+namespace APL::types {
+
+class Obj
+    : public std::enable_shared_from_this<Obj>
+    , public Tokenable
 {
+public:
+    std::shared_ptr<APL::tokenizer::Token> token;
 
-	using namespace APL;
-	using Token = APL::tokenizer::Token;
-	using namespace APL::types::dimensions;
-	using namespace APL::types::functions;
+    virtual bool isObj();
+    virtual Type type() = 0;
+    virtual bool equals(std::shared_ptr<Obj> o);
 
-	class Obj : public std::enable_shared_from_this<Obj>, public Tokenable
-	{
-  public:
-	  std::shared_ptr<Token> token;
+    virtual std::string humanType(bool article);
 
-	  virtual bool isObj();
-	  virtual Type type() = 0;
-	  virtual bool equals(std::shared_ptr<Obj> o);
+    virtual bool equals(std::any obj);
 
-	  virtual std::wstring humanType(bool article);
+    virtual std::string name();
 
-	  virtual bool equals(std::any obj);
+    virtual std::string toString();
 
-	  virtual std::wstring name();
+    virtual int hashCode();
 
-	  virtual std::wstring toString();
+protected:
+    int actualHashCode();
 
-	  virtual int hashCode();
+public:
+    std::shared_ptr<APL::tokenizer::Token> getToken() override;
+};
 
-  protected:
-	  int actualHashCode();
-
-  public:
-	  std::shared_ptr<Token> getToken() override;
-	};
 }

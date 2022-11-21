@@ -2,5 +2,5 @@
 
 namespace APL::types
 {
-	using Token = APL::tokenizer::Token;
+    using Token = APL::tokenizer::Token;
 }

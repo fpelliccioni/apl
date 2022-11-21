@@ -24,19 +24,19 @@
 namespace APL::types::functions::builtins::fns
 {
 	using Main = APL::Main;
-	using namespace APL::errors;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
-	using namespace APL::types::dimensions;
+	// using namespace APL::errors;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
+	// using namespace APL::types::dimensions;
 	using Builtin = APL::types::functions::Builtin;
 	using Arrays = java::util::Arrays;
 
-	std::wstring CatBuiltin::repr()
+	std::string CatBuiltin::repr()
 	{
 	  return L",";
 	}
 
-	std::shared_ptr<Value> CatBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> CatBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  if (std::dynamic_pointer_cast<Primitive>(w) != nullptr)
 	  {
@@ -46,20 +46,20 @@ namespace APL::types::functions::builtins::fns
 		}
 		if (std::dynamic_pointer_cast<Char>(w) != nullptr)
 		{
-			return std::make_shared<ChrArr>(StringHelper::toString((std::static_pointer_cast<Char>(w))->chr));
+			return std::make_shared<APL::types::arrs::ChrArr>(StringHelper::toString((std::static_pointer_cast<Char>(w))->chr));
 		}
 		return std::make_shared<Shape1Arr>(w);
 	  }
 	  return w->ofShape(std::vector<int>{w->ia});
 	}
 
-	std::shared_ptr<Value> CatBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> CatBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  int dim = std::max(a->rank, w->rank) - 1;
 	  return cat(a, w, dim, shared_from_this());
 	}
 
-	std::shared_ptr<Value> CatBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<DervDimFn> dims)
+	std::shared_ptr<APL::types::Value> CatBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DervDimFn> dims)
 	{
 	  int dim = dims->singleDim();
 	  if (dim < 0 || dim >= std::max(a->rank, w->rank))
@@ -69,7 +69,7 @@ namespace APL::types::functions::builtins::fns
 	  return cat(a, w, dim, shared_from_this());
 	}
 
-	std::shared_ptr<Value> CatBuiltin::cat(std::shared_ptr<Value> a, std::shared_ptr<Value> w, int k, std::shared_ptr<Callable> blame)
+	std::shared_ptr<APL::types::Value> CatBuiltin::cat(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, int k, std::shared_ptr<APL::types::Callable> blame)
 	{
 	  bool aScalar = a->rank == 0, wScalar = w->rank == 0;
 	  if (aScalar && wScalar)
@@ -95,15 +95,15 @@ namespace APL::types::functions::builtins::fns
 	  rs[k] += aScalar || wScalar ? 1 : w->shape[k];
 	  if (k <= 0 && a->rank == w->rank)
 	  {
-		if ((std::dynamic_pointer_cast<BitArr>(a) != nullptr || Main::isBool(a)) && (std::dynamic_pointer_cast<BitArr>(w) != nullptr || Main::isBool(w)))
+		if ((std::dynamic_pointer_cast<APL::types::arrs::BitArr>(a) != nullptr || Main::isBool(a)) && (std::dynamic_pointer_cast<APL::types::arrs::BitArr>(w) != nullptr || Main::isBool(w)))
 		{
-		  bool ab = std::dynamic_pointer_cast<BitArr>(a) != nullptr;
-		  bool wb = std::dynamic_pointer_cast<BitArr>(w) != nullptr;
+		  bool ab = std::dynamic_pointer_cast<APL::types::arrs::BitArr>(a) != nullptr;
+		  bool wb = std::dynamic_pointer_cast<APL::types::arrs::BitArr>(w) != nullptr;
 
-		  std::shared_ptr<BitArr::BA> res = std::make_shared<BitArr::BA>(rs);
+		  std::shared_ptr<APL::types::arrs::BitArr::BA> res = std::make_shared<APL::types::arrs::BitArr::BA>(rs);
 		  if (ab)
 		  {
-			  res->add(std::static_pointer_cast<BitArr>(a));
+			  res->add(std::static_pointer_cast<APL::types::arrs::BitArr>(a));
 		  }
 		  else
 		  {
@@ -111,7 +111,7 @@ namespace APL::types::functions::builtins::fns
 		  }
 		  if (wb)
 		  {
-			  res->add(std::static_pointer_cast<BitArr>(w));
+			  res->add(std::static_pointer_cast<APL::types::arrs::BitArr>(w));
 		  }
 		  else
 		  {
@@ -127,7 +127,7 @@ namespace APL::types::functions::builtins::fns
 		  std::copy_n(w->asDoubleArr().begin(), w->ia, r.begin() + a->ia);
 		  return std::make_shared<DoubleArr>(r, rs);
 		}
-		std::vector<std::shared_ptr<Value>> r(a->ia + w->ia);
+		std::vector<std::shared_ptr<APL::types::Value>> r(a->ia + w->ia);
 		std::copy_n(a->values().begin(), a->ia, r.begin());
 		std::copy_n(w->values().begin(), w->ia, r.begin() + a->ia);
 		return Arr::create(r,rs);
@@ -155,14 +155,14 @@ namespace APL::types::functions::builtins::fns
 	  }
 	  else
 	  {
-		std::vector<std::shared_ptr<Value>> rv(n0 * n1 * n2); // result values
+		std::vector<std::shared_ptr<APL::types::Value>> rv(n0 * n1 * n2); // result values
 		copyChunks(aScalar, a->values(), rv, 0, ad, ad + wd);
 		copyChunks(wScalar, w->values(), rv, ad, wd, ad + wd);
 		return Arr::create(rv, rs);
 	  }
 	}
 
-	void CatBuiltin::copyChunks(bool scalar, std::vector<std::shared_ptr<Value>> &av, std::vector<std::shared_ptr<Value>> &rv, int offset, int ad, int rd)
+	void CatBuiltin::copyChunks(bool scalar, std::vector<std::shared_ptr<APL::types::Value>> &av, std::vector<std::shared_ptr<APL::types::Value>> &rv, int offset, int ad, int rd)
 	{
 	  if (scalar)
 	  {
@@ -198,9 +198,9 @@ namespace APL::types::functions::builtins::fns
 	  }
 	}
 
-	std::shared_ptr<Value> CatBuiltin::under(std::shared_ptr<Obj> o, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> CatBuiltin::under(std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> w)
 	{
-	  std::shared_ptr<Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(w)) : std::static_pointer_cast<Value>(o);
+	  std::shared_ptr<APL::types::Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(w)) : std::static_pointer_cast<APL::types::Value>(o);
 	  if (v->ia != w->ia)
 	  {
 		  throw DomainError(L"⍢, expected equal amount of output & output items", shared_from_this());
@@ -208,16 +208,16 @@ namespace APL::types::functions::builtins::fns
 	  return v->ofShape(w->shape);
 	}
 
-	std::shared_ptr<Value> CatBuiltin::underW(std::shared_ptr<Obj> o, std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> CatBuiltin::underW(std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
-	  std::shared_ptr<Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(a, w)) : std::static_pointer_cast<Value>(o);
+	  std::shared_ptr<APL::types::Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(a, w)) : std::static_pointer_cast<APL::types::Value>(o);
 	  if (a->rank > 1)
 	  {
-		  throw NYIError(StringHelper::wstring_to_string(L", inverted on rank " + std::to_wstring(a->rank) + L" ⍺", shared_from_this()));
+		  throw APL::errors::NYIError(StringHelper::wstring_to_string(L", inverted on rank " + std::to_wstring(a->rank) + L" ⍺", shared_from_this()));
 	  }
 	  if (v->rank > 1)
 	  {
-		  throw NYIError(StringHelper::wstring_to_string(L", inverted on rank " + std::to_wstring(v->rank) + L" ⍵", shared_from_this()));
+		  throw APL::errors::NYIError(StringHelper::wstring_to_string(L", inverted on rank " + std::to_wstring(v->rank) + L" ⍵", shared_from_this()));
 	  }
 	  for (int i = 0; i < a->ia; i++)
 	  {

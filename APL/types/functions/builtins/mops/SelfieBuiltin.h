@@ -11,27 +11,26 @@
 namespace APL::types::functions::builtins::mops
 {
 
-	using namespace APL::types;
-	using namespace APL::types::functions;
+    // using namespace APL::types;
+    // using namespace APL::types::functions;
 
-	class SelfieBuiltin : public Mop
-	{
+    class SelfieBuiltin : public Mop
+    {
   public:
-	  std::wstring repr() override;
+      std::string repr() override;
 
 
 
-	  std::shared_ptr<Value> call(std::shared_ptr<Obj> f, std::shared_ptr<Value> w, std::shared_ptr<DerivedMop> derv) override;
-	  std::shared_ptr<Value> call(std::shared_ptr<Obj> f, std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<DerivedMop> derv) override;
+      std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Obj> f, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedMop> derv) override;
+      std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Obj> f, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DerivedMop> derv) override;
 
-	  std::shared_ptr<Value> callInvW(std::shared_ptr<Obj> f, std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+      std::shared_ptr<APL::types::Value> callInvW(std::shared_ptr<APL::types::Obj> f, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
-	  std::shared_ptr<Value> callInvA(std::shared_ptr<Obj> f, std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+      std::shared_ptr<APL::types::Value> callInvA(std::shared_ptr<APL::types::Obj> f, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
-	protected:
-		std::shared_ptr<SelfieBuiltin> shared_from_this()
-		{
-			return std::static_pointer_cast<SelfieBuiltin>(Mop::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<SelfieBuiltin> shared_from_this() {
+            return std::static_pointer_cast<SelfieBuiltin>(Mop::shared_from_this());
+        }
+    };
 }

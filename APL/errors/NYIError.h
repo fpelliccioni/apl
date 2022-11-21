@@ -9,19 +9,18 @@
 namespace APL::errors
 {
 
-	using namespace APL::types;
+    // using namespace APL::types;
 
-	class NYIError : public APLError
-	{ // AKA LazyError
+    class NYIError : public APLError
+    { // AKA LazyError
   public:
-	  NYIError(const std::wstring &s);
-	  NYIError(const std::wstring &s, std::shared_ptr<Tokenable> fun);
-	  NYIError(const std::wstring &s, std::shared_ptr<Callable> fun, std::shared_ptr<Tokenable> cause);
+      NYIError(std::string const& s);
+      NYIError(std::string const& s, std::shared_ptr<APL::types::Tokenable> fun);
+      NYIError(std::string const& s, std::shared_ptr<APL::types::Callable> fun, std::shared_ptr<APL::types::Tokenable> cause);
 
-	protected:
-		std::shared_ptr<NYIError> shared_from_this()
-		{
-			return std::static_pointer_cast<NYIError>(APLError::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<NYIError> shared_from_this() {
+            return std::static_pointer_cast<NYIError>(APL::errors::APLError::shared_from_this());
+        }
+    };
 }

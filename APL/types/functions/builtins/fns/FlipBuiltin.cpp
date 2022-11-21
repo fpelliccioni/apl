@@ -7,21 +7,21 @@
 namespace APL::types::functions::builtins::fns
 {
 	using DomainError = APL::errors::DomainError;
-	using namespace APL::types;
-	using namespace APL::types::dimensions;
+	// using namespace APL::types;
+	// using namespace APL::types::dimensions;
 	using Builtin = APL::types::functions::Builtin;
 
-	std::wstring FlipBuiltin::repr()
+	std::string FlipBuiltin::repr()
 	{
 	  return L"⊖";
 	}
 
-	std::shared_ptr<Value> FlipBuiltin::call(std::shared_ptr<Value> w, int dim)
+	std::shared_ptr<APL::types::Value> FlipBuiltin::call(std::shared_ptr<APL::types::Value> w, int dim)
 	{
 	  return (std::static_pointer_cast<Arr>(w))->reverseOn(dim);
 	}
 
-	std::shared_ptr<Value> FlipBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> FlipBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  if (std::dynamic_pointer_cast<Primitive>(w) != nullptr)
 	  {
@@ -30,12 +30,12 @@ namespace APL::types::functions::builtins::fns
 	  return (std::static_pointer_cast<Arr>(w))->reverseOn(0);
 	}
 
-	std::shared_ptr<Value> FlipBuiltin::callInv(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> FlipBuiltin::callInv(std::shared_ptr<APL::types::Value> w)
 	{
 	  return call(w);
 	}
 
-	std::shared_ptr<Value> FlipBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> FlipBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  if (std::dynamic_pointer_cast<Primitive>(a) != nullptr)
 	  {
@@ -44,7 +44,7 @@ namespace APL::types::functions::builtins::fns
 	  throw DomainError(L"A⊖B not implemented for non-scalar A", shared_from_this());
 	}
 
-	std::shared_ptr<Value> FlipBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<DervDimFn> dims)
+	std::shared_ptr<APL::types::Value> FlipBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DervDimFn> dims)
 	{
 	  int dim = dims->singleDim(w->rank);
 	  if (std::dynamic_pointer_cast<Primitive>(a) != nullptr)
@@ -54,7 +54,7 @@ namespace APL::types::functions::builtins::fns
 	  throw DomainError(L"A⊖[n]B not implemented for non-scalar A", shared_from_this());
 	}
 
-	std::shared_ptr<Value> FlipBuiltin::callInvW(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> FlipBuiltin::callInvW(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  return call(numM(MinusBuiltin::NF, a), w);
 	}

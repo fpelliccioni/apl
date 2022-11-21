@@ -6,11 +6,11 @@
 namespace APL::types::dimensions
 {
 
-	using Value = APL::types::Value;
+    using APL::types::Value = APL::types::APL::types::Value;
 
-	class DimMFn
-	{
+    class DimMFn
+    {
   public:
-	  virtual std::shared_ptr<Value> call(std::shared_ptr<Value> w, int dim) = 0;
-	};
+      virtual std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w, int dim) = 0;
+    };
 }

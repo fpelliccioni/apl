@@ -22,27 +22,27 @@
 
 namespace APL::types::functions::builtins::fns
 {
-	using namespace APL;
-	using namespace APL::errors;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
-	using namespace APL::types::dimensions;
+	// using namespace APL;
+	// using namespace APL::errors;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
+	// using namespace APL::types::dimensions;
 	using Builtin = APL::types::functions::Builtin;
 
-	std::wstring UpArrowBuiltin::repr()
+	std::string UpArrowBuiltin::repr()
 	{
 	  return L"↑";
 	}
 
-	std::shared_ptr<Value> UpArrowBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> UpArrowBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
 	  if (std::dynamic_pointer_cast<Arr>(w) != nullptr)
 	  {
-		if (std::dynamic_pointer_cast<DoubleArr>(w) != nullptr || std::dynamic_pointer_cast<ChrArr>(w) != nullptr || std::dynamic_pointer_cast<BitArr>(w) != nullptr)
+		if (std::dynamic_pointer_cast<DoubleArr>(w) != nullptr || std::dynamic_pointer_cast<APL::types::arrs::ChrArr>(w) != nullptr || std::dynamic_pointer_cast<APL::types::arrs::BitArr>(w) != nullptr)
 		{
 			return w;
 		}
-		std::vector<std::shared_ptr<Value>> subs = w->values();
+		std::vector<std::shared_ptr<APL::types::Value>> subs = w->values();
 		return merge(subs, w->shape, shared_from_this());
 	  }
 	  else
@@ -51,14 +51,14 @@ namespace APL::types::functions::builtins::fns
 	  }
 	}
 
-	std::shared_ptr<Value> UpArrowBuiltin::merge(std::vector<std::shared_ptr<Value>> &vals, std::vector<int> &sh, std::shared_ptr<Tokenable> blame)
+	std::shared_ptr<APL::types::Value> UpArrowBuiltin::merge(std::vector<std::shared_ptr<APL::types::Value>> &vals, std::vector<int> &sh, std::shared_ptr<APL::types::Tokenable> blame)
 	{
 	  if (vals.empty())
 	  {
 		  return EmptyArr::SHAPE0N;
 	  }
 
-	  std::shared_ptr<Value> first = vals[0];
+	  std::shared_ptr<APL::types::Value> first = vals[0];
 	  std::vector<int> def(first->rank);
 	  std::copy_n(first->shape.begin(), def.size(), def.begin());
 	  bool allNums = true;
@@ -67,10 +67,10 @@ namespace APL::types::functions::builtins::fns
 	  {
 		if (v->rank != def.size())
 		{
-		  std::wstring msg = blame + L": expected equal ranks of items (shapes " + Main::formatAPL(first->shape) + L" vs " + Main::formatAPL(v->shape) + L")";
-		  if (std::dynamic_pointer_cast<Callable>(blame) != nullptr)
+		  std::string msg = blame + L": expected equal ranks of items (shapes " + Main::formatAPL(first->shape) + L" vs " + Main::formatAPL(v->shape) + L")";
+		  if (std::dynamic_pointer_cast<APL::types::Callable>(blame) != nullptr)
 		  {
-			  throw RankError(msg, std::static_pointer_cast<Callable>(blame), v);
+			  throw RankError(msg, std::static_pointer_cast<APL::types::Callable>(blame), v);
 		  }
 		  else
 		  {
@@ -114,12 +114,12 @@ namespace APL::types::functions::builtins::fns
 		  }
 		  return std::make_shared<DoubleArr>(res, resShape);
 		}
-		std::vector<std::shared_ptr<Value>> res(totalIA);
+		std::vector<std::shared_ptr<APL::types::Value>> res(totalIA);
 
 		int i = 0;
 		for (auto v : vals)
 		{
-		  std::vector<std::shared_ptr<Value>> va = v->values();
+		  std::vector<std::shared_ptr<APL::types::Value>> va = v->values();
 		  std::copy_n(va.begin(), va.size(), res.begin() + i);
 		  i += subIA;
 		}
@@ -147,11 +147,11 @@ namespace APL::types::functions::builtins::fns
 	  }
 
 
-	  std::vector<std::shared_ptr<Value>> res(totalIA);
+	  std::vector<std::shared_ptr<APL::types::Value>> res(totalIA);
 	  int i = 0;
 	  for (auto v : vals)
 	  {
-		std::shared_ptr<Value> proto = v->prototype();
+		std::shared_ptr<APL::types::Value> proto = v->prototype();
 		for (auto c : std::make_shared<Indexer>(def, 0))
 		{
 		  res[i++] = v->at(c, proto);
@@ -160,7 +160,7 @@ namespace APL::types::functions::builtins::fns
 	  return Arr::create(res, resShape);
 	}
 
-	std::shared_ptr<Value> UpArrowBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> UpArrowBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  std::vector<int> gsh = a->asIntVec();
 	  if (gsh.empty())
@@ -191,7 +191,7 @@ namespace APL::types::functions::builtins::fns
 	  return on(sh, off, w, shared_from_this());
 	}
 
-	std::shared_ptr<Value> UpArrowBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w, std::shared_ptr<DervDimFn> dims)
+	std::shared_ptr<APL::types::Value> UpArrowBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w, std::shared_ptr<DervDimFn> dims)
 	{
 	  std::vector<int> axV = a->asIntVec();
 	  std::vector<int> axK = dims->dims(w->rank);
@@ -214,7 +214,7 @@ namespace APL::types::functions::builtins::fns
 	  return on(sh, off, w, shared_from_this());
 	}
 
-	std::shared_ptr<Value> UpArrowBuiltin::on(std::vector<int> &sh, std::vector<int> &off, std::shared_ptr<Value> w, std::shared_ptr<Callable> blame)
+	std::shared_ptr<APL::types::Value> UpArrowBuiltin::on(std::vector<int> &sh, std::vector<int> &off, std::shared_ptr<APL::types::Value> w, std::shared_ptr<APL::types::Callable> blame)
 	{
 	  int rank = sh.size();
 	  assert(rank == off.size() && rank == w->rank);
@@ -233,28 +233,28 @@ namespace APL::types::functions::builtins::fns
 	  {
 		int s = off[0];
 		int l = sh[0];
-		if (std::dynamic_pointer_cast<BitArr>(w) != nullptr)
+		if (std::dynamic_pointer_cast<APL::types::arrs::BitArr>(w) != nullptr)
 		{
-		  std::shared_ptr<BitArr> wb = std::static_pointer_cast<BitArr>(w);
+		  std::shared_ptr<APL::types::arrs::BitArr> wb = std::static_pointer_cast<APL::types::arrs::BitArr>(w);
 		  if (s == 0)
 		  {
-			std::vector<long long> ls(BitArr::sizeof_Keyword(l));
+			std::vector<long long> ls(APL::types::arrs::BitArr::sizeof_Keyword(l));
 			std::copy_n(wb->arr.begin(), ls.size(), ls.begin());
-			return std::make_shared<BitArr>(ls, std::vector<int>{l});
+			return std::make_shared<APL::types::arrs::BitArr>(ls, std::vector<int>{l});
 		  }
 		  else
 		  {
-			std::shared_ptr<BitArr::BA> res = std::make_shared<BitArr::BA>(l);
+			std::shared_ptr<APL::types::arrs::BitArr::BA> res = std::make_shared<APL::types::arrs::BitArr::BA>(l);
 			res->add(wb, s, w->ia);
 			return res->finish();
 		  }
 		}
-		if (std::dynamic_pointer_cast<ChrArr>(w) != nullptr)
+		if (std::dynamic_pointer_cast<APL::types::arrs::ChrArr>(w) != nullptr)
 		{
 		  std::vector<wchar_t> res(l);
-		  std::wstring ws = (std::static_pointer_cast<ChrArr>(w))->s;
+		  std::string ws = (std::static_pointer_cast<APL::types::arrs::ChrArr>(w))->s;
 		  ws.getChars(s, s + l, res, 0); // ≡ for (int i = 0; i < l; i++) res[i] = ws.charAt(s+i);
-		  return std::make_shared<ChrArr>(res);
+		  return std::make_shared<APL::types::arrs::ChrArr>(res);
 		}
 		if (w->quickDoubleArr())
 		{
@@ -264,7 +264,7 @@ namespace APL::types::functions::builtins::fns
 		  return std::make_shared<DoubleArr>(res);
 		}
 
-		std::vector<std::shared_ptr<Value>> res(l);
+		std::vector<std::shared_ptr<APL::types::Value>> res(l);
 		for (int i = 0; i < l; i++)
 		{
 			res[i] = w[s + i];
@@ -272,17 +272,17 @@ namespace APL::types::functions::builtins::fns
 		return Arr::create(res);
 	  }
 	  int ia = Arr::prod(sh);
-	  if (std::dynamic_pointer_cast<ChrArr>(w) != nullptr)
+	  if (std::dynamic_pointer_cast<APL::types::arrs::ChrArr>(w) != nullptr)
 	  {
 		std::vector<wchar_t> arr(ia);
-		std::wstring s = (std::static_pointer_cast<ChrArr>(w))->s;
+		std::string s = (std::static_pointer_cast<APL::types::arrs::ChrArr>(w))->s;
 		int i = 0;
 		for (auto index : std::make_shared<Indexer>(sh, off))
 		{
 		  arr[i] = s[Indexer::fromShape(w->shape, index, 0)];
 		  i++;
 		}
-		return std::make_shared<ChrArr>(arr, sh);
+		return std::make_shared<APL::types::arrs::ChrArr>(arr, sh);
 	  }
 	  if (w->quickDoubleArr())
 	  {
@@ -296,7 +296,7 @@ namespace APL::types::functions::builtins::fns
 		}
 		return std::make_shared<DoubleArr>(arr, sh);
 	  }
-	  std::vector<std::shared_ptr<Value>> arr(ia);
+	  std::vector<std::shared_ptr<APL::types::Value>> arr(ia);
 	  int i = 0;
 	  for (auto index : std::make_shared<Indexer>(sh, off))
 	  {
@@ -306,13 +306,13 @@ namespace APL::types::functions::builtins::fns
 	  return Arr::create(arr, sh);
 	}
 
-	std::shared_ptr<Value> UpArrowBuiltin::underW(std::shared_ptr<Obj> o, std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> UpArrowBuiltin::underW(std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
-	  std::shared_ptr<Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(a, w)) : std::static_pointer_cast<Value>(o);
+	  std::shared_ptr<APL::types::Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(a, w)) : std::static_pointer_cast<APL::types::Value>(o);
 	  return undo(a->asIntVec(), v, w, shared_from_this());
 	}
 
-	std::shared_ptr<Value> UpArrowBuiltin::undo(std::vector<int> &e, std::shared_ptr<Value> w, std::shared_ptr<Value> origW, std::shared_ptr<Callable> blame)
+	std::shared_ptr<APL::types::Value> UpArrowBuiltin::undo(std::vector<int> &e, std::shared_ptr<APL::types::Value> w, std::shared_ptr<APL::types::Value> origW, std::shared_ptr<APL::types::Callable> blame)
 	{
 	  if (e.size() == 1 && w->rank == 1)
 	  {
@@ -342,13 +342,13 @@ namespace APL::types::functions::builtins::fns
 		throw LengthError(StringHelper::wstring_to_string(L"x⍢(N↓): x didn't match expected shape (" + Main::formatAPL(w->shape) + L" ≡ ⍴x; expected " + Main::formatAPL(e) + L")", blame));
 	  }
 	  chkBreak:
-	  std::vector<std::shared_ptr<Value>> r(origW->ia);
+	  std::vector<std::shared_ptr<APL::types::Value>> r(origW->ia);
 	  std::vector<int> s = origW->shape;
 	  std::shared_ptr<Indexer> idx = std::make_shared<Indexer>(s, 0);
 	  std::vector<int> tmp(e.size());
 	  for (auto i : idx)
 	  {
-		std::shared_ptr<Value> c;
+		std::shared_ptr<APL::types::Value> c;
 		bool in = true;
 		for (int j = 0; j < e.size(); j++)
 		{

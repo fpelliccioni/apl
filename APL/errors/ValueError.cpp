@@ -2,17 +2,17 @@
 
 namespace APL::errors
 {
-	using namespace APL::types;
+    // using namespace APL::types;
 
-	ValueError::ValueError(const std::wstring &s) : APLError(s)
-	{
-	}
+    ValueError::ValueError(std::string const& s) : APLError(s)
+    {
+    }
 
-	ValueError::ValueError(const std::wstring &s, std::shared_ptr<Tokenable> fun) : APLError(s, fun)
-	{
-	}
+    ValueError::ValueError(std::string const& s, std::shared_ptr<APL::types::Tokenable> fun) : APLError(s, fun)
+    {
+    }
 
-	ValueError::ValueError(const std::wstring &s, std::shared_ptr<Callable> fun, std::shared_ptr<Tokenable> cause) : APLError(s, fun, cause)
-	{
-	}
+    ValueError::ValueError(std::string const& s, std::shared_ptr<APL::types::Callable> fun, std::shared_ptr<APL::types::Tokenable> cause) : APLError(s, fun, cause)
+    {
+    }
 }

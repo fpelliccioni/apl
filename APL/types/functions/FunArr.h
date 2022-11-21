@@ -11,21 +11,21 @@
 namespace APL::types::functions
 {
 
-	using namespace APL::types;
+	// using namespace APL::types;
 
 	class FunArr : public Fun
 	{
   private:
-	  const std::vector<std::shared_ptr<Obj>> os;
+	  const std::vector<std::shared_ptr<APL::types::Obj>> os;
 
   public:
-	  FunArr(std::vector<std::shared_ptr<Obj>> &os);
+	  FunArr(std::vector<std::shared_ptr<APL::types::Obj>> &os);
 
-	  std::wstring repr() override;
+	  std::string repr() override;
 
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w) override;
 
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+	  std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
 	protected:
 		std::shared_ptr<FunArr> shared_from_this()

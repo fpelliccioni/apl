@@ -9,21 +9,20 @@
 namespace APL::errors
 {
 
-	using namespace APL::types;
+    // using namespace APL::types;
 
-	class LengthError : public APLError
-	{
-	  // public LengthError(String s) {
-	  //   super(s);
-	  // }
+    class LengthError : public APLError
+    {
+      // public LengthError(String s) {
+      //   super(s);
+      // }
   public:
-	  LengthError(const std::wstring &s, std::shared_ptr<Tokenable> fun);
-	  LengthError(const std::wstring &s, std::shared_ptr<Callable> fun, std::shared_ptr<Tokenable> cause);
+      LengthError(std::string const& s, std::shared_ptr<APL::types::Tokenable> fun);
+      LengthError(std::string const& s, std::shared_ptr<APL::types::Callable> fun, std::shared_ptr<APL::types::Tokenable> cause);
 
-	protected:
-		std::shared_ptr<LengthError> shared_from_this()
-		{
-			return std::static_pointer_cast<LengthError>(APLError::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<LengthError> shared_from_this() {
+            return std::static_pointer_cast<LengthError>(APL::errors::APLError::shared_from_this());
+        }
+    };
 }

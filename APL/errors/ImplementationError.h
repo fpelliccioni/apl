@@ -10,20 +10,19 @@
 namespace APL::errors
 {
 
-	using namespace APL::types;
+    // using namespace APL::types;
 
-	class ImplementationError : public APLError
-	{
+    class ImplementationError : public APLError
+    {
   public:
-	  ImplementationError(const std::wstring &s);
-	  ImplementationError(const std::wstring &s, std::shared_ptr<Tokenable> fun);
-	  ImplementationError(const std::wstring &s, std::shared_ptr<Callable> fun, std::shared_ptr<Tokenable> cause);
-	  ImplementationError(std::runtime_error t);
+      ImplementationError(std::string const& s);
+      ImplementationError(std::string const& s, std::shared_ptr<APL::types::Tokenable> fun);
+      ImplementationError(std::string const& s, std::shared_ptr<APL::types::Callable> fun, std::shared_ptr<APL::types::Tokenable> cause);
+      ImplementationError(std::runtime_error t);
 
-	protected:
-		std::shared_ptr<ImplementationError> shared_from_this()
-		{
-			return std::static_pointer_cast<ImplementationError>(APLError::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<ImplementationError> shared_from_this() {
+            return std::static_pointer_cast<ImplementationError>(APL::errors::APLError::shared_from_this());
+        }
+    };
 }

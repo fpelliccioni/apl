@@ -1,20 +1,19 @@
 #include <APL/NameTok.h>
 
-namespace APL::tokenizer::types
-{
-	using Token = APL::tokenizer::Token;
+namespace APL::tokenizer::types {
+    using Token = APL::tokenizer::Token;
 
-	NameTok::NameTok(const std::wstring &line, int spos, int epos, const std::wstring &name) : APL::tokenizer::Token(line, spos, epos), name(name)
-	{
-	}
+    NameTok::NameTok(std::string const& line, int spos, int epos, std::string const& name) : APL::tokenizer::Token(line, spos, epos), name(name)
+    {
+    }
 
-	std::wstring NameTok::toTree(const std::wstring &p)
-	{
-	  return p + L"name: " + name + L"\n";
-	}
+    std::string NameTok::toTree(std::string const& p)
+    {
+      return p + L"name: " + name + L"\n";
+    }
 
-	std::wstring NameTok::toRepr()
-	{
-	  return name;
-	}
+    std::string NameTok::toRepr()
+    {
+      return name;
+    }
 }

@@ -17,35 +17,34 @@
 namespace APL::types::functions
 {
 
-	using namespace APL;
-	using BacktickTok = APL::tokenizer::types::BacktickTok;
-	using namespace APL::types;
+    // using namespace APL;
+    using BacktickTok = APL::tokenizer::types::BacktickTok;
+    // using namespace APL::types;
 
-	class ArrFun : public Primitive
-	{
+    class ArrFun : public Primitive
+    {
 
   private:
-	  const std::shared_ptr<Obj> f;
+      const std::shared_ptr<APL::types::Obj> f;
 
   public:
-	  ArrFun(std::shared_ptr<Fun> f);
+      ArrFun(std::shared_ptr<Fun> f);
 
-	  ArrFun(std::shared_ptr<BacktickTok> t, std::shared_ptr<Scope> sc);
+      ArrFun(std::shared_ptr<BacktickTok> t, std::shared_ptr<Scope> sc);
 
-	  virtual std::shared_ptr<Obj> obj();
+      virtual std::shared_ptr<APL::types::Obj> obj();
 
-	  std::shared_ptr<Value> ofShape(std::vector<int> &sh) override;
+      std::shared_ptr<APL::types::Value> ofShape(std::vector<int> &sh) override;
 
-	  virtual std::wstring toString();
+      virtual std::string toString();
 
-	  virtual int hashCode();
+      virtual int hashCode();
 
-	  virtual bool equals(std::shared_ptr<Obj> o);
+      virtual bool equals(std::shared_ptr<APL::types::Obj> o);
 
-	protected:
-		std::shared_ptr<ArrFun> shared_from_this()
-		{
-			return std::static_pointer_cast<ArrFun>(Primitive::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<ArrFun> shared_from_this() {
+            return std::static_pointer_cast<ArrFun>(Primitive::shared_from_this());
+        }
+    };
 }

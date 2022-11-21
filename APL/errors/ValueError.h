@@ -9,19 +9,18 @@
 namespace APL::errors
 {
 
-	using namespace APL::types;
+    // using namespace APL::types;
 
-	class ValueError : public APLError
-	{
+    class ValueError : public APLError
+    {
   public:
-	  ValueError(const std::wstring &s);
-	  ValueError(const std::wstring &s, std::shared_ptr<Tokenable> fun);
-	  ValueError(const std::wstring &s, std::shared_ptr<Callable> fun, std::shared_ptr<Tokenable> cause);
+      ValueError(std::string const& s);
+      ValueError(std::string const& s, std::shared_ptr<APL::types::Tokenable> fun);
+      ValueError(std::string const& s, std::shared_ptr<APL::types::Callable> fun, std::shared_ptr<APL::types::Tokenable> cause);
 
-	protected:
-		std::shared_ptr<ValueError> shared_from_this()
-		{
-			return std::static_pointer_cast<ValueError>(APLError::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<ValueError> shared_from_this() {
+            return std::static_pointer_cast<ValueError>(APL::errors::APLError::shared_from_this());
+        }
+    };
 }

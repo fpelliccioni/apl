@@ -9,17 +9,16 @@
 namespace APL::errors
 {
 
-	using namespace APL::types;
+    // using namespace APL::types;
 
-	class IncorrectArgsError : public APLError
-	{
+    class IncorrectArgsError : public APLError
+    {
   public:
-	  IncorrectArgsError(const std::wstring &s, std::shared_ptr<Callable> fun, std::shared_ptr<Tokenable> cause);
+      IncorrectArgsError(std::string const& s, std::shared_ptr<APL::types::Callable> fun, std::shared_ptr<APL::types::Tokenable> cause);
 
-	protected:
-		std::shared_ptr<IncorrectArgsError> shared_from_this()
-		{
-			return std::static_pointer_cast<IncorrectArgsError>(APLError::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<IncorrectArgsError> shared_from_this() {
+            return std::static_pointer_cast<IncorrectArgsError>(APL::errors::APLError::shared_from_this());
+        }
+    };
 }

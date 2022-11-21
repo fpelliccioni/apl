@@ -11,39 +11,38 @@
 namespace APL::types::dimensions
 {
 
-	using namespace APL;
-	using namespace APL::errors;
-	using namespace APL::types;
+    // using namespace APL;
+    // using namespace APL::errors;
+    // using namespace APL::types;
 
-	class DervDimFn : public Fun
-	{
+    class DervDimFn : public Fun
+    {
   private:
-	  const int IO;
-	  const std::shared_ptr<Fun> f;
-	  const std::vector<int> raw;
+      const int IO;
+      const std::shared_ptr<Fun> f;
+      const std::vector<int> raw;
 //JAVA TO C++ CONVERTER NOTE: Field name conflicts with a method name of the current type:
-	  const std::vector<int> dims_Conflict;
+      const std::vector<int> dims_Conflict;
 
   public:
-	  std::wstring repr() override;
+      std::string repr() override;
 
-	  DervDimFn(std::shared_ptr<Fun> f, std::vector<int> &raw, std::shared_ptr<Scope> sc);
+      DervDimFn(std::shared_ptr<Fun> f, std::vector<int> &raw, std::shared_ptr<Scope> sc);
 
-	  virtual std::vector<int> dims(int rank);
+      virtual std::vector<int> dims(int rank);
 
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> a, std::shared_ptr<Value> w) override;
+      std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w) override;
 
-	  std::shared_ptr<Value> call(std::shared_ptr<Value> w) override;
+      std::shared_ptr<APL::types::Value> call(std::shared_ptr<APL::types::Value> w) override;
 
-	  virtual int singleDim(int rank);
-	  virtual int singleDim();
+      virtual int singleDim(int rank);
+      virtual int singleDim();
 
-	  virtual std::wstring format();
+      virtual std::string format();
 
-	protected:
-		std::shared_ptr<DervDimFn> shared_from_this()
-		{
-			return std::static_pointer_cast<DervDimFn>(Fun::shared_from_this());
-		}
-	};
+    protected:
+        std::shared_ptr<DervDimFn> shared_from_this() {
+            return std::static_pointer_cast<DervDimFn>(Fun::shared_from_this());
+        }
+    };
 }

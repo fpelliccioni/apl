@@ -10,24 +10,24 @@
 namespace APL::types::functions::builtins::fns
 {
 	using DomainError = APL::errors::DomainError;
-	using namespace APL::types;
-	using namespace APL::types::arrs;
+	// using namespace APL::types;
+	// using namespace APL::types::arrs;
 	using Builtin = APL::types::functions::Builtin;
-	using ArrayList = java::util::ArrayList;
+	// using ArrayList = java::util::ArrayList;
 
-	std::wstring EpsilonBuiltin::repr()
+	std::string EpsilonBuiltin::repr()
 	{
 	  return L"∊";
 	}
 
-	std::shared_ptr<Value> EpsilonBuiltin::call(std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> EpsilonBuiltin::call(std::shared_ptr<APL::types::Value> w)
 	{
-	  auto res = std::vector<std::shared_ptr<Value>>();
+	  auto res = std::vector<std::shared_ptr<APL::types::Value>>();
 	  rec(res, w);
 	  return Arr::create(res);
 	}
 
-	void EpsilonBuiltin::rec(std::vector<std::shared_ptr<Value>> &arr, std::shared_ptr<Value> v)
+	void EpsilonBuiltin::rec(std::vector<std::shared_ptr<APL::types::Value>> &arr, std::shared_ptr<APL::types::Value> v)
 	{
 	  if (std::dynamic_pointer_cast<Primitive>(v) != nullptr)
 	  {
@@ -35,9 +35,9 @@ namespace APL::types::functions::builtins::fns
 	  }
 	  else
 	  {
-		if (std::dynamic_pointer_cast<BitArr>(v) != nullptr)
+		if (std::dynamic_pointer_cast<APL::types::arrs::BitArr>(v) != nullptr)
 		{
-		  std::shared_ptr<BitArr> ba = std::static_pointer_cast<BitArr>(v);
+		  std::shared_ptr<APL::types::arrs::BitArr> ba = std::static_pointer_cast<APL::types::arrs::BitArr>(v);
 		  for (int i = 0; i < ba->ia; i++)
 		  {
 			  arr.push_back(ba[i]);
@@ -50,9 +50,9 @@ namespace APL::types::functions::builtins::fns
 			  arr.push_back(Num::of(d));
 		  }
 		}
-		else if (std::dynamic_pointer_cast<ChrArr>(v) != nullptr)
+		else if (std::dynamic_pointer_cast<APL::types::arrs::ChrArr>(v) != nullptr)
 		{
-		  std::wstring s = (std::static_pointer_cast<ChrArr>(v))->s;
+		  std::string s = (std::static_pointer_cast<APL::types::arrs::ChrArr>(v))->s;
 		  for (int i = 0; i < s.length(); i++)
 		  {
 			arr.push_back(Char::of(s[i]));
@@ -68,11 +68,11 @@ namespace APL::types::functions::builtins::fns
 	  }
 	}
 
-	std::shared_ptr<Value> EpsilonBuiltin::call(std::shared_ptr<Value> a, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> EpsilonBuiltin::call(std::shared_ptr<APL::types::Value> a, std::shared_ptr<APL::types::Value> w)
 	{
 	  if (a->scalar())
 	  {
-		std::shared_ptr<Value> a1 = a->first();
+		std::shared_ptr<APL::types::Value> a1 = a->first();
 		for (auto v : w)
 		{
 		  if (v->equals(a1))
@@ -82,10 +82,10 @@ namespace APL::types::functions::builtins::fns
 		}
 		return Num::ZERO;
 	  }
-	  std::shared_ptr<BitArr::BA> ba = std::make_shared<BitArr::BA>(a->shape);
+	  std::shared_ptr<APL::types::arrs::BitArr::BA> ba = std::make_shared<APL::types::arrs::BitArr::BA>(a->shape);
 	  for (int i = 0; i < a->ia; i++)
 	  {
-		std::shared_ptr<Value> av = a[i];
+		std::shared_ptr<APL::types::Value> av = a[i];
 		bool b = false;
 		for (auto v : w)
 		{
@@ -100,11 +100,11 @@ namespace APL::types::functions::builtins::fns
 	  return ba->finish();
 	}
 
-	std::shared_ptr<Value> EpsilonBuiltin::under(std::shared_ptr<Obj> o, std::shared_ptr<Value> w)
+	std::shared_ptr<APL::types::Value> EpsilonBuiltin::under(std::shared_ptr<APL::types::Obj> o, std::shared_ptr<APL::types::Value> w)
 	{
-	  std::shared_ptr<Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(w)) : std::static_pointer_cast<Value>(o);
-	  std::vector<std::shared_ptr<Value>> vs = v->values();
-	  std::vector<std::shared_ptr<Value>> res(w->ia);
+	  std::shared_ptr<APL::types::Value> v = std::dynamic_pointer_cast<Fun>(o) != nullptr? (std::static_pointer_cast<Fun>(o))->call(call(w)) : std::static_pointer_cast<APL::types::Value>(o);
+	  std::vector<std::shared_ptr<APL::types::Value>> vs = v->values();
+	  std::vector<std::shared_ptr<APL::types::Value>> res(w->ia);
 	  int e = copyIn(res, vs, w, 0);
 	  if (e != v->ia)
 	  {
@@ -113,18 +113,18 @@ namespace APL::types::functions::builtins::fns
 	  return Arr::create(res, w->shape);
 	}
 
-	int EpsilonBuiltin::copyIn(std::vector<std::shared_ptr<Value>> &res, std::vector<std::shared_ptr<Value>> &vs, std::shared_ptr<Value> orig, int s)
+	int EpsilonBuiltin::copyIn(std::vector<std::shared_ptr<APL::types::Value>> &res, std::vector<std::shared_ptr<APL::types::Value>> &vs, std::shared_ptr<APL::types::Value> orig, int s)
 	{
 	  for (int i = 0; i < orig->ia; i++)
 	  {
-		std::shared_ptr<Value> origN = orig[i];
+		std::shared_ptr<APL::types::Value> origN = orig[i];
 		if (std::dynamic_pointer_cast<Primitive>(origN) != nullptr)
 		{
 		  res[i] = vs[s++];
 		}
 		else
 		{
-		  std::vector<std::shared_ptr<Value>> resN(origN->ia);
+		  std::vector<std::shared_ptr<APL::types::Value>> resN(origN->ia);
 		  s = copyIn(resN, vs, origN, s);
 		  res[i] = Arr::create(resN, origN->shape);
 		}
